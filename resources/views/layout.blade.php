@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lumino - Dashboard</title>
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/datepicker3.css" rel="stylesheet">
-<link href="css/styles.css" rel="stylesheet">
+<link href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ URL::to('css/datepicker3.css') }}" rel="stylesheet">
+<link href="{{ URL::to('css/styles.css') }}" rel="stylesheet">
 
 <!--Icons-->
-<script src="js/lumino.glyphs.js"></script>
+<script src="{{ URL::to('js/lumino.glyphs.js') }}"></script>
 
 <!--[if lt IE 9]>
 <script src="js/html5shiv.js"></script>
