@@ -30,11 +30,10 @@
 															
 							<div class="form-group">
 								<label>Sentiment</label>
-								<select class="form-control">
-										<option>Positive</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
+								<select class="form-control" name="sentiment">
+									@foreach($sentiments as $sentiment)
+									<option value="{{ $sentiment->id }}">{{ $sentiment->name }}</option>
+									@endforeach
 								</select>
 							</div>
 							<button class="btn btn-primary pull-right" type="submit">Submit</button>
