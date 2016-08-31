@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Sentiment;
+
 class SentimentsTableSeeder extends Seeder
 {
     /**
@@ -11,6 +13,19 @@ class SentimentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+    	Sentiment::create([
+            'id' => 1,
+            'name' => "Positive"
+        ]);
+
+        Sentiment::create([
+            'id' => 2,
+            'name' => "Negative"
+        ]);
+
+        Sentiment::create([
+            'id' => 3,
+            'name' => "Neutral"
+        ]);
     }
 }
