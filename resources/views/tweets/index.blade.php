@@ -54,7 +54,7 @@
 						    <tr>
 						    	<td>{{ $tweet->id }}</td>
 						    	<td>{{ $tweet->tweet }}</td>
-						    	<td>{{ $tweet->sentiment }}</td>
+						    	<td>{{ $tweet->sentiment->name }}</td>
 							</tr>
 							@endforeach
 						    </tbody>
