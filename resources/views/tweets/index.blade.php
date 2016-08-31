@@ -50,11 +50,13 @@
 						    </tr>
 						    </thead>
 						    <tbody>
+						    @foreach($tweets as $tweet)
 						    <tr>
-						    	<td>1</td>
-						    	<td>2</td>
-						    	<td>3</td>
+						    	<td>{{ $tweet->id }}</td>
+						    	<td>{{ $tweet->tweet }}</td>
+						    	<td>{{ $tweet->sentiment }}</td>
 							</tr>
+							@endforeach
 						    </tbody>
 						</table>
 					</div>
