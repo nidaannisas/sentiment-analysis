@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('dashboard');
 });
+
+Route::get('dashboard/tweets', [
+    'as' => 'dashboard.tweets.index',
+    'uses' => 'TweetController@index'
+]);
+
