@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lumino - Dashboard</title>
+<title>Sentiment Analysis</title>
 
 <link href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ URL::to('css/datepicker3.css') }}" rel="stylesheet">

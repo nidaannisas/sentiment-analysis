@@ -6,40 +6,59 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-			<li class="active">Icons</li>
+			<li class="active">Tweets</li>
 		</ol>
 	</div><!--/.row-->
 	
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">Tables</h1>
-		</div>
-	</div><!--/.row-->
-			
-	
-	<div class="row">
+	<div class="row" style="margin-top : 20px;">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Advanced Table</div>
 				<div class="panel-body">
-					<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
-					    <thead>
-					    <tr>
-					        <th data-field="state" data-checkbox="true" >Item ID</th>
-					        <th data-field="id" data-sortable="true">Item ID</th>
-					        <th data-field="name"  data-sortable="true">Item Name</th>
-					        <th data-field="price" data-sortable="true">Item Price</th>
-					    </tr>
-					    </thead>
-					    <tbody>
-					    <tr>
-					    	<td>1</td>
-					    	<td>2</td>
-					    	<td>3</td>
-					    	<td>4</td>
-						</tr>
-					    </tbody>
-					</table>
+					<div class="panel-heading">Tweets</div>
+					<div class="col-md-6">
+						<h3>Tambahkan Tweets</h3>
+						<p>Tambahkan tweets beserta sentiment sebagai data training melalui form disamping atau dengan import menggunakan excel atau csv.</p>
+
+						<button class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Import</button>
+					</div>
+					<div class="col-md-6" style="padding-bottom: 20px;">
+						<form role="form" style="padding-top : 20px;">	
+							<div class="form-group">
+								<label>Tweets</label>
+								<textarea class="form-control" rows="3"></textarea>
+							</div>
+															
+							<div class="form-group">
+								<label>Sentiment</label>
+								<select class="form-control">
+										<option>Positive</option>
+										<option>Option 2</option>
+										<option>Option 3</option>
+										<option>Option 4</option>
+								</select>
+							</div>
+							<button class="btn btn-primary pull-right" type="submit">Submit</button>
+						</form>
+					</div>
+					<hr style="color: black; width: 100%;">
+					<div class="col-md-12">
+						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+						    <tr>
+						        <th data-field="state" data-checkbox="true">Item ID</th>
+						        <th data-field="name"  data-sortable="true" style="width: 80%;"">Tweet</th>
+						        <th data-field="price" data-sortable="true">Sentiment</th>
+						    </tr>
+						    </thead>
+						    <tbody>
+						    <tr>
+						    	<td>1</td>
+						    	<td>2</td>
+						    	<td>3</td>
+							</tr>
+						    </tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
