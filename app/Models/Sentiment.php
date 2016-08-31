@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-Class Sentiments extends Model
+Class Sentiment extends Model
 {
     protected $table = 'sentiments';
 
