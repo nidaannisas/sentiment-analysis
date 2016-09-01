@@ -12,9 +12,10 @@ Class BagOfWord extends Model
 
     public static function search($word)
     {
-        $data   = DB::table('bag-of-words')
-                ->where('word', $word)
-                ->get();
+        $data = DB::select( DB::raw("SELECT * FROM `bag-of-words` WHERE word = :word "),
+                    array(
+                        "word"    => $word
+                    ));
     
         if(!empty($data))
             return $data[0];
