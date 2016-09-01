@@ -24,3 +24,8 @@ Route::post('dashboard/tweets/store', [
     'as' => 'dashboard.tweets.store',
     'uses' => 'TweetController@store'
 ]);
+
+Route::get('dashboard/tokenizing', [
+    'as' => 'dashboard.tokenizing.index',
+    'uses' => 'TokenizingController@index'
+]);
