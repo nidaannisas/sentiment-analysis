@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tweet;
 use App\Models\BagOfWord;
 use App\Http\Requests;
 use Redirect;
+use DB;
 
 class TokenizingController extends Controller
 {
@@ -19,12 +21,27 @@ class TokenizingController extends Controller
 
     public function tokenize()
     {
-        // kurang 
-        // angka
-        // to lower
-        $content = "This is a test string, which is used for
+        // underscore masih kehapus
+        
+        // delete all field
+        DB::table('bag-of-words')->delete();
 
-        demonstrating the tokenization using PHP. PHP is a very (strong) scripting-language";
+        $tweets = Tweet::all();
+
+        $content = '';
+
+        foreach($tweets as $tweet)
+        {
+            $content = $content.$tweet->tweet;
+        }
+
+        // remove except letter
+        $content = preg_replace(array('/[^a-zA-Z -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $content);
+
+        // to lower
+        $content = strtolower($content);
+        // remove number
+        //$content = preg_replace('/[0-9]+/', '', $content);
 
         $words = array();
         $delim = " \n.,;-()";
