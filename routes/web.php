@@ -44,3 +44,8 @@ Route::post('dashboard/stopwords/store', [
     'as' => 'dashboard.stopwords.store',
     'uses' => 'StopwordController@store'
 ]);
+
+Route::post('dashboard/stopwords/importtxt', [
+    'as' => 'dashboard.stopwords.importtxt',
+    'uses' => 'StopwordController@importtxt'
+]);
