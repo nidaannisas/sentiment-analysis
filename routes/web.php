@@ -29,3 +29,8 @@ Route::get('dashboard/tokenizing', [
     'as' => 'dashboard.tokenizing.index',
     'uses' => 'TokenizingController@index'
 ]);
+
+Route::post('dashboard/tokenizing/tokenize', [
+    'as' => 'dashboard.tokenizing.tokenize',
+    'uses' => 'TokenizingController@tokenize'
+]);
