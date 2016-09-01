@@ -18,8 +18,10 @@
 					<div class="col-md-6">
 						<h3>Tokenizing</h3>
 						<p>Proses untuk mengubah data training ke token.</p>
-
-						<button class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Process</button>
+						<form role="form" action="{{ URL::to('dashboard/tokenizing/tokenize') }} " method="post" style="padding-top : 20px;">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<button type="submit" class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Process</button>
+						</form>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
 						
