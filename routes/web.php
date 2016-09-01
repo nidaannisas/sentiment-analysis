@@ -39,3 +39,8 @@ Route::get('dashboard/stopwords', [
     'as' => 'dashboard.stopwords.index',
     'uses' => 'StopwordController@index'
 ]);
+
+Route::post('dashboard/stopwords/store', [
+    'as' => 'dashboard.stopwords.store',
+    'uses' => 'StopwordController@store'
+]);
