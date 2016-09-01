@@ -28,4 +28,9 @@ class StopwordController extends Controller
 
     	return Redirect::to('dashboard/stopwords');
     }
+
+    public function importtxt(Request $request)
+    {
+    	var_dump($request);
+    }
 }
