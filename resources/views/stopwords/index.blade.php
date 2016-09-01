@@ -15,6 +15,16 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">Stopwords</div>
+					<div class="col-md-12" style="padding-bottom: 20px;">
+						<h3>Stopword Removal</h3>
+						<p>Klik Process untuk melakukan penghapusan stopwords.</p>
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/stopwords/process') }} " method="post" enctype="multipart/form-data">	
+							<button class="btn btn-default" type="submit">Process</button>
+						</form>
+					</div>
+
+					<hr style="color: black; width: 100%;">
+
 					<div class="col-md-6">
 						<h3>Tambahkan Stopword</h3>
 						<p>Tambahkan stopword melalui form disamping atau dengan import menggunakan txt, excel atau csv.</p>
