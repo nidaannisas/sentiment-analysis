@@ -45,7 +45,7 @@
 						    @foreach($stopwords as $stopword)
 						    <tr>
 						    	<td>{{ $stopword->id }}</td>
-						    	<td>{{ $stopword->stopword }}</td>
+						    	<td>{{ $stopword->word }}</td>
 							</tr>
 							@endforeach
 						    </tbody>
