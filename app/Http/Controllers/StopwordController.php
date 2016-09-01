@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Stopword;
 use App\Http\Requests;
 
+use Redirect;
+
 class StopwordController extends Controller
 {
     public function index()
