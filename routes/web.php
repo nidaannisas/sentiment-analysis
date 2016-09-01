@@ -34,3 +34,8 @@ Route::post('dashboard/tokenizing/tokenize', [
     'as' => 'dashboard.tokenizing.tokenize',
     'uses' => 'TokenizingController@tokenize'
 ]);
+
+Route::post('dashboard/stopwords', [
+    'as' => 'dashboard.stopwords.index',
+    'uses' => 'StopwordController@index'
+]);
