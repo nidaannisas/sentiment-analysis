@@ -19,6 +19,7 @@
 						<h3>Stopword Removal</h3>
 						<p>Klik Process untuk melakukan penghapusan stopwords.</p>
 						<form class="form-inline" role="form" action="{{ URL::to('dashboard/stopwords/process') }} " method="post" enctype="multipart/form-data">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>
 					</div>
@@ -29,6 +30,7 @@
 						<h3>Tambahkan Stopword</h3>
 						<p>Tambahkan stopword melalui form disamping atau dengan import menggunakan txt, excel atau csv.</p>
 						<form class="form-inline" role="form" action="{{ URL::to('dashboard/stopwords/importtxt') }} " method="post" enctype="multipart/form-data">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<label class="btn btn-success btn-file">
 							    Import <input name="import" type="file" style="display: none;">
 							</label>
