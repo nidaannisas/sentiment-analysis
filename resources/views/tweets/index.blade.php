@@ -22,10 +22,11 @@
 						<button class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Import</button>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" style="padding-top : 20px;">	
-							<div class="form-group">
+						<form role="form" action="{{ URL::to('dashboard/tweets/store') }} " method="post" style="padding-top : 20px;">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<div class="form-group"> 
 								<label>Tweets</label>
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea name="tweet" class="form-control" rows="3"></textarea>
 							</div>
 															
 							<div class="form-group">

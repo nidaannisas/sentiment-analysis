@@ -20,3 +20,7 @@ Route::get('dashboard/tweets', [
     'uses' => 'TweetController@index'
 ]);
 
+Route::post('dashboard/tweets/store', [
+    'as' => 'dashboard.tweets.store',
+    'uses' => 'TweetController@store'
+]);
