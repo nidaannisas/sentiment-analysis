@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stopword;
+use App\Models\BagOfWord;
 use App\Http\Requests;
 
 use Redirect;
@@ -32,5 +33,20 @@ class StopwordController extends Controller
     public function importtxt(Request $request)
     {
     	var_dump($request);
+    }
+
+    public function process()
+    {
+    	$stopwords = Stopword::all();
+
+    	foreach($stopwords as $stopword)
+    	{
+    		$word = BagOfWord::search($stopword->word);
+
+    		if(!empty($word))
+    			BagOfWord::destroy($word->id);
+    	}
+
+    	return Redirect::to('dashboard/tokenizing');
     }
 }
