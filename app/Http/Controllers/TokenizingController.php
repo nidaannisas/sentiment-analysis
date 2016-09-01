@@ -8,5 +8,13 @@ use App\Http\Requests;
 
 class TokenizingController extends Controller
 {
-    //
+    public function index()
+    {
+
+    }
+
+    public function tokenize()
+    {
+    	
+    }
 }
