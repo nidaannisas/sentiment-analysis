@@ -52,9 +52,9 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="index.html"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
-			
+			<li class="<?php if (Request::is('dashboard/tokenizing')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tokenizing') }}"><svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></svg> Tokenizing</a></li>
 			
 		</ul>
 
