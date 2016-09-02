@@ -18,7 +18,7 @@
 					<div class="col-md-12" style="padding-bottom: 20px;">
 						<h3>Normalize Words</h3>
 						<p>Klik Process untuk melakukan normalisasi kata.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/normalizations/process') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/normalization/process') }} " method="post" enctype="multipart/form-data">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>

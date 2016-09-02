@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NormalizationWord;
+use App\Models\BagOfWord;
 use App\Http\Requests;
 
 use Redirect;
@@ -29,6 +30,25 @@ class NormalizationController extends Controller
         $normalization->save();
 
         return Redirect::to('dashboard/normalization');
+    }
+
+    public function process()
+    {
+        $normalizations = NormalizationWord::all();
+
+        foreach($normalizations as $normalization)
+        {
+            $word = BagOfWord::search($normalization->word);
+
+            if(!empty($word))
+            {
+                $normal = BagOfWord::find($word->id);
+                $normal->word = $normalization->normal_word;
+                $normal->save();
+            }
+        }
+
+        return Redirect::to('dashboard/tokenizing');
     }
 
 }
