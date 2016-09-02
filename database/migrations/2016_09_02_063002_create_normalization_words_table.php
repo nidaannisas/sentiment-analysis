@@ -16,6 +16,7 @@ class CreateNormalizationWordsTable extends Migration
         Schema::create('normalization-words', function (Blueprint $table) {
             $table->increments('id');
             $table->string('word');
+            $table->string('normal_word');
             $table->timestamps();
         });
     }
