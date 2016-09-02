@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\BagOfWord;
+use App\Models\TDM;
 use App\Http\Requests;
 use Redirect;
 use DB;
@@ -55,6 +56,11 @@ class TokenizingController extends Controller
                     $save->word = $word;
                     $save->idf = 0;
                     $save->save();
+
+                    $tdm = new TDM;
+                    $tdm->tweet_id = $tweet->id;
+                    $tdm->token_id = $save->id;
+                    $tdm->save();
                 }
             }
         }
