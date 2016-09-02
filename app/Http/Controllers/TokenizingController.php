@@ -36,7 +36,7 @@ class TokenizingController extends Controller
         }
 
         // remove except letter
-        $content = preg_replace(array('/[^a-zA-Z -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $content);
+        $content = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $content);
 
         // to lower
         $content = strtolower($content);
