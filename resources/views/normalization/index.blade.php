@@ -29,7 +29,7 @@
 					<div class="col-md-6">
 						<h3>Tambahkan Normalisasi Kata</h3>
 						<p>Tambahkan normalisasi kata melalui form disamping atau dengan import menggunakan txt, excel atau csv.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/normalizations/importtxt') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/normalization/importtxt') }} " method="post" enctype="multipart/form-data">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<label class="btn btn-success btn-file">
 							    Import <input name="import" type="file" style="display: none;" onchange="javascript:this.form.submit();">
@@ -37,14 +37,14 @@
 						</form>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/normalizations/store') }} " method="post" style="padding-top : 20px;">	
+						<form role="form" action="{{ URL::to('dashboard/normalization/store') }} " method="post" style="padding-top : 20px;">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group"> 
 								<label>Word</label>
 								<input name="word" type="text" class="form-control"></input>
 							</div>
 							<div class="form-group"> 
-								<label>Mormal Word</label>
+								<label>Normal Word</label>
 								<input name="normal_word" type="text" class="form-control"></input>
 							</div>
 
@@ -57,8 +57,8 @@
 						    <thead>
 						    <tr>
 						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="name"  data-sortable="true" style="width: 80%;"">Word</th>
-						        <th data-field="name"  data-sortable="true" style="width: 80%;"">Normal Word</th>
+						        <th data-field="word"  data-sortable="true" style="width: 80%;"">Word</th>
+						        <th data-field="normal_word"  data-sortable="true" style="width: 80%;"">Normal Word</th>
 						    </tr>
 						    </thead>
 						    <tbody>

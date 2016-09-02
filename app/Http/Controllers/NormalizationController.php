@@ -18,4 +18,17 @@ class NormalizationController extends Controller
     		->with('normalizations', $normalizations);
     }
 
+    public function store(Request $request)
+    {
+        $word = $request->input('word');
+        $normal_word = $request->input('normal_word');
+
+        $normalization = new NormalizationWord;
+        $normalization->word = $word;
+        $normalization->normal_word = $normal_word;
+        $normalization->save();
+
+        return Redirect::to('dashboard/normalization');
+    }
+
 }
