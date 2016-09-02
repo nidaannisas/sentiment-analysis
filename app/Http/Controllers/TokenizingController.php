@@ -28,38 +28,35 @@ class TokenizingController extends Controller
 
         $tweets = Tweet::all();
 
-        $content = '';
-
         foreach($tweets as $tweet)
         {
-            $content = $content.$tweet->tweet;
-        }
+            // remove except letter
+            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $tweet->tweet);
 
-        // remove except letter
-        $content = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $content);
+            // to lower
+            $tweet->tweet = strtolower($tweet->tweet);
 
-        // to lower
-        $content = strtolower($content);
-        // remove number
-        //$content = preg_replace('/[0-9]+/', '', $content);
+            $words = array();
+            $delim = " \n.,;-()";
+            $tok = strtok($tweet->tweet, $delim);
+            while ($tok !== false) 
+            {
+                $words[] = $tok;
+                $tok = strtok($delim);
+            }
 
-        $words = array();
-        $delim = " \n.,;-()";
-        $tok = strtok($content, $delim);
-        while ($tok !== false) {
-          $words[] = $tok;
-          $tok = strtok($delim);
-        }
-        $unique_words = array_unique($words);
+            foreach($words as $word)
+            {
+                $kata = BagOfWord::search($word);
 
-        //var_dump($unique_words);
-
-        foreach($unique_words as $kata)
-        {
-            $save = new BagOfWord;
-            $save->word = $kata;
-            $save->idf = 0;
-            $save->save();
+                if(empty($kata))
+                {
+                    $save = new BagOfWord;
+                    $save->word = $word;
+                    $save->idf = 0;
+                    $save->save();
+                }
+            }
         }
 
         return Redirect::to('dashboard/tokenizing');
