@@ -79,3 +79,8 @@ Route::get('dashboard/idf', [
     'as' => 'dashboard.idf.index',
     'uses' => 'IDFController@index'
 ]);
+
+Route::post('dashboard/idf/process', [
+    'as' => 'dashboard.idf.process',
+    'uses' => 'IDFController@process'
+]);
