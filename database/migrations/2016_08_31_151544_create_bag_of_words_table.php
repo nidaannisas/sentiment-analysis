@@ -18,6 +18,9 @@ class CreateBagOfWordsTable extends Migration
             $table->string('word');
             $table->float('idf');
             $table->integer('count');
+            $table->integer('count_positive');
+            $table->integer('count_negative');
+            $table->integer('count_neutral');
             $table->timestamps();
         });
     }
