@@ -22,4 +22,17 @@ Class BagOfWord extends Model
         else
             return $data;
     }
+
+    public static function count($token_id)
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tdm` WHERE token_id = :token_id "),
+                    array(
+                        "token_id"    => $token_id
+                    ));
+    
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
 }

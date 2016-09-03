@@ -47,7 +47,7 @@
 						    	<td></td>
 						    	<td></td>
 						    	<td></td>
-						    	<td></td>
+						    	<td>{{ $word->count }}</td>
 						    	<td>{{ $word->idf }}</td>
 							</tr>
 							@endforeach

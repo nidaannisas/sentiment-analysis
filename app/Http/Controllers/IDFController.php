@@ -13,7 +13,18 @@ class IDFController extends Controller
     {
     	$words = BagOfWord::all();
 
+    	// hitung jumlah token dalam bag of words
+    	foreach($words as $word)
+    	{
+    		$word->count = BagOfWord::count($word->id);
+    	}
+
     	return view('idf.index')
     		->with('words', $words);
+    }
+
+    public function process()
+    {
+
     }
 }
