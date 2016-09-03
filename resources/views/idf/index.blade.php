@@ -31,7 +31,7 @@
 						    <thead>
 						    <tr>
 						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="token"  data-sortable="true" style="width: 80%;"">Token</th>
+						        <th data-field="token" data-sortable="true" style="width: 80%;"">Token</th>
 						        <th data-field="positive"  data-sortable="true" style="width: 80%;"">Positive</th>
 						        <th data-field="negative"  data-sortable="true" style="width: 80%;"">Negative</th>
 						        <th data-field="neutral"  data-sortable="true" style="width: 80%;"">Neutral</th>
