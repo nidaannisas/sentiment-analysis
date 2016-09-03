@@ -46,6 +46,11 @@ class TokenizingController extends Controller
                 $tok = strtok($delim);
             }
 
+            // unique di dalam dokumen
+            $words = array_unique($words);
+
+            // unique antar dokument
+            // tidak ada redundant kata dalam tdm
             foreach($words as $word)
             {
                 $kata = BagOfWord::search($word);
@@ -60,6 +65,13 @@ class TokenizingController extends Controller
                     $tdm = new TDM;
                     $tdm->tweet_id = $tweet->id;
                     $tdm->token_id = $save->id;
+                    $tdm->save();
+                }
+                else
+                {
+                    $tdm = new TDM;
+                    $tdm->tweet_id = $tweet->id;
+                    $tdm->token_id = $kata->id;
                     $tdm->save();
                 }
             }
