@@ -17,6 +17,7 @@ class CreateBagOfWordsTable extends Migration
             $table->increments('id');
             $table->string('word');
             $table->float('idf');
+            $table->integer('count');
             $table->timestamps();
         });
     }
