@@ -84,3 +84,13 @@ Route::post('dashboard/idf/process', [
     'as' => 'dashboard.idf.process',
     'uses' => 'IDFController@process'
 ]);
+
+Route::get('dashboard/naive-bayes', [
+    'as' => 'dashboard.naivebayes.index',
+    'uses' => 'NaiveBayesController@index'
+]);
+
+Route::post('dashboard/naive-bayes/classify', [
+    'as' => 'dashboard.naivebayes.classify',
+    'uses' => 'NaiveBayesController@classify'
+]);
