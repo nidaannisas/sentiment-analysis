@@ -35,6 +35,7 @@
 						        <th data-field="positive"  data-sortable="true" style="width: 80%;"">Positive</th>
 						        <th data-field="negative"  data-sortable="true" style="width: 80%;"">Negative</th>
 						        <th data-field="neutral"  data-sortable="true" style="width: 80%;"">Neutral</th>
+						        <th data-field="jumlah"  data-sortable="true" style="width: 80%;"">Jumlah</th>
 						        <th data-field="IDF"  data-sortable="true" style="width: 80%;"">IDF</th>
 						    </tr>
 						    </thead>
@@ -43,6 +44,7 @@
 						    <tr>
 						    	<td>{{ $word->id }}</td>
 						    	<td>{{ $word->word }}</td>
+						    	<td></td>
 						    	<td></td>
 						    	<td></td>
 						    	<td></td>
