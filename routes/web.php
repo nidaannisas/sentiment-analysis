@@ -74,3 +74,8 @@ Route::post('dashboard/normalization/process', [
     'as' => 'dashboard.normalization.process',
     'uses' => 'NormalizationController@process'
 ]);
+
+Route::get('dashboard/idf', [
+    'as' => 'dashboard.idf.index',
+    'uses' => 'IDFController@index'
+]);
