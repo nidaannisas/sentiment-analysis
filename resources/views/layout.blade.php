@@ -57,6 +57,7 @@
 			<li class="<?php if (Request::is('dashboard/tokenizing')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tokenizing') }}"><svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></svg> Tokenizing</a></li>
 			<li class="<?php if (Request::is('dashboard/stopwords')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/stopwords') }}"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"/></svg> Stopwords</a></li>
 			<li class="<?php if (Request::is('dashboard/normalization')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/normalization') }}"><svg class="glyph stroked pen tip"><use xlink:href="#stroked-pen-tip"/></svg> Word Normalization</a></li>
+			<li class="<?php if (Request::is('dashboard/idf')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/idf') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> IDF</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
