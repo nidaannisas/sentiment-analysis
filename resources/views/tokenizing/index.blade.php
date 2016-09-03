@@ -15,7 +15,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">Tokenizing</div>
-					<div class="col-md-6">
+					<div class="col-md-6" style="padding-bottom: 20px;">
 						<h3>Tokenizing</h3>
 						<p>Proses untuk mengubah data training ke token.</p>
 						<form role="form" action="{{ URL::to('dashboard/tokenizing/tokenize') }} " method="post" style="padding-top : 20px;">	
