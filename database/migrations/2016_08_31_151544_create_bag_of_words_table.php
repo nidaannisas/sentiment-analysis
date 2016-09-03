@@ -16,11 +16,11 @@ class CreateBagOfWordsTable extends Migration
         Schema::create('bag-of-words', function (Blueprint $table) {
             $table->increments('id');
             $table->string('word');
-            $table->float('idf');
-            $table->integer('count');
-            $table->integer('count_positive');
-            $table->integer('count_negative');
-            $table->integer('count_neutral');
+            $table->float('idf')->default(0);
+            $table->integer('count')->default(0);
+            $table->integer('count_positive')->default(0);
+            $table->integer('count_negative')->default(0);
+            $table->integer('count_neutral')->default(0);
             $table->timestamps();
         });
     }

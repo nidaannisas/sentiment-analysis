@@ -59,8 +59,6 @@ class TokenizingController extends Controller
                 {
                     $save = new BagOfWord;
                     $save->word = $word;
-                    $save->count = 0;
-                    $save->idf = 0;
                     $save->save();
 
                     $tdm = new TDM;
