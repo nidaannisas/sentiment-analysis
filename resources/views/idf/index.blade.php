@@ -44,9 +44,9 @@
 						    <tr>
 						    	<td>{{ $word->id }}</td>
 						    	<td>{{ $word->word }}</td>
-						    	<td></td>
-						    	<td></td>
-						    	<td></td>
+						    	<td>{{ $word->count_positive }}</td>
+						    	<td>{{ $word->count_negative }}</td>
+						    	<td>{{ $word->count_neutral }}</td>
 						    	<td>{{ $word->count }}</td>
 						    	<td>{{ $word->idf }}</td>
 							</tr>
