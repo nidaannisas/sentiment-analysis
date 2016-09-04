@@ -28,6 +28,7 @@ class NaiveBayesController extends Controller
 
     	$tweets = new TweetTest;
     	$tweets->tweet = $tweet;
+        $tweets->sentiment_id = $this->naiveBayes($tweet);
     	$tweets->save();
 
     	return Redirect::to('dashboard/naive-bayes');
@@ -90,6 +91,15 @@ class NaiveBayesController extends Controller
 
     public function naiveBayes($tweet)
     {
+        // tokenize tweet
+        $tweet = $this->tokenize($tweet);
+
+        // normalize word
+        $tweet = $this->normalizeWord($tweet);
+
+        // stopword removal
+        $tweet = $this->stopwordRemoval($tweet);
+
         // jumlah dokumen
         $N = count(Tweet::all());               
 
@@ -99,5 +109,33 @@ class NaiveBayesController extends Controller
 
         // size vocabulary
         $v = count(BagOfWord::all());
+
+        // calculate positive
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_positive = $p_positive * $p_word;
+        }
+
+        // calculate negative
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_negative = $p_negative * $p_word;
+        }
+
+        // calculate neutral
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_neutral = $p_neutral * $p_word;
+        }
+
+        if($p_positive > $p_negative && $p_positive > $p_neutral)
+            return 1;   // positive
+        else if($p_negative > $p_positive && $p_negative > $p_neutral)
+            return 2;   // negative
+        else
+            return 3;   // neutral
     }
 }
