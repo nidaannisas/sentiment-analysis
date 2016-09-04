@@ -33,7 +33,7 @@ Class BagOfWord extends Model
         if(!empty($data))
             return $data[0]->count;
         else
-            return $data;
+            return 0;
     }
 
     public static function countPositive($token_id)
@@ -46,7 +46,7 @@ Class BagOfWord extends Model
         if(!empty($data))
             return $data[0]->count;
         else
-            return $data;
+            return 0;
     }
 
     public static function countNegative($token_id)
@@ -59,7 +59,7 @@ Class BagOfWord extends Model
         if(!empty($data))
             return $data[0]->count;
         else
-            return $data;
+            return 0;
     }
 
     public static function countNeutral($token_id)
@@ -72,6 +72,50 @@ Class BagOfWord extends Model
         if(!empty($data))
             return $data[0]->count;
         else
-            return $data;
+            return 0;
+    }
+
+    public static function countPositiveWord($word)
+    {
+        $data = DB::select( DB::raw("SELECT count_positive FROM `bag-of-words` WHERE `word` = :word"),
+                    array(
+                        "word"    => $word
+                    ));
+    
+        if(!empty($data))
+            return $data[0]->count_positive;
+        else
+            return 0;
+    }
+
+    public static function countNegativeWord($word)
+    {
+        $data = DB::select( DB::raw("SELECT count_negative FROM `bag-of-words` WHERE `word` = :word"),
+                    array(
+                        "word"    => $word
+                    ));
+    
+        if(!empty($data))
+            return $data[0]->count_negative;
+        else
+            return 0;
+    }
+
+    public static function countNeutralWord($word)
+    {
+        $data = DB::select( DB::raw("SELECT count_neutral FROM `bag-of-words` WHERE `word` = :word"),
+                    array(
+                        "word"    => $word
+                    ));
+    
+        if(!empty($data))
+            return $data[0]->count_neutral;
+        else
+            return 0;
+    }
+
+    public static function countWord($word)
+    {
+        return BagOfWord::countPositiveWord($word) + BagOfWord::countNegativeWord($word) + BagOfWord::countNeutralWord($word);
     }
 }
