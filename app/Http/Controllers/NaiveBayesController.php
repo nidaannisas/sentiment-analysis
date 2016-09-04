@@ -8,6 +8,7 @@ use App\Models\TweetTest;
 use App\Models\BagOfWord;
 use App\Models\Stopword;
 use App\Models\NormalizationWord;
+use App\Models\IDF;
 use App\Http\Requests;
 
 use Redirect;
@@ -113,21 +114,21 @@ class NaiveBayesController extends Controller
         // calculate positive
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countPositiveWord($word)*IDF::calculateIDFWord($word) + 1)/(BagOfWord::countWord($word)*IDF::calculateIDFWord($word) + $v);
             $p_positive = $p_positive * $p_word;
         }
 
         // calculate negative
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countNegativeWord($word)*IDF::calculateIDFWord($word) + 1)/(BagOfWord::countWord($word)*IDF::calculateIDFWord($word) + $v);
             $p_negative = $p_negative * $p_word;
         }
 
         // calculate neutral
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countNeutralWord($word)*IDF::calculateIDFWord($word) + 1)/(BagOfWord::countWord($word)*IDF::calculateIDFWord($word) + $v);
             $p_neutral = $p_neutral * $p_word;
         }
 
