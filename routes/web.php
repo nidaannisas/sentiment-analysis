@@ -94,3 +94,13 @@ Route::post('dashboard/naive-bayes/classify', [
     'as' => 'dashboard.naivebayes.classify',
     'uses' => 'NaiveBayesController@classify'
 ]);
+
+Route::get('dashboard/negation-handling', [
+    'as' => 'dashboard.negationhandling.index',
+    'uses' => 'NegationHandlingController@index'
+]);
+
+Route::post('dashboard/negation-handling/process', [
+    'as' => 'dashboard.negationhandling.process',
+    'uses' => 'NegationHandlingController@process'
+]);
