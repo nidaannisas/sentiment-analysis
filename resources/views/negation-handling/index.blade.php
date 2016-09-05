@@ -19,7 +19,7 @@
 						<h3>Proses Negation</h3>
 						<p>Klik tombol proses untuk memproses negation handling.</p>
 
-						<form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">	
+						<form role="form" action="{{ URL::to('dashboard/negation-handling/process') }} " method="post" style="padding-top : 20px;">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group"> 
 							<button type="submit" class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Proses</button>
