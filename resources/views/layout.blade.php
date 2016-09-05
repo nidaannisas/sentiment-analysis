@@ -56,8 +56,8 @@
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
 			<li class="<?php if (Request::is('dashboard/negation-handling')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/negation-handling') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> Negation Handling</a></li>
 			<li class="<?php if (Request::is('dashboard/tokenizing')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tokenizing') }}"><svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></svg> Tokenizing</a></li>
-			<li class="<?php if (Request::is('dashboard/stopwords')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/stopwords') }}"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"/></svg> Stopwords</a></li>
 			<li class="<?php if (Request::is('dashboard/normalization')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/normalization') }}"><svg class="glyph stroked pen tip"><use xlink:href="#stroked-pen-tip"/></svg> Word Normalization</a></li>
+			<li class="<?php if (Request::is('dashboard/stopwords')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/stopwords') }}"><svg class="glyph stroked trash"><use xlink:href="#stroked-trash"/></svg> Stopwords</a></li>
 			<li class="<?php if (Request::is('dashboard/idf')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/idf') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> IDF</a></li>
 
 			<li class="<?php if (Request::is('dashboard/naive-bayes')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/naive-bayes') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg> Naive Bayes</a></li>
