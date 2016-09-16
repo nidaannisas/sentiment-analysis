@@ -25,6 +25,11 @@ Route::post('dashboard/tweets/store', [
     'uses' => 'TweetController@store'
 ]);
 
+Route::post('dashboard/tweets/import', [
+    'as' => 'dashboard.tweets.import',
+    'uses' => 'TweetController@import'
+]);
+
 Route::get('dashboard/tokenizing', [
     'as' => 'dashboard.tokenizing.index',
     'uses' => 'TokenizingController@index'
