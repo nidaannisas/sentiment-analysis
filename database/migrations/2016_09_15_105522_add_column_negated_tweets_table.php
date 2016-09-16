@@ -14,7 +14,7 @@ class AddColumnNegatedTweetsTable extends Migration
     public function up()
     {
         Schema::table('tweets', function($table) {
-            $table->integer('negated');
+            $table->integer('negated')->default(0);
         });
     }
 
