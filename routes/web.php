@@ -30,6 +30,16 @@ Route::post('dashboard/tweets/import', [
     'uses' => 'TweetController@import'
 ]);
 
+Route::get('dashboard/remove-duplicate', [
+    'as' => 'dashboard.remove.duplicate.index',
+    'uses' => 'RemoveDuplicateController@index'
+]);
+
+Route::post('dashboard/remove-duplicate/remove', [
+    'as' => 'dashboard.remove.duplicate.remove',
+    'uses' => 'RemoveDuplicateController@remove'
+]);
+
 Route::get('dashboard/tokenizing', [
     'as' => 'dashboard.tokenizing.index',
     'uses' => 'TokenizingController@index'
