@@ -32,7 +32,7 @@ class TokenizingController extends Controller
         foreach($tweets as $tweet)
         {
             // remove except letter
-            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array('', ' ', ''), $tweet->tweet);
+            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/', '/http[^a-zA-Z_ -]/'), array('', ' ', '', ''), $tweet->tweet);
 
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
@@ -47,7 +47,7 @@ class TokenizingController extends Controller
             }
 
             // unique di dalam dokumen
-            $words = array_unique($words);
+            //$words = array_unique($words);
 
             // unique antar dokument
             // tidak ada redundant kata dalam tdm
