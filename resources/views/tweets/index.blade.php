@@ -22,7 +22,7 @@
 						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweet/import') }} " method="post" enctype="multipart/form-data">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<label class="btn btn-success btn-file">
-							    Import <input name="import" type="file" style="display: none;" onchange="javascript:this.form.submit();">
+							    Import <input name="file" type="file" style="display: none;" onchange="javascript:this.form.submit();">
 							</label>
 						</form>
 					</div>
