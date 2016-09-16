@@ -19,7 +19,7 @@
 						<h3>Tambahkan Tweets</h3>
 						<p>Tambahkan tweets beserta sentiment sebagai data training melalui form disamping atau dengan import menggunakan excel atau csv.</p>
 
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweet/import') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweets/import') }} " method="post" enctype="multipart/form-data">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<label class="btn btn-success btn-file">
 							    Import <input name="file" type="file" style="display: none;" onchange="javascript:this.form.submit();">
