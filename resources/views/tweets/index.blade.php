@@ -19,7 +19,12 @@
 						<h3>Tambahkan Tweets</h3>
 						<p>Tambahkan tweets beserta sentiment sebagai data training melalui form disamping atau dengan import menggunakan excel atau csv.</p>
 
-						<button class="btn btn-success"><span class="glyphicons glyphicons-disk-open"></span> Import</button>
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweet/import') }} " method="post" enctype="multipart/form-data">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<label class="btn btn-success btn-file">
+							    Import <input name="import" type="file" style="display: none;" onchange="javascript:this.form.submit();">
+							</label>
+						</form>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
 						<form role="form" action="{{ URL::to('dashboard/tweets/store') }} " method="post" style="padding-top : 20px;">	
@@ -90,5 +95,27 @@
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
 </script>	
+
+<style type="text/css">
+	.btn-file {
+	    position: relative;
+	    overflow: hidden;
+	}
+	.btn-file input[type=file] {
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    min-width: 100%;
+	    min-height: 100%;
+	    font-size: 100px;
+	    text-align: right;
+	    filter: alpha(opacity=0);
+	    opacity: 0;
+	    outline: none;
+	    background: white;
+	    cursor: inherit;
+	    display: block;
+	}
+</style>
 
 @stop
