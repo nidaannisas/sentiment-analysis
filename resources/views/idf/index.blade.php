@@ -15,12 +15,24 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">IDF</div>
-					<div class="col-md-12" style="padding-bottom: 20px;">
+					<div class="col-md-6" style="padding-bottom: 20px;">
 						<h3>IDF</h3>
 						<p>Klik Process untuk menghitung nilai IDF.</p>
 						<form class="form-inline" role="form" action="{{ URL::to('dashboard/idf/process') }} " method="post" enctype="multipart/form-data">	
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
+						</form>
+					</div>
+					<div class="col-md-6" style="padding-bottom: 20px;">
+						<h3>Selection</h3>
+						<p>Klik Process untuk menseleksi fitur dengan nilai dibawah tertentu.</p>
+						<form role="form" action="{{ URL::to('dashboard/idf/selection') }} " method="post" enctype="multipart/form-data">	
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<div class="form-group"> 
+								<label>Value</label>
+								<input name="selection" type="text" class="form-control"></input>
+							</div>
+							<button class="btn btn-danger" type="submit">Remove</button>
 						</form>
 					</div>
 
