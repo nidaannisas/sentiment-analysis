@@ -12,7 +12,7 @@ class NegationHandlingController extends Controller
 {
     public function index()
     {
-    	$tweets = Tweet::all();
+    	$tweets = Tweet::where('negated', 1)->get();
 
     	return view('negation-handling.index')
     		->with('tweets', $tweets);
