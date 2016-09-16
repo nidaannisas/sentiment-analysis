@@ -17,7 +17,7 @@ class NaiveBayesController extends Controller
 {
     public function index()
     {
-    	$tweets = TweetTest::all();
+    	$tweets = TweetTest::orderBy('id', 'DESC')->get();
 
     	return view('naive-bayes.index')
     		->with('tweets', $tweets);

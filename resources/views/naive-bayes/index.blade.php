@@ -31,7 +31,7 @@
 					</div>
 					<hr style="color: black; width: 100%;">
 					<div class="col-md-12">
-						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true">
 						    <thead>
 						    <tr>
 						        <th data-field="state" data-checkbox="true">Item ID</th>
