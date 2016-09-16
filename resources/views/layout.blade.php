@@ -54,6 +54,7 @@
 		<ul class="nav menu">
 			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
+			<li class="<?php if (Request::is('dashboard/remove-duplicate')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/remove-duplicate') }}"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"/></svg> Remove Duplicate</a></li>
 			<li class="<?php if (Request::is('dashboard/negation-handling')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/negation-handling') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> Negation Handling</a></li>
 			<li class="<?php if (Request::is('dashboard/tokenizing')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tokenizing') }}"><svg class="glyph stroked chain"><use xlink:href="#stroked-chain"/></svg> Tokenizing</a></li>
 			<li class="<?php if (Request::is('dashboard/normalization')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/normalization') }}"><svg class="glyph stroked pen tip"><use xlink:href="#stroked-pen-tip"/></svg> Word Normalization</a></li>
