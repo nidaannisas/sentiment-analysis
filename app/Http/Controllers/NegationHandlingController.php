@@ -26,6 +26,7 @@ class NegationHandlingController extends Controller
         {
             if (strpos($tweet->tweet, 'tidak') !== false) 
             {
+                $data = $tweet->tweet;
                 // tokenize
                 $words = array();
                 $delim = " \n.,;-()";
@@ -49,6 +50,45 @@ class NegationHandlingController extends Controller
 
                 $update = Tweet::find($tweet->id);
                 $update->tweet = $words;
+                $update->negated = 1;
+                $update->save();
+
+                // negated
+                $words2 = array();
+                $token = strtok($data, $delim);
+                while ($token !== false) 
+                {
+                    $words2[] = $token;
+                    $token = strtok($delim);
+                }
+
+                foreach ($words2 as $key => $word) 
+                {
+                    if($word == 'tidak')
+                    {
+                        unset($words2[$key]);
+                    }
+                }
+
+                $words2 = implode(" ", $words2);
+
+                if($tweet->sentiment_id == 3)
+                {
+                    $sentiment = 3;
+                }
+                else if($tweet->sentiment_id == 1)
+                {
+                    $sentiment = 2;
+                }
+                else
+                {
+                    $sentiment = 1;
+                }
+
+                $update = new Tweet;
+                $update->tweet = $words2;
+                $update->sentiment_id = $sentiment;
+                $update->negated = 1;
                 $update->save();
             }
         }
