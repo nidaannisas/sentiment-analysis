@@ -32,7 +32,9 @@ class TokenizingController extends Controller
         foreach($tweets as $tweet)
         {
             // remove except letter
-            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/', '/http[^a-zA-Z_ -]/'), array('', ' ', '', ''), $tweet->tweet);
+            //$tweet->tweet = preg_replace('#^https?://*/', '', $tweet->tweet);
+            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/', '#^https?([a-zA-Z_ -]*)#'), array('', ' ', ''), $tweet->tweet);
+
 
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
