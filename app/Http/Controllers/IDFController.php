@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BagOfWord;
 use App\Models\IDF;
 use App\Http\Requests;
+use App\Models\TDM;
 
 use Redirect;
 
@@ -39,5 +40,32 @@ class IDFController extends Controller
     	}
 
     	return Redirect::to('dashboard/idf');
+    }
+
+    public function selection(Request $request)
+    {
+        // bagodword sama tdm diahpus
+        $selection = $request->input('selection');
+        $bow = BagOfWord::all();
+
+        foreach($bow as $bag)
+        {
+            if($bag->idf <= $selection)
+            {
+                // remove tdm
+                $tdm = TDM::all();
+                foreach($tdm as $t)
+                {
+                    if($t->token_id == $bag->id)
+                    {
+                        TDM::destroy($t->id);
+                    }
+                }
+
+                // remove bow
+                BagOfWord::destroy($bag->id);
+            }
+        }
+        return Redirect::to('dashboard/idf');
     }
 }
