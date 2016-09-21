@@ -53,14 +53,14 @@ class IDFController extends Controller
             if($bag->idf <= $selection)
             {
                 // remove tdm
-                $tdm = TDM::all();
-                foreach($tdm as $t)
-                {
-                    if($t->token_id == $bag->id)
-                    {
-                        TDM::destroy($t->id);
-                    }
-                }
+                // $tdm = TDM::all();
+                // foreach($tdm as $t)
+                // {
+                //     if($t->token_id == $bag->id)
+                //     {
+                //         TDM::destroy($t->id);
+                //     }
+                // }
 
                 // remove bow
                 BagOfWord::destroy($bag->id);
@@ -80,14 +80,14 @@ class IDFController extends Controller
             if($bag->count <= $selection)
             {
                 // remove tdm
-                $tdm = TDM::all();
-                foreach($tdm as $t)
-                {
-                    if($t->token_id == $bag->id)
-                    {
-                        TDM::destroy($t->id);
-                    }
-                }
+                // $tdm = TDM::all();
+                // foreach($tdm as $t)
+                // {
+                //     if($t->token_id == $bag->id)
+                //     {
+                //         TDM::destroy($t->id);
+                //     }
+                // }
 
                 // remove bow
                 BagOfWord::destroy($bag->id);
