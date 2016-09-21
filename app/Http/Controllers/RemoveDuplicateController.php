@@ -31,13 +31,13 @@ class RemoveDuplicateController extends Controller
 
                 similar_text($str1, $str2, $percent); 
 
-                // if($percent >= $value)
-                // {
+                if($percent >= $value)
+                {
                 //     // echo $str1.'<br>'; 
                 //     // echo $str2.'<br>';
-                echo $percent.'<br><br>'; 
-                //     Tweet::destroy($tweets[$j]->id);
-                // }
+                //echo $percent.'<br><br>'; 
+                     Tweet::destroy($tweets[$j]->id);
+                }
             }
         }
 
