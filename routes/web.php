@@ -105,6 +105,11 @@ Route::post('dashboard/idf/selection', [
     'uses' => 'IDFController@selection'
 ]);
 
+Route::post('dashboard/idf/tfselection', [
+    'as' => 'dashboard.idf.tfselection',
+    'uses' => 'IDFController@tfselection'
+]);
+
 Route::get('dashboard/naive-bayes', [
     'as' => 'dashboard.naivebayes.index',
     'uses' => 'NaiveBayesController@index'
