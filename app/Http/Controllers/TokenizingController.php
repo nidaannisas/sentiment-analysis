@@ -66,18 +66,18 @@ class TokenizingController extends Controller
                     $save->word = $word;
                     $save->save();
 
-                    // $tdm = new TDM;
-                    // $tdm->tweet_id = $tweet->id;
-                    // $tdm->token_id = $save->id;
-                    // $tdm->save();
+                    $tdm = new TDM;
+                    $tdm->tweet_id = $tweet->id;
+                    $tdm->token_id = $save->id;
+                    $tdm->save();
                 }
-                // else
-                // {
-                //     $tdm = new TDM;
-                //     $tdm->tweet_id = $tweet->id;
-                //     $tdm->token_id = $kata->id;
-                //     $tdm->save();
-                // }
+                else
+                {
+                    $tdm = new TDM;
+                    $tdm->tweet_id = $tweet->id;
+                    $tdm->token_id = $kata->id;
+                    $tdm->save();
+                }
             }
 
             DB::commit();
