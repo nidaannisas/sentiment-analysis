@@ -68,4 +68,31 @@ class IDFController extends Controller
         }
         return Redirect::to('dashboard/idf');
     }
+
+    public function tfselection(Request $request)
+    {
+        // bagodword sama tdm diahpus
+        $selection = $request->input('selection');
+        $bow = BagOfWord::all();
+
+        foreach($bow as $bag)
+        {
+            if($bag->count <= $selection)
+            {
+                // remove tdm
+                $tdm = TDM::all();
+                foreach($tdm as $t)
+                {
+                    if($t->token_id == $bag->id)
+                    {
+                        TDM::destroy($t->id);
+                    }
+                }
+
+                // remove bow
+                BagOfWord::destroy($bag->id);
+            }
+        }
+        return Redirect::to('dashboard/idf');
+    }
 }

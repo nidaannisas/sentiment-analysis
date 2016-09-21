@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', [
+    'as' => 'dashboard.index',
+    'uses' => 'DashboardController@index'
+]);
+
+Route::get('dashboard', [
+    'as' => 'dashboard.index',
+    'uses' => 'DashboardController@index'
+]);
 
 Route::get('dashboard/tweets', [
     'as' => 'dashboard.tweets.index',
