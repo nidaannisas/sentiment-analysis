@@ -53,6 +53,9 @@ class TokenizingController extends Controller
 
             // unique antar dokument
             // tidak ada redundant kata dalam tdm
+
+            DB::beginTransaction();
+
             foreach($words as $word)
             {
                 $kata = BagOfWord::search($word);
@@ -76,6 +79,8 @@ class TokenizingController extends Controller
                     $tdm->save();
                 }
             }
+
+            DB::commit();
         }
 
         return Redirect::to('dashboard/tokenizing');
