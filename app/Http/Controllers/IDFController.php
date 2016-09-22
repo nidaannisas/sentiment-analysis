@@ -27,6 +27,7 @@ class IDFController extends Controller
     	$N = count($words);
 
     	// hitung jumlah token dalam bag of words
+        DB::beginTransaction();
     	foreach($words as $word)
     	{
     		$bow = BagOfWord::find($word->id);
@@ -38,6 +39,7 @@ class IDFController extends Controller
 
     		$bow->save();
     	}
+        DB::commit();
 
     	return Redirect::to('dashboard/idf');
     }
