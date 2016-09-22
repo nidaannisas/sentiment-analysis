@@ -30,10 +30,10 @@ class IDFController extends Controller
     	foreach($words as $word)
     	{
     		$bow = BagOfWord::find($word->id);
-    		$bow->count_positive = BagOfWord::countPositive($word->id);
-    		$bow->count_negative = BagOfWord::countNegative($word->id);
-    		$bow->count_neutral = BagOfWord::countNeutral($word->id);
-    		$bow->count = BagOfWord::count($word->id);
+    		// $bow->count_positive = BagOfWord::countPositive($word->id);
+    		// $bow->count_negative = BagOfWord::countNegative($word->id);
+    		// $bow->count_neutral = BagOfWord::countNeutral($word->id);
+    		// $bow->count = BagOfWord::count($word->id);
     		$bow->idf = log10($N/$bow->count);
 
     		$bow->save();
