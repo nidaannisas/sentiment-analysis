@@ -85,11 +85,15 @@ class NegationHandlingController extends Controller
                     $sentiment = 1;
                 }
 
-                $update = new Tweet;
-                $update->tweet = $words2;
-                $update->sentiment_id = $sentiment;
-                $update->negated = 1;
-                $update->save();
+
+                if($tweet->sentiment_id != 3)
+                {
+                    $update = new Tweet;
+                    $update->tweet = $words2;
+                    $update->sentiment_id = $sentiment;
+                    $update->negated = 1;
+                    $update->save();
+                }
             }
         }
 
