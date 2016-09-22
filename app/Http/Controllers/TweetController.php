@@ -32,7 +32,7 @@ class TweetController extends Controller
     	$sentiment_id = $request->input('sentiment');
 
     	$tweets = new Tweet;
-    	$tweets->tweet = $tweet;
+    	$tweets->tweet = $this->replace4byte($tweet);
     	$tweets->sentiment_id = $sentiment_id;
     	$tweets->save();
 
