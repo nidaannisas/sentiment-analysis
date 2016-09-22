@@ -64,19 +64,51 @@ class TokenizingController extends Controller
                 {
                     $save = new BagOfWord;
                     $save->word = $word;
+                    $save->count = 1;
+
+                    if($tweet->sentiment_id == 1)
+                    {
+                        $save->count_positive = 1;
+                    }
+                    else if($tweet->sentiment_id == 2)
+                    {
+                        $save->count_negative = 1;
+                    }
+                    else
+                    {
+                        $save->count_neutral = 1;
+                    }
+
                     $save->save();
 
-                    $tdm = new TDM;
-                    $tdm->tweet_id = $tweet->id;
-                    $tdm->token_id = $save->id;
-                    $tdm->save();
+                    // $tdm = new TDM;
+                    // $tdm->tweet_id = $tweet->id;
+                    // $tdm->token_id = $save->id;
+                    // $tdm->save();
+
+
                 }
                 else
                 {
-                    $tdm = new TDM;
-                    $tdm->tweet_id = $tweet->id;
-                    $tdm->token_id = $kata->id;
-                    $tdm->save();
+                    // $tdm = new TDM;
+                    // $tdm->tweet_id = $tweet->id;
+                    // $tdm->token_id = $kata->id;
+                    // $tdm->save();
+
+                    $save->count = $save->count + 1;
+
+                    if($tweet->sentiment_id == 1)
+                    {
+                        $save->count_positive = $save->count_positive + 1;
+                    }
+                    else if($tweet->sentiment_id == 2)
+                    {
+                        $save->count_negative = $save->count_negative + 1;
+                    }
+                    else
+                    {
+                        $save->count_neutral = $save->count_neutral + 1;
+                    }
                 }
             }
 
