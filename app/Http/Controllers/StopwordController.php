@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Stopword;
 use App\Models\BagOfWord;
 use App\Http\Requests;
+use DB;
 
 use Redirect;
 
@@ -67,6 +68,7 @@ class StopwordController extends Controller
     {
     	$stopwords = Stopword::all();
 
+        DB::beginTransaction();
     	foreach($stopwords as $stopword)
     	{
     		$word = BagOfWord::search($stopword->word);
@@ -74,6 +76,7 @@ class StopwordController extends Controller
     		if(!empty($word))
     			BagOfWord::destroy($word->id);
     	}
+        DB::commit();
 
     	return Redirect::to('dashboard/tokenizing');
     }
