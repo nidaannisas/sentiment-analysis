@@ -22,6 +22,7 @@ class NegationHandlingController extends Controller
     {
         $tweets = Tweet::all();
 
+        DB::beginTransaction();
         foreach($tweets as $tweet)
         {
             if (strpos($tweet->tweet, 'tidak') !== false) 
@@ -96,6 +97,7 @@ class NegationHandlingController extends Controller
                 }
             }
         }
+        DB::commit();
 
         return Redirect::to('dashboard/negation-handling');
     }
