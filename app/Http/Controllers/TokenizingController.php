@@ -94,7 +94,7 @@ class TokenizingController extends Controller
                     // $tdm->tweet_id = $tweet->id;
                     // $tdm->token_id = $kata->id;
                     // $tdm->save();
-
+                    $save = BagOfWord::find($kata->id);
                     $save->count = $save->count + 1;
 
                     if($tweet->sentiment_id == 1)
@@ -109,6 +109,8 @@ class TokenizingController extends Controller
                     {
                         $save->count_neutral = $save->count_neutral + 1;
                     }
+
+                    $save->save();
                 }
             }
 
