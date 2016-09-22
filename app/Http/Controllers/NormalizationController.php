@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NormalizationWord;
 use App\Models\BagOfWord;
 use App\Http\Requests;
-
+use DB;
 use Redirect;
 
 class NormalizationController extends Controller
@@ -36,6 +36,7 @@ class NormalizationController extends Controller
     {
         $normalizations = NormalizationWord::all();
 
+        DB::beginTransaction();
         foreach($normalizations as $normalization)
         {
             $word = BagOfWord::search($normalization->word);
@@ -47,6 +48,7 @@ class NormalizationController extends Controller
                 $normal->save();
             }
         }
+        DB::commit();
 
         return Redirect::to('dashboard/tokenizing');
     }
