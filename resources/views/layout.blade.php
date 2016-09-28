@@ -20,7 +20,7 @@
 <script src="{{ URL::to('angular/app.js') }}"></script>
 
 <script src="{{ URL::to('angular/controllers/tfidfController.js') }}"></script>
-
+<script src="{{ URL::to('angular/ng-modules/bower_components/angularUtils-pagination/dirPagination.js') }}"></script>
 <script type="text/javascript">
     var host = "{{ URL::to('/') }}";
     var token = "{{ csrf_token() }}";
