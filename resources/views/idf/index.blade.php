@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" ng-controller="tfidfController">			
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
 			<li class="active">TF-IDF</li>
 		</ol>
 	</div><!--/.row-->
-	
+
 	<div class="row" style="margin-top : 20px;">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
@@ -18,7 +18,7 @@
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>TF-IDF</h3>
 						<p>Klik Process untuk menghitung nilai TF-IDF.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/idf/process') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/idf/process') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>
@@ -26,9 +26,9 @@
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>TF Selection</h3>
 						<p>Klik Process untuk menseleksi fitur dengan nilai tf diatas tertentu.</p>
-						<form role="form" action="{{ URL::to('dashboard/idf/tfselection') }} " method="post" enctype="multipart/form-data">	
+						<form role="form" action="{{ URL::to('dashboard/idf/tfselection') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group"> 
+							<div class="form-group">
 								<label>Value</label>
 								<input name="selection" type="text" class="form-control"></input>
 							</div>
@@ -38,9 +38,9 @@
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>IDF Selection</h3>
 						<p>Klik Process untuk menseleksi fitur dengan nilai dibawah tertentu.</p>
-						<form role="form" action="{{ URL::to('dashboard/idf/selection') }} " method="post" enctype="multipart/form-data">	
+						<form role="form" action="{{ URL::to('dashboard/idf/selection') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group"> 
+							<div class="form-group">
 								<label>Value</label>
 								<input name="selection" type="text" class="form-control"></input>
 							</div>
@@ -81,9 +81,9 @@
 				</div>
 			</div>
 		</div>
-	</div><!--/.row-->	
-	
-	
+	</div><!--/.row-->
+
+
 </div><!--/.main-->
 
 <link href="{{ URL::to('css/bootstrap-table.css') }}" rel="stylesheet">
@@ -94,9 +94,9 @@
 <script src="{{ URL::to('js/bootstrap-table.js') }}"></script>
 <script>
 	!function ($) {
-		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
-			$(this).find('em:first').toggleClass("glyphicon-minus");	  
-		}); 
+		$(document).on("click","ul.nav li.parent > a > span.icon", function(){
+			$(this).find('em:first').toggleClass("glyphicon-minus");
+		});
 		$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
 	}(window.jQuery);
 
@@ -106,7 +106,7 @@
 	$(window).on('resize', function () {
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
-</script>	
+</script>
 
 <style type="text/css">
 	.btn-file {

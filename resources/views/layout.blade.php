@@ -19,6 +19,8 @@
 <script src="{{ URL::to('node_modules/angular/angular.js') }}"></script>
 <script src="{{ URL::to('angular/app.js') }}"></script>
 
+<script src="{{ URL::to('angular/controllers/tfidfController.js') }}"></script>
+
 </head>
 
 <body ng-app="sentimentAnalysis">
