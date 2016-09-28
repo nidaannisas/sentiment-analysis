@@ -16,10 +16,12 @@
 <script src="js/html5shiv.js"></script>
 <script src="js/respond.min.js"></script>
 <![endif]-->
+<script src="{{ URL::to('node_modules/angular/angular.js') }}"></script>
+<script src="{{ URL::to('angular/app.js') }}"></script>
 
 </head>
 
-<body>
+<body ng-app="sentimentAnalysis">
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -41,10 +43,10 @@
 					</li>
 				</ul>
 			</div>
-							
+
 		</div><!-- /.container-fluid -->
 	</nav>
-		
+
 	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 		<form role="search">
 			<div class="form-group">
@@ -65,7 +67,7 @@
 		</ul>
 
 	</div><!--/.sidebar-->
-		
+
 	@yield('content')
 
 </body>
