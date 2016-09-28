@@ -1,15 +1,22 @@
-sentimentAnalysis.controller('tfidfController', function($scope)
+sentimentAnalysis.controller('tfidfController', function($scope, $http)
 {
-  $scope.sortType     = 'name'; // set the default sort type
-  $scope.sortReverse  = false;  // set the default sort order
-  $scope.searchFish   = '';     // set the default search/filter term
+    $scope.sortType     = 'id'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+    $scope.search   = '';     // set the default search/filter term
 
-  // create the list of sushi rolls
-  $scope.sushi = [
-      { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
-      { name: 'Philly', fish: 'Tuna', tastiness: 4 },
-      { name: 'Tiger', fish: 'Eel', tastiness: 7 },
-      { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
-  ];
+    $http(
+    {
+        url     : host + "/dashboard/idf/getTFIDF",
+        method  : "POST"
+    })
+    .success(function(data)
+    {
+        $scope.datas = data;
+        console.log($scope.datas);
+    })
+    .error(function (error)
+    {
+        console.log(error);
+    });
 
 });

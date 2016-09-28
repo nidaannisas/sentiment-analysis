@@ -21,6 +21,11 @@
 
 <script src="{{ URL::to('angular/controllers/tfidfController.js') }}"></script>
 
+<script type="text/javascript">
+    var host = "{{ URL::to('/') }}";
+    var token = "{{ csrf_token() }}";
+</script>
+
 </head>
 
 <body ng-app="sentimentAnalysis">

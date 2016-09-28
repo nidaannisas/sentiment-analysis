@@ -1,8 +1,7 @@
 @extends('layout')
-
 @section('content')
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" ng-controller="tfidfController">			
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" ng-controller="tfidfController">
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
@@ -51,16 +50,90 @@
 					<hr style="color: black; width: 100%;">
 
 					<div class="col-md-12">
-						<table class="data-table" data-toggle="table" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                    <input type="text" class="form-control" placeholder="Search da Fish" ng-model="search">
+                                </div>
+                             </div>
+                        </form>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td>
+                                        <a ng-click="sortType = 'id'; sortReverse = !sortReverse">
+                                            id
+                                            <span ng-show="sortType == 'id' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'id' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'word'; sortReverse = !sortReverse">
+                                            Term
+                                            <span ng-show="sortType == 'word' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'word' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'count_positive'; sortReverse = !sortReverse">
+                                            Count Positive
+                                            <span ng-show="sortType == 'count_positive' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'count_positive' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'count_negative'; sortReverse = !sortReverse">
+                                            Count Negative
+                                            <span ng-show="sortType == 'count_negative' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'count_negative' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'count_neutral'; sortReverse = !sortReverse">
+                                            Count Neutral
+                                            <span ng-show="sortType == 'count_neutral' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'count_neutral' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'count'; sortReverse = !sortReverse">
+                                            Count
+                                            <span ng-show="sortType == 'count' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'count' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a ng-click="sortType = 'idf'; sortReverse = !sortReverse">
+                                            IDF
+                                            <span ng-show="sortType == 'idf' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'idf' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in datas | orderBy:sortType:sortReverse | filter:search">
+                                    <td ng-bind="data.id"></td>
+                                    <td ng-bind="data.word"></td>
+                                    <td ng-bind="data.count_positive"></td>
+                                    <td ng-bind="data.count_negative"></td>
+                                    <td ng-bind="data.count_neutral"></td>
+                                    <td ng-bind="data.count"></td>
+                                    <td ng-bind="data.idf"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+						<!-- <table class="table table-bordered table-striped">
 						    <thead>
 						    <tr>
-						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="token" data-sortable="true" style="width: 80%;"">Token</th>
-						        <th data-field="positive"  data-sortable="true" style="width: 80%;"">Positive</th>
-						        <th data-field="negative"  data-sortable="true" style="width: 80%;"">Negative</th>
-						        <th data-field="neutral"  data-sortable="true" style="width: 80%;"">Neutral</th>
-						        <th data-field="jumlah"  data-sortable="true" style="width: 80%;"">Jumlah</th>
-						        <th data-field="IDF"  data-sortable="true" style="width: 80%;"">IDF</th>
+						        <th>Item ID</th>
+						        <th>Token</th>
+						        <th>Positive</th>
+						        <th>Negative</th>
+						        <th>Neutral</th>
+						        <th>Jumlah</th>
+						        <th>IDF</th>
 						    </tr>
 						    </thead>
 						    <tbody>
@@ -76,7 +149,7 @@
 							</tr>
 							@endforeach
 						    </tbody>
-						</table>
+						</table> -->
 					</div>
 				</div>
 			</div>
@@ -85,6 +158,9 @@
 
 
 </div><!--/.main-->
+
+<!-- CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 <link href="{{ URL::to('css/bootstrap-table.css') }}" rel="stylesheet">
 
