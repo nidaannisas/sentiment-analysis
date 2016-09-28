@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Models\TDM;
 use DB;
 use Redirect;
+use Response;
 
 class IDFController extends Controller
 {
@@ -18,6 +19,12 @@ class IDFController extends Controller
 
     	return view('idf.index')
     		->with('words', $words);
+    }
+
+    public function getTFIDF()
+    {
+        $words = BagOfWord::all();
+        return Response::json($words);
     }
 
     public function process()
