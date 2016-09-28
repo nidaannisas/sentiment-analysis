@@ -56,7 +56,7 @@
                                     <div class="input-group-addon"><i class="fa fa-search"></i></div>
                                     <input type="text" class="form-control" placeholder="Search da Fish" ng-model="search">
                                 </div>
-                             </div>
+                            </div>
                         </form>
                         <table class="table table-striped">
                             <thead>
@@ -113,7 +113,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="data in datas | orderBy:sortType:sortReverse | filter:search">
+                                <tr dir-paginate="data in datas | orderBy:sortType:sortReverse | filter:search|itemsPerPage:10">
                                     <td ng-bind="data.id"></td>
                                     <td ng-bind="data.word"></td>
                                     <td ng-bind="data.count_positive"></td>
@@ -125,50 +125,11 @@
                             </tbody>
                         </table>
 
-                        <!-- pager -->
-                        <ul ng-if="pager.pages.length" class="pagination">
-                            <li ng-class="{disabled:pager.currentPage === 1}">
-                                <a ng-click="vm.setPage(1)">First</a>
-                            </li>
-                            <li ng-class="{disabled:pager.currentPage === 1}">
-                                <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
-                            </li>
-                            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
-                                <a ng-click="setPage(page)" ng-bind="page"></a>
-                            </li>
-                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-                                <a ng-click="setPage(pager.currentPage + 1)">Next</a>
-                            </li>
-                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
-                                <a ng-click="setPage(pager.totalPages)">Last</a>
-                            </li>
-                        </ul>
-						<!-- <table class="table table-bordered table-striped">
-						    <thead>
-						    <tr>
-						        <th>Item ID</th>
-						        <th>Token</th>
-						        <th>Positive</th>
-						        <th>Negative</th>
-						        <th>Neutral</th>
-						        <th>Jumlah</th>
-						        <th>IDF</th>
-						    </tr>
-						    </thead>
-						    <tbody>
-						    @foreach($words as $word)
-						    <tr>
-						    	<td>{{ $word->id }}</td>
-						    	<td>{{ $word->word }}</td>
-						    	<td>{{ $word->count_positive }}</td>
-						    	<td>{{ $word->count_negative }}</td>
-						    	<td>{{ $word->count_neutral }}</td>
-						    	<td>{{ $word->count }}</td>
-						    	<td>{{ $word->idf }}</td>
-							</tr>
-							@endforeach
-						    </tbody>
-						</table> -->
+                        <dir-pagination-controls
+                            max-size="7"
+                            direction-links="true"
+                            boundary-links="true" class="pull-right">
+                        </dir-pagination-controls>
 					</div>
 				</div>
 			</div>

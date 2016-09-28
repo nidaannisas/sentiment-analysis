@@ -1,1 +1,1 @@
-var sentimentAnalysis = angular.module('sentimentAnalysis', []);
+var sentimentAnalysis = angular.module('sentimentAnalysis', ['angularUtils.directives.dirPagination']);
