@@ -50,6 +50,7 @@ class IDFController extends Controller
         $selection = $request->input('selection');
         $bow = BagOfWord::all();
 
+        DB::beginTransaction();
         foreach($bow as $bag)
         {
             if($bag->idf <= $selection)
@@ -68,6 +69,8 @@ class IDFController extends Controller
                 BagOfWord::destroy($bag->id);
             }
         }
+        DB::commit();
+
         return Redirect::to('dashboard/idf');
     }
 
@@ -77,6 +80,7 @@ class IDFController extends Controller
         $selection = $request->input('selection');
         $bow = BagOfWord::all();
 
+        DB::beginTransaction();
         foreach($bow as $bag)
         {
             if($bag->count <= $selection)
@@ -95,6 +99,8 @@ class IDFController extends Controller
                 BagOfWord::destroy($bag->id);
             }
         }
+        DB::commit();
+
         return Redirect::to('dashboard/idf');
     }
 }
