@@ -58,7 +58,7 @@
                                 </div>
                              </div>
                         </form>
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <td>
@@ -124,6 +124,25 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <!-- pager -->
+                        <ul ng-if="pager.pages.length" class="pagination">
+                            <li ng-class="{disabled:pager.currentPage === 1}">
+                                <a ng-click="vm.setPage(1)">First</a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === 1}">
+                                <a ng-click="setPage(pager.currentPage - 1)">Previous</a>
+                            </li>
+                            <li ng-repeat="page in pager.pages" ng-class="{active:pager.currentPage === page}">
+                                <a ng-click="setPage(page)" ng-bind="page"></a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                                <a ng-click="setPage(pager.currentPage + 1)">Next</a>
+                            </li>
+                            <li ng-class="{disabled:pager.currentPage === pager.totalPages}">
+                                <a ng-click="setPage(pager.totalPages)">Last</a>
+                            </li>
+                        </ul>
 						<!-- <table class="table table-bordered table-striped">
 						    <thead>
 						    <tr>
