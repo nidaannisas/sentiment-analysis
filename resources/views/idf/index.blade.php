@@ -54,7 +54,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                                    <input type="text" class="form-control" placeholder="Search da Fish" ng-model="search">
+                                    <input type="text" class="form-control" placeholder="Search" ng-model="search">
                                 </div>
                             </div>
                         </form>
