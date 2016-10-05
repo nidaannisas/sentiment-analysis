@@ -107,14 +107,20 @@ class EvaluationController extends Controller
 
         $words = array_unique($words);
         $words = array_values($words);
-        //var_dump($words);
+
         $words = $this->quicksort($words);
 
-        //$coba = ['a', 'b', 'c'];
+        $normalizations = NormalizationWord::all();
 
-        //var_dump($words);
+        foreach($normalizations as $normalization)
+        {
+            $search = $this->BinarySearch($words, $normalization->word, 0, count($words)-1);
+            if($search > -1)
+            {
+                $words[$search] = $normalization->normal_word;
+            }
 
-        echo $this->BinarySearch($words, 'a', 0, count($words));
+        }
 
         $time_elapsed_secs = microtime(true) - $start;
 
