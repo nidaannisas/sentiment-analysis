@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
+use App\Models\Stopword;
 use App\Http\Requests;
 
 use Redirect;
@@ -118,6 +119,19 @@ class EvaluationController extends Controller
             if($search > -1)
             {
                 $words[$search] = $normalization->normal_word;
+            }
+
+        }
+
+        $stopwords = Stopword::all();
+
+        foreach($stopwords as $stopword)
+        {
+            $search = $this->BinarySearch($words, $stopword->word, 0, count($words)-1);
+            if($search > -1)
+            {
+                unset($words[$search]);
+                $words = array_values($words);
             }
 
         }
