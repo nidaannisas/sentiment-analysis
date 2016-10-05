@@ -46,7 +46,7 @@ class NaiveBayesController extends Controller
         $words = array();
         $delim = " \n.,;-()";
         $tok = strtok($tweet, $delim);
-        while ($tok !== false) 
+        while ($tok !== false)
         {
             $words[] = $tok;
             $tok = strtok($delim);
@@ -102,7 +102,7 @@ class NaiveBayesController extends Controller
         $tweet = $this->stopwordRemoval($tweet);
 
         // jumlah dokumen
-        $N = count(Tweet::all());               
+        $N = count(Tweet::all());
 
         $p_positive = Tweet::countPositive()/$N;
         $p_negative = Tweet::countNegative()/$N;
