@@ -61,7 +61,7 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked desktop"><use xlink:href="#stroked-desktop"/></svg> Dashboard</a></li>
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
 			<li class="<?php if (Request::is('dashboard/remove-duplicate')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/remove-duplicate') }}"><svg class="glyph stroked cancel"><use xlink:href="#stroked-cancel"/></svg> Remove Duplicate</a></li>
 			<li class="<?php if (Request::is('dashboard/negation-handling')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/negation-handling') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> Negation Handling</a></li>
@@ -71,6 +71,7 @@
 			<li class="<?php if (Request::is('dashboard/idf')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/idf') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> TF-IDF</a></li>
 
 			<li class="<?php if (Request::is('dashboard/naive-bayes')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/naive-bayes') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg> Naive Bayes</a></li>
+            <li class="<?php if (Request::is('dashboard/evaluation')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Evaluation</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
