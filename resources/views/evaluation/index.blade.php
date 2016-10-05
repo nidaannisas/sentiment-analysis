@@ -6,7 +6,7 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-			<li class="active">Naive Bayes</li>
+			<li class="active">Evaluation</li>
 		</ol>
 	</div><!--/.row-->
 
@@ -14,20 +14,30 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel-heading">Naive Bayes</div>
+					<div class="panel-heading">Evaluation</div>
 					<div class="col-md-6">
-						<h3>Klasifikasi Naive Bayes</h3>
-						<p>Tambahkan tweets pada form disamping untuk klasifikasi menggunakan naive bayes.</p>
+						<h3>K-fold Cross Validation</h3>
+                        <form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div class="form-group">
+								<label>Pembagian Data</label><br>
+                                <div class="col-md-3 no-padding">
+        							<input name="train" type="text" class="form-control"></input>
+                                </div>
+                                <div class="col-md-1 text-center"> : </div>
+                                <div class="col-md-3 no-padding">
+        							<input name="test" type="text" class="form-control"></input>
+                                </div>
+                            </div>
+                            <br><br>
+                            <div class="form-group">
+								<label>K</label><br>
+                                <input name="k" type="text" class="form-control" style="width:25%;"></input>
+                            </div>
+						</form>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group">
-								<label>Tweets</label>
-								<textarea name="tweet" class="form-control" rows="4"></textarea>
-							</div>
-							<button class="btn btn-primary pull-right" type="submit">Classify</button>
-						</form>
+
 					</div>
 					<hr style="color: black; width: 100%;">
 					<div class="col-md-12">
