@@ -42,6 +42,27 @@ class EvaluationController extends Controller
         return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
     }
 
+    function BinarySearch($array, $key, $low, $high)
+    {
+        if( $low > $high ) // termination case
+        {
+            return -1;
+        }
+
+        $middle = intval( ( $low+$high )/2 ); // gets the middle of the array
+
+        if ( $array[$middle] == $key ) // if the middle is our key
+        {
+            return $middle;
+        }
+        elseif ( $key < $array[$middle] ) // our key might be in the left sub-array
+        {
+            return $this->BinarySearch( $array, $key, $low, $middle-1 );
+        }
+
+        return $this->BinarySearch( $array, $key, $middle+1, $high ); // our key might be in the right sub-array
+    }
+
     public function evaluate()
     {
         $start = microtime(true);
@@ -84,10 +105,19 @@ class EvaluationController extends Controller
             }
         }
 
-        $yaya = $this->quicksort($words);
+        $words = array_unique($words);
+        $words = array_values($words);
+        //var_dump($words);
+        $words = $this->quicksort($words);
+
+        //$coba = ['a', 'b', 'c'];
+
+        //var_dump($words);
+
+        echo $this->BinarySearch($words, 'a', 0, count($words));
 
         $time_elapsed_secs = microtime(true) - $start;
 
-        echo $time_elapsed_secs;
+        echo ' '.$time_elapsed_secs;
     }
 }
