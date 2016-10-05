@@ -15,8 +15,8 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">Evaluation</div>
-					<div class="col-md-6">
-						<h3>K-fold Cross Validation</h3>
+					<div class="col-md-4" style="padding-bottom: 20px;">
+                        <h3>K-fold Cross Validation</h3>
                         <form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
@@ -34,32 +34,46 @@
 								<label>K</label><br>
                                 <input name="k" type="text" class="form-control" style="width:25%;"></input>
                             </div>
+
+                            <button class="btn btn-default" type="submit">Evaluate</button>
 						</form>
 					</div>
-					<div class="col-md-6" style="padding-bottom: 20px;">
+					<div class="col-md-8" style="padding-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel" style="padding: 10%;">
+                                        <h3>Accuracy</h3>
+                                        <div class="easypiechart" id="easypiechart-blue" data-percent="60" ><span class="percent">60%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel">
+                                        <h3>Precision</h3>
+                                        <div class="easypiechart" id="easypiechart-red" data-percent="55" ><span class="percent">55%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel">
+                                        <h3>Recall</h3>
+                                        <div class="easypiechart" id="easypiechart-teal" data-percent="80" ><span class="percent">80%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--/.row-->
 
 					</div>
 					<hr style="color: black; width: 100%;">
-					<div class="col-md-12">
-						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true">
-						    <thead>
-						    <tr>
-						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="name"  data-sortable="true" style="width: 80%;"">Tweet</th>
-						        <th data-field="price" data-sortable="true">Sentiment</th>
-						    </tr>
-						    </thead>
-						    <tbody>
-						    @foreach($tweets as $tweet)
-						    <tr>
-						    	<td>{{ $tweet->id }}</td>
-						    	<td>{{ $tweet->tweet }}</td>
-						    	<td>{{ $tweet->sentiment->name }}</td>
-							</tr>
-							@endforeach
-						    </tbody>
-						</table>
-					</div>
+
+
 				</div>
 			</div>
 		</div>
@@ -74,6 +88,10 @@
 <script src="{{ URL::to('js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::to('js/bootstrap-datepicker.js') }}"></script>
 <script src="{{ URL::to('js/bootstrap-table.js') }}"></script>
+<script src="{{ URL::to('js/chart.min.js') }}"></script>
+<script src="{{ URL::to('js/chart-data.js') }}"></script>
+<script src="{{ URL::to('js/easypiechart.js') }}"></script>
+<script src="{{ URL::to('js/easypiechart-data.js') }}"></script>
 <script>
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){
@@ -89,5 +107,12 @@
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
 </script>
+
+<style>
+.easypiechart-panel
+{
+    padding: 10%;
+}
+</style>
 
 @stop
