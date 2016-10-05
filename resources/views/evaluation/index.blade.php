@@ -17,7 +17,7 @@
 					<div class="panel-heading">Evaluation</div>
 					<div class="col-md-4" style="padding-bottom: 20px;">
                         <h3>K-fold Cross Validation</h3>
-                        <form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">
+                        <form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
 								<label>Pembagian Data</label><br>
