@@ -145,3 +145,8 @@ Route::get('dashboard/evaluation', [
     'as' => 'dashboard.evaluation.index',
     'uses' => 'EvaluationController@index'
 ]);
+
+Route::post('dashboard/evaluation/evaluate', [
+    'as' => 'dashboard.evaluation.evaluate',
+    'uses' => 'EvaluationController@evaluate'
+]);
