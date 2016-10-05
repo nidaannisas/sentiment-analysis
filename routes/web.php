@@ -140,3 +140,8 @@ Route::post('dashboard/negation-handling/process', [
     'as' => 'dashboard.negationhandling.process',
     'uses' => 'NegationHandlingController@process'
 ]);
+
+Route::get('dashboard/evaluation', [
+    'as' => 'dashboard.evaluation.index',
+    'uses' => 'EvaluationController@index'
+]);
