@@ -35,7 +35,10 @@
                                 <input name="k" type="text" class="form-control" style="width:25%;"></input>
                             </div>
 
-                            <button class="btn btn-default" type="submit">Evaluate</button>
+                            <p>
+                                Last updated at 3 January 2016
+                            </p>
+                            <button class="btn btn-default pull-right" type="submit">Evaluate</button>
 						</form>
 					</div>
 					<div class="col-md-8" style="padding-bottom: 20px;">
