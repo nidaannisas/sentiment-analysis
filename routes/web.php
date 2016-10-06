@@ -150,3 +150,8 @@ Route::post('dashboard/evaluation/evaluate', [
     'as' => 'dashboard.evaluation.evaluate',
     'uses' => 'EvaluationController@evaluate'
 ]);
+
+Route::get('dashboard/rocchio', [
+    'as' => 'dashboard.rocchio.index',
+    'uses' => 'RocchioController@index'
+]);
