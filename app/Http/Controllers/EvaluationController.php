@@ -21,28 +21,6 @@ class EvaluationController extends Controller
     		->with('tweets', $tweets);
     }
 
-    public function quicksort($seq)
-    {
-        if(!count($seq)) return $seq;
-
-        $k = $seq[0];
-        $x = $y = array();
-
-        for($i=count($seq); --$i;)
-        {
-            if($seq[$i] <= $k)
-            {
-                $x[] = $seq[$i];
-            }
-            else
-            {
-                $y[] = $seq[$i];
-            }
-        }
-
-        return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
-    }
-
     public function evaluate()
     {
         $start = microtime(true);
