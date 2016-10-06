@@ -31,4 +31,26 @@ class Controller extends BaseController
 
         return $this->BinarySearch( $array, $key, $middle+1, $high ); // our key might be in the right sub-array
     }
+
+    public function quicksort($seq)
+    {
+        if(!count($seq)) return $seq;
+
+        $k = $seq[0];
+        $x = $y = array();
+
+        for($i=count($seq); --$i;)
+        {
+            if($seq[$i] <= $k)
+            {
+                $x[] = $seq[$i];
+            }
+            else
+            {
+                $y[] = $seq[$i];
+            }
+        }
+
+        return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
+    }
 }
