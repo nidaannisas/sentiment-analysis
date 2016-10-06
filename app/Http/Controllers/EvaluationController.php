@@ -101,6 +101,23 @@ class EvaluationController extends Controller
         return $tweets;
     }
 
+    public function stopword($tweets)
+    {
+        $stopwords = Stopword::all();
+
+        foreach($stopwords as $stopword)
+        {
+            $search = $this->BinarySearch($tweets, $stopword->word, 0, count($tweets)-1);
+            if($search > -1)
+            {
+                unset($tweets[$search]);
+                $tweets = array_values($tweets);
+            }
+        }
+
+        return $tweets;
+    }
+
     public function evaluate()
     {
         $start = microtime(true);
@@ -128,18 +145,9 @@ class EvaluationController extends Controller
         // words normalization
         $words = $this->normalization($words);
 
-        //
-        // $stopwords = Stopword::all();
-        //
-        // foreach($stopwords as $stopword)
-        // {
-        //     $search = $this->BinarySearch($words, $stopword->word, 0, count($words)-1);
-        //     if($search > -1)
-        //     {
-        //         unset($words[$search]);
-        //         $words = array_values($words);
-        //     }
-        // }
+        // stopwords
+        $words = $this->stopword($words);
+
         //
         // $p_positive = $count_tweet_positive/$N;
         // $p_negative = $count_tweet_negative/$N;
