@@ -118,9 +118,45 @@ class EvaluationController extends Controller
         return $tweets;
     }
 
-    public function naiveBayes($tweet)
+    public function naiveBayes($tweet, $N)
     {
+        $p_positive = $count_tweet_positive/$N;
+        $p_negative = $count_tweet_negative/$N;
+        $p_neutral = $count_tweet_neutral/$N;
 
+        // size vocabulary
+        $v = count($words);
+
+        foreach($test as $tweet)
+        {
+            // calculate positive
+            foreach($tweet as $word)
+            {
+                $p_word = ($count_positive + 1)/(BagOfWord::countWord($word) + $v);
+                $p_positive = $p_positive * $p_word;
+            }
+
+            // calculate negative
+            foreach($tweet as $word)
+            {
+                $p_word = ($count_negative + 1)/(BagOfWord::countWord($word) + $v);
+                $p_negative = $p_negative * $p_word;
+            }
+
+            // calculate neutral
+            foreach($tweet as $word)
+            {
+                $p_word = ($count_ + 1)/(BagOfWord::countWord($word) + $v);
+                $p_neutral = $p_neutral * $p_word;
+            }
+
+            if($p_positive > $p_negative && $p_positive > $p_neutral)
+                return 1;   // positive
+            else if($p_negative > $p_positive && $p_negative > $p_neutral)
+                return 2;   // negative
+            else
+                return 3;   // neutral
+        }
     }
 
     public function evaluate()
@@ -153,44 +189,10 @@ class EvaluationController extends Controller
         // stopwords
         $words = $this->stopword($words);
 
-        //
-        // $p_positive = $count_tweet_positive/$N;
-        // $p_negative = $count_tweet_negative/$N;
-        // $p_neutral = $count_tweet_neutral/$N;
-        //
-        // // size vocabulary
-        // $v = count($words);
+        // Seleksi fitur gimana ?
 
-        // foreach($test as $tweet)
-        // {
-        //     // calculate positive
-        //     foreach($tweet as $word)
-        //     {
-        //         $p_word = ($count_positive + 1)/(BagOfWord::countWord($word) + $v);
-        //         $p_positive = $p_positive * $p_word;
-        //     }
-        //
-        //     // calculate negative
-        //     foreach($tweet as $word)
-        //     {
-        //         $p_word = ($count_negative + 1)/(BagOfWord::countWord($word) + $v);
-        //         $p_negative = $p_negative * $p_word;
-        //     }
-        //
-        //     // calculate neutral
-        //     foreach($tweet as $word)
-        //     {
-        //         $p_word = ($count_ + 1)/(BagOfWord::countWord($word) + $v);
-        //         $p_neutral = $p_neutral * $p_word;
-        //     }
-        //
-        //     if($p_positive > $p_negative && $p_positive > $p_neutral)
-        //         return 1;   // positive
-        //     else if($p_negative > $p_positive && $p_negative > $p_neutral)
-        //         return 2;   // negative
-        //     else
-        //         return 3;   // neutral
-        // }
+        // naive bayes
+
 
         $time_elapsed_secs = microtime(true) - $start;
 
