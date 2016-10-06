@@ -23,7 +23,7 @@ class TokenizingController extends Controller
     public function tokenize()
     {
         // underscore masih kehapus
-        
+
         // delete all field
         DB::table('bag-of-words')->delete();
 
@@ -42,7 +42,7 @@ class TokenizingController extends Controller
             $words = array();
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
-            while ($tok !== false) 
+            while ($tok !== false)
             {
                 $words[] = $tok;
                 $tok = strtok($delim);
