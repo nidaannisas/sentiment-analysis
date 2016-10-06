@@ -118,6 +118,11 @@ class EvaluationController extends Controller
         return $tweets;
     }
 
+    public function naiveBayes($tweet)
+    {
+
+    }
+
     public function evaluate()
     {
         $start = microtime(true);
@@ -125,7 +130,7 @@ class EvaluationController extends Controller
         $tweets = Tweet::getTweets();
         $train = array_slice($tweets,0,7);
         $test = array_slice($tweets,8,10);
-        $N = 8;
+        $N = count($train);
 
         // tokenizing
         $tokenizing = $this->tokenizing($train);
