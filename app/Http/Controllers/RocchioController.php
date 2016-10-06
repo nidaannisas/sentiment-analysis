@@ -19,7 +19,7 @@ class RocchioController extends Controller
     {
     	$tweets = TweetTest::orderBy('id', 'DESC')->get();
 
-    	return view('naive-bayes.index')
+    	return view('rocchio.index')
     		->with('tweets', $tweets);
     }
 
