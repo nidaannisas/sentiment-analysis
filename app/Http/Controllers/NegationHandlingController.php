@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Http\Requests;
-
+use DB;
 use Redirect;
 
 class NegationHandlingController extends Controller
@@ -25,20 +25,20 @@ class NegationHandlingController extends Controller
         DB::beginTransaction();
         foreach($tweets as $tweet)
         {
-            if (strpos($tweet->tweet, 'tidak') !== false) 
+            if (strpos($tweet->tweet, 'tidak') !== false)
             {
                 $data = $tweet->tweet;
                 // tokenize
                 $words = array();
                 $delim = " \n.,;-()";
                 $tok = strtok($tweet->tweet, $delim);
-                while ($tok !== false) 
+                while ($tok !== false)
                 {
                     $words[] = $tok;
                     $tok = strtok($delim);
                 }
 
-                foreach ($words as $key => $word) 
+                foreach ($words as $key => $word)
                 {
                     if($word == 'tidak')
                     {
@@ -57,13 +57,13 @@ class NegationHandlingController extends Controller
                 // negated
                 $words2 = array();
                 $token = strtok($data, $delim);
-                while ($token !== false) 
+                while ($token !== false)
                 {
                     $words2[] = $token;
                     $token = strtok($delim);
                 }
 
-                foreach ($words2 as $key => $word) 
+                foreach ($words2 as $key => $word)
                 {
                     if($word == 'tidak')
                     {
