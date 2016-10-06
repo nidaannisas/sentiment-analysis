@@ -84,6 +84,23 @@ class EvaluationController extends Controller
         return $result;
     }
 
+    public function normalization($tweets)
+    {
+        $normalizations = NormalizationWord::all();
+
+        foreach($normalizations as $normalization)
+        {
+            $search = $this->BinarySearch($tweets, $normalization->word, 0, count($tweets)-1);
+            if($search > -1)
+            {
+                $tweets[$search] = $normalization->normal_word;
+            }
+
+        }
+
+        return $tweets;
+    }
+
     public function evaluate()
     {
         $start = microtime(true);
@@ -107,18 +124,10 @@ class EvaluationController extends Controller
 
         // sort bag of words
         $words = $this->quicksort($words);
-        //
-        // $normalizations = NormalizationWord::all();
-        //
-        // foreach($normalizations as $normalization)
-        // {
-        //     $search = $this->BinarySearch($words, $normalization->word, 0, count($words)-1);
-        //     if($search > -1)
-        //     {
-        //         $words[$search] = $normalization->normal_word;
-        //     }
-        //
-        // }
+
+        // words normalization
+        $words = $this->normalization($words);
+
         //
         // $stopwords = Stopword::all();
         //
