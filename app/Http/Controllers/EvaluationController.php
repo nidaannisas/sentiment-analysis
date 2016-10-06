@@ -105,7 +105,8 @@ class EvaluationController extends Controller
         $count_tweet_negative = $tokenizing['count_tweet_negative'];
         $count_tweet_neutral = $tokenizing['count_tweet_neutral'];
 
-        // $words = $this->quicksort($words);
+        // sort bag of words
+        $words = $this->quicksort($words);
         //
         // $normalizations = NormalizationWord::all();
         //
