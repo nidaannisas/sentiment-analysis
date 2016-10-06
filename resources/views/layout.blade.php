@@ -71,12 +71,13 @@
 			<li class="<?php if (Request::is('dashboard/idf')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/idf') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> TF-IDF</a></li>
 
 			<li class="<?php if (Request::is('dashboard/naive-bayes')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/naive-bayes') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg> Naive Bayes</a></li>
-            <li class="<?php if (Request::is('dashboard/evaluation')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Evaluation</a></li>
+      <li class="<?php if (Request::is('dashboard/rocchio')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/rocchio') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg>Rocchio</a></li>
+      <li class="<?php if (Request::is('dashboard/evaluation')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Evaluation</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
 
-	@yield('content')
+	@yield('content') <!-- ini manggil, kaya include -->
 
 </body>
 
