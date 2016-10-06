@@ -21,19 +21,25 @@ class EvaluationController extends Controller
     		->with('tweets', $tweets);
     }
 
-    public function evaluate()
+    public function tokenizing($tweets)
     {
-        $start = microtime(true);
-
-        $tweets = Tweet::all();
-
-        $words = array();
         $count_positive = 0;
         $count_negative = 0;
         $count_neutral = 0;
 
+        $count_tweet_positive = 0;
+        $count_tweet_negative = 0;
+        $count_tweet_neutral = 0;
+
         foreach($tweets as $tweet)
         {
+            if($tweet->sentiment_id == 1)
+                $count_tweet_positive++;
+            else if($tweet->sentiment_id == 2)
+                $count_tweet_negative++;
+            else
+                $count_tweet_neutral++;
+
             // remove except letter
             //$tweet->tweet = preg_replace('#^https?://*/', '', $tweet->tweet);
             $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/', '#^https?([a-zA-Z_ -]*)#'), array('', ' ', ''), $tweet->tweet);
@@ -66,31 +72,103 @@ class EvaluationController extends Controller
         $words = array_unique($words);
         $words = array_values($words);
 
-        $words = $this->quicksort($words);
+        $result = array("words" => $words,
+                        "count_positive" => $count_positive,
+                        "count_negative" => $count_negative,
+                        "count_neutral" => $count_neutral,
+                        "count_tweet_positive" => $count_tweet_positive = 0,
+                        "count_tweet_negative" => $count_tweet_negative = 0,
+                        "count_tweet_neutral" => $count_tweet_neutral = 0,
+                    );
+                    
+        return $result;
+    }
 
-        $normalizations = NormalizationWord::all();
+    public function evaluate()
+    {
+        $start = microtime(true);
 
-        foreach($normalizations as $normalization)
-        {
-            $search = $this->BinarySearch($words, $normalization->word, 0, count($words)-1);
-            if($search > -1)
-            {
-                $words[$search] = $normalization->normal_word;
-            }
+        $tweets = Tweet::getTweets();
+        $train = array_slice($tweets,0,7);
+        $test = array_slice($tweets,8,10);
+        $N = 8;
 
-        }
+        $words = array();
+        $count_positive = 0;
+        $count_negative = 0;
+        $count_neutral = 0;
 
-        $stopwords = Stopword::all();
+        $count_tweet_positive = 0;
+        $count_tweet_negative = 0;
+        $count_tweet_neutral = 0;
 
-        foreach($stopwords as $stopword)
-        {
-            $search = $this->BinarySearch($words, $stopword->word, 0, count($words)-1);
-            if($search > -1)
-            {
-                unset($words[$search]);
-                $words = array_values($words);
-            }
-        }
+        // tokenizing
+
+        var_dump($this->tokenizing($train));
+
+        // $words = $this->quicksort($words);
+        //
+        // $normalizations = NormalizationWord::all();
+        //
+        // foreach($normalizations as $normalization)
+        // {
+        //     $search = $this->BinarySearch($words, $normalization->word, 0, count($words)-1);
+        //     if($search > -1)
+        //     {
+        //         $words[$search] = $normalization->normal_word;
+        //     }
+        //
+        // }
+        //
+        // $stopwords = Stopword::all();
+        //
+        // foreach($stopwords as $stopword)
+        // {
+        //     $search = $this->BinarySearch($words, $stopword->word, 0, count($words)-1);
+        //     if($search > -1)
+        //     {
+        //         unset($words[$search]);
+        //         $words = array_values($words);
+        //     }
+        // }
+        //
+        // $p_positive = $count_tweet_positive/$N;
+        // $p_negative = $count_tweet_negative/$N;
+        // $p_neutral = $count_tweet_neutral/$N;
+        //
+        // // size vocabulary
+        // $v = count($words);
+
+        // foreach($test as $tweet)
+        // {
+        //     // calculate positive
+        //     foreach($tweet as $word)
+        //     {
+        //         $p_word = ($count_positive + 1)/(BagOfWord::countWord($word) + $v);
+        //         $p_positive = $p_positive * $p_word;
+        //     }
+        //
+        //     // calculate negative
+        //     foreach($tweet as $word)
+        //     {
+        //         $p_word = ($count_negative + 1)/(BagOfWord::countWord($word) + $v);
+        //         $p_negative = $p_negative * $p_word;
+        //     }
+        //
+        //     // calculate neutral
+        //     foreach($tweet as $word)
+        //     {
+        //         $p_word = ($count_ + 1)/(BagOfWord::countWord($word) + $v);
+        //         $p_neutral = $p_neutral * $p_word;
+        //     }
+        //
+        //     if($p_positive > $p_negative && $p_positive > $p_neutral)
+        //         return 1;   // positive
+        //     else if($p_negative > $p_positive && $p_negative > $p_neutral)
+        //         return 2;   // negative
+        //     else
+        //         return 3;   // neutral
+        // }
 
         $time_elapsed_secs = microtime(true) - $start;
 
