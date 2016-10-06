@@ -80,7 +80,7 @@ class EvaluationController extends Controller
                         "count_tweet_negative" => $count_tweet_negative = 0,
                         "count_tweet_neutral" => $count_tweet_neutral = 0,
                     );
-                    
+
         return $result;
     }
 
@@ -93,18 +93,17 @@ class EvaluationController extends Controller
         $test = array_slice($tweets,8,10);
         $N = 8;
 
-        $words = array();
-        $count_positive = 0;
-        $count_negative = 0;
-        $count_neutral = 0;
-
-        $count_tweet_positive = 0;
-        $count_tweet_negative = 0;
-        $count_tweet_neutral = 0;
-
         // tokenizing
+        $tokenizing = $this->tokenizing($train);
+        $words = $tokenizing['words'];
 
-        var_dump($this->tokenizing($train));
+        $count_positive = $tokenizing['count_positive'];
+        $count_negative = $tokenizing['count_negative'];
+        $count_neutral = $tokenizing['count_neutral'];
+
+        $count_tweet_positive = $tokenizing['count_tweet_positive'];
+        $count_tweet_negative = $tokenizing['count_tweet_negative'];
+        $count_tweet_neutral = $tokenizing['count_tweet_neutral'];
 
         // $words = $this->quicksort($words);
         //
