@@ -114,21 +114,21 @@ class NaiveBayesController extends Controller
         // calculate positive
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWordPositive() + $v);
             $p_positive = $p_positive * $p_word;
         }
 
         // calculate negative
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWordNegative() + $v);
             $p_negative = $p_negative * $p_word;
         }
 
         // calculate neutral
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWord($word) + $v);
+            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWordNeutral() + $v);
             $p_neutral = $p_neutral * $p_word;
         }
 
