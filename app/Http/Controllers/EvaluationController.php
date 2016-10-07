@@ -21,6 +21,23 @@ class EvaluationController extends Controller
     		->with('tweets', $tweets);
     }
 
+    public function unique_multidim_array($array, $key)
+    {
+        $temp_array = array();
+        $i = 0;
+        $key_array = array();
+
+        foreach($array as $val) {
+            if (!in_array($val[$key], $key_array)) {
+                $key_array[$i] = $val[$key];
+                $temp_array[$i] = $val;
+            }
+            $i++;
+        }
+
+        return $temp_array;
+    }
+
     public function tokenizing($tweets)
     {
         $count_positive = 0;
@@ -49,28 +66,33 @@ class EvaluationController extends Controller
 
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
+            $i = 0;
             while ($tok !== false)
             {
-                $words[] = $tok;
+                $words[$i]['term'] = $tok;
                 $tok = strtok($delim);
 
                 if($tweet->sentiment_id == 1)
                 {
-                    $count_positive = $count_positive + 1;
+                    $words[$i]['count_positive'] = $count_positive + 1;
                 }
                 else if($tweet->sentiment_id == 2)
                 {
-                    $count_negative = $count_negative + 1;
+                    $words[$i]['count_negative'] = $count_negative + 1;
                 }
                 else
                 {
-                    $count_neutral = $count_neutral + 1;
+                    $words[$i]['count_neutral'] = $count_neutral + 1;
                 }
+
+                $i++;
             }
         }
 
-        $words = array_unique($words);
-        $words = array_values($words);
+        //$words = $this->quicksort_multidimension($words, 'term');
+        //$words = $this->unique_multidim_array($words,'term');
+        // $words = array_unique($words);
+        // $words = array_values($words);
 
         $result = array("words" => $words,
                         "count_positive" => $count_positive,
@@ -118,7 +140,7 @@ class EvaluationController extends Controller
         return $tweets;
     }
 
-    public function naiveBayes($tweet, $N)
+    public function naiveBayes($data)
     {
         $p_positive = $count_tweet_positive/$N;
         $p_negative = $count_tweet_negative/$N;
@@ -164,34 +186,39 @@ class EvaluationController extends Controller
         $start = microtime(true);
 
         $tweets = Tweet::getTweets();
-        $train = array_slice($tweets,0,7);
+        $train = array_slice($tweets,0,13);
         $test = array_slice($tweets,8,10);
         $N = count($train);
 
+        var_dump(count($tweets));
+        var_dump(count($train));
+
         // tokenizing
         $tokenizing = $this->tokenizing($train);
-        $words = $tokenizing['words'];
 
-        $count_positive = $tokenizing['count_positive'];
-        $count_negative = $tokenizing['count_negative'];
-        $count_neutral = $tokenizing['count_neutral'];
-
-        $count_tweet_positive = $tokenizing['count_tweet_positive'];
-        $count_tweet_negative = $tokenizing['count_tweet_negative'];
-        $count_tweet_neutral = $tokenizing['count_tweet_neutral'];
-
-        // sort bag of words
-        $words = $this->quicksort($words);
-
-        // words normalization
-        $words = $this->normalization($words);
-
-        // stopwords
-        $words = $this->stopword($words);
-
-        // Seleksi fitur gimana ?
-
-        // naive bayes
+        foreach($tokenizing['words'] as $t) echo $t['term'].'<br />';
+        // $words = $tokenizing['words'];
+        //
+        // $count_positive = $tokenizing['count_positive'];
+        // $count_negative = $tokenizing['count_negative'];
+        // $count_neutral = $tokenizing['count_neutral'];
+        //
+        // $count_tweet_positive = $tokenizing['count_tweet_positive'];
+        // $count_tweet_negative = $tokenizing['count_tweet_negative'];
+        // $count_tweet_neutral = $tokenizing['count_tweet_neutral'];
+        //
+        // // sort bag of words
+        // $words = $this->quicksort($words);
+        //
+        // // words normalization
+        // $words = $this->normalization($words);
+        //
+        // // stopwords
+        // $words = $this->stopword($words);
+        //
+        // // Seleksi fitur gimana ?
+        //
+        // // naive bayes
 
 
         $time_elapsed_secs = microtime(true) - $start;
