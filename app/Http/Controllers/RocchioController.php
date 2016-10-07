@@ -29,10 +29,11 @@ class RocchioController extends Controller
 
     	$tweets = new TweetTest;
     	$tweets->tweet = $tweet; //tweet nama field di tabel tweets_tests
-        $tweets->sentiment_id = $this->naiveBayes($tweet);
-    	$tweets->save();
+        //$tweets->sentiment_id =
+        $this->naiveBayes($tweet);
+    	//$tweets->save();
 
-    	return Redirect::to('dashboard/naive-bayes');
+    	//return Redirect::to('dashboard/naive-bayes');
     }
 
     public function tokenize($tweet)
@@ -101,42 +102,16 @@ class RocchioController extends Controller
         // stopword removal
         $tweet = $this->stopwordRemoval($tweet);
 
-        // jumlah dokumen
-        $N = count(Tweet::all());
-
-        $p_positive = Tweet::countPositive()/$N;
-        $p_negative = Tweet::countNegative()/$N;
-        $p_neutral = Tweet::countNeutral()/$N;
-
-        // size vocabulary
-        $v = count(BagOfWord::all());
-
-        // calculate positive
-        foreach($tweet as $word)
+        foreach ($tweet as $word)
         {
-            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWord($word) + $v);
-            $p_positive = $p_positive * $p_word;
+            //echo $word;
+            $term = BagOfWord::search($word);
+            if(!empty($term))
+                $tfidf = $term->idf * $term->count;
+
         }
 
-        // calculate negative
-        foreach($tweet as $word)
-        {
-            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWord($word) + $v);
-            $p_negative = $p_negative * $p_word;
-        }
+        //$bow = BagOfWord::search()
 
-        // calculate neutral
-        foreach($tweet as $word)
-        {
-            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWord($word) + $v);
-            $p_neutral = $p_neutral * $p_word;
-        }
-
-        if($p_positive > $p_negative && $p_positive > $p_neutral)
-            return 1;   // positive
-        else if($p_negative > $p_positive && $p_negative > $p_neutral)
-            return 2;   // negative
-        else
-            return 3;   // neutral
     }
 }
