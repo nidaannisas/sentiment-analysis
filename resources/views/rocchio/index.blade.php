@@ -20,7 +20,7 @@
 						<p>Tambahkan tweets pada form disamping untuk klasifikasi menggunakan naive bayes.</p>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/naive-bayes/classify') }} " method="post" style="padding-top : 20px;">
+						<form role="form" action="{{ URL::to('dashboard/rocchio/classify') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
 								<label>Tweets</label>

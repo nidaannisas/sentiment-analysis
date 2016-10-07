@@ -155,3 +155,8 @@ Route::get('dashboard/rocchio', [
     'as' => 'dashboard.rocchio.index',
     'uses' => 'RocchioController@index'
 ]);
+
+Route::post('dashboard/rocchio/classify', [
+    'as' => 'dashboard.rocchio.classify',
+    'uses' => 'RocchioController@classify'
+]);
