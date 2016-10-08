@@ -40,6 +40,7 @@ class EvaluationController extends Controller
 
     public function tokenizing($tweets)
     {
+        $words = array();
         $count_positive = 0;
         $count_negative = 0;
         $count_neutral = 0;
@@ -48,6 +49,7 @@ class EvaluationController extends Controller
         $count_tweet_negative = 0;
         $count_tweet_neutral = 0;
 
+        $i = 0;
         foreach($tweets as $tweet)
         {
             if($tweet->sentiment_id == 1)
@@ -66,7 +68,7 @@ class EvaluationController extends Controller
 
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
-            $i = 0;
+
             while ($tok !== false)
             {
                 $words[$i]['term'] = $tok;
@@ -87,11 +89,13 @@ class EvaluationController extends Controller
 
                 $i++;
             }
+
+
         }
 
-        //$words = $this->quicksort_multidimension($words, 'term');
-        //$words = $this->unique_multidim_array($words,'term');
-        // $words = array_unique($words);
+        $words = $this->quicksort_multidimension($words, 'term');
+
+
         // $words = array_values($words);
 
         $result = array("words" => $words,
@@ -190,11 +194,8 @@ class EvaluationController extends Controller
         $test = array_slice($tweets,8,10);
         $N = count($train);
 
-        var_dump(count($tweets));
-        var_dump(count($train));
-
         // tokenizing
-        $tokenizing = $this->tokenizing($train);
+        $tokenizing = $this->tokenizing($tweets);
 
         foreach($tokenizing['words'] as $t) echo $t['term'].'<br />';
         // $words = $tokenizing['words'];
