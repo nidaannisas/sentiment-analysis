@@ -97,4 +97,26 @@ class Controller extends BaseController
 
         return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
     }
+
+    function BinarySearchObjectWord($array, $key, $low, $high)
+    {
+        if( $low > $high ) // termination case
+        {
+            return -1;
+        }
+
+        $middle = intval( ( $low+$high )/2 ); // gets the middle of the array
+
+        echo $array[$middle]->word.' ';
+        if ( $array[$middle]->word == $key ) // if the middle is our key
+        {
+            return $middle;
+        }
+        elseif ( $key < $array[$middle]->word ) // our key might be in the left sub-array
+        {
+            return $this->BinarySearch( $array, $key, $low, $middle-1 );
+        }
+
+        return $this->BinarySearch( $array, $key, $middle+1, $high ); // our key might be in the right sub-array
+    }
 }
