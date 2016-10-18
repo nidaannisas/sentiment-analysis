@@ -25,8 +25,8 @@ class NormalizationController extends Controller
         $normal_word = $request->input('normal_word');
 
         $normalization = new NormalizationWord;
-        $normalization->word = $word;
-        $normalization->normal_word = $normal_word;
+        $normalization->word = strtolower($word);
+        $normalization->normal_word = strtolower($normal_word);
         $normalization->save();
 
         return Redirect::to('dashboard/normalization');
