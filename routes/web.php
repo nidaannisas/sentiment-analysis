@@ -96,19 +96,9 @@ Route::post('dashboard/normalization/process', [
     'uses' => 'NormalizationController@process'
 ]);
 
-Route::get('dashboard/word-word-normalization', [
-    'as' => 'dashboard.word.normalization.index',
+Route::get('dashboard/word-normalization', [
+    'as' => 'dashboard.word-normalization.index',
     'uses' => 'WordNormalizationController@index'
-]);
-
-Route::post('dashboard/word-normalization/store', [
-    'as' => 'dashboard.word.normalization.store',
-    'uses' => 'WordNormalizationController@store'
-]);
-
-Route::post('dashboard/word-normalization/importtxt', [
-    'as' => 'dashboard.word.normalization.importtxt',
-    'uses' => 'WordNormalizationController@importtxt'
 ]);
 
 Route::post('dashboard/word-normalization/process', [
