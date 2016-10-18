@@ -11,7 +11,7 @@ Class NormalizationWord extends Model
 
     public static function getNormalizationWords()
     {
-        $data = DB::select( DB::raw("SELECT * FROM `normalization-words`"));
+        $data = DB::select( DB::raw("SELECT * FROM `normalization-words` LIMIT 5"));
 
         return $data;
     }
