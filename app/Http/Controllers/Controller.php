@@ -75,4 +75,26 @@ class Controller extends BaseController
 
         return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
     }
+
+    public function quicksort_multidimension_object_word($seq)
+    {
+        if(!count($seq)) return $seq;
+
+        $k = $seq[0];
+        $x = $y = array();
+
+        for($i=count($seq); --$i;)
+        {
+            if(strcmp($seq[$i]->word, $k->word) <= 0)
+            {
+                $x[] = $seq[$i];
+            }
+            else
+            {
+                $y[] = $seq[$i];
+            }
+        }
+
+        return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
+    }
 }
