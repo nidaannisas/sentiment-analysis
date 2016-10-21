@@ -36,6 +36,16 @@ Route::post('dashboard/tweets/import', [
     'uses' => 'TweetController@import'
 ]);
 
+Route::get('dashboard/pembagian-data', [
+    'as' => 'dashboard.pembagiandata.index',
+    'uses' => 'PembagianDataController@index'
+]);
+
+Route::post('dashboard/pembagian-data/store', [
+    'as' => 'dashboard.pembagiandata.store',
+    'uses' => 'PembagianDataController@store'
+]);
+
 Route::get('dashboard/remove-duplicate', [
     'as' => 'dashboard.remove.duplicate.index',
     'uses' => 'RemoveDuplicateController@index'
