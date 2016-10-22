@@ -14,7 +14,7 @@ class AddColumnTypeTweetsTable extends Migration
     public function up()
     {
         Schema::table('tweets', function($table) {
-            $table->enum('type', ['TRAIN', 'TEST']);
+            $table->enum('type', ['TEST', 'TRAIN']);
         });
     }
 
