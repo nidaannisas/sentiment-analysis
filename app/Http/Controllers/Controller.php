@@ -107,16 +107,15 @@ class Controller extends BaseController
 
         $middle = intval( ( $low+$high )/2 ); // gets the middle of the array
 
-        echo $array[$middle]->word.' ';
         if ( $array[$middle]->word == $key ) // if the middle is our key
         {
             return $middle;
         }
         elseif ( $key < $array[$middle]->word ) // our key might be in the left sub-array
         {
-            return $this->BinarySearch( $array, $key, $low, $middle-1 );
+            return $this->BinarySearchObjectWord( $array, $key, $low, $middle-1 );
         }
 
-        return $this->BinarySearch( $array, $key, $middle+1, $high ); // our key might be in the right sub-array
+        return $this->BinarySearchObjectWord( $array, $key, $middle+1, $high ); // our key might be in the right sub-array
     }
 }
