@@ -38,7 +38,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><span>Lumino</span>Admin</a>
+				<a class="navbar-brand" href="#"><span>Sentiment</span> Analysis</a>
 				<ul class="user-menu">
 					<li class="dropdown pull-right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> User <span class="caret"></span></a>
@@ -54,12 +54,7 @@
 		</div><!-- /.container-fluid -->
 	</nav>
 
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
-		<form role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-		</form>
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar" style="padding-top: 20px;">
 		<ul class="nav menu">
 			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked desktop"><use xlink:href="#stroked-desktop"/></svg> Dashboard</a></li>
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
