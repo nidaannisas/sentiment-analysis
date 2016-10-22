@@ -31,6 +31,27 @@ Class Tweet extends Model
         return $data;
     }
 
+    public static function getPositive()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE sentiment_id = 1"));
+
+        return $data;
+    }
+
+    public static function getNegative()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE sentiment_id = 2"));
+
+        return $data;
+    }
+
+    public static function getNeutral()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE sentiment_id = 3"));
+
+        return $data;
+    }
+
     public static function countNegative()
     {
         $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 2"));
