@@ -3,66 +3,131 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sentiment;
 use App\Models\Tweet;
+use App\Models\PembagianData;
 use App\Http\Requests;
-use Excel;
 use Redirect;
-use Input;
+use DB;
 
 class PembagianDataController extends Controller
 {
     public function index()
     {
-    	return view('pembagian-data.index');
+        $pembagian = PembagianData::all()->last();
+
+        $tweets = Tweet::all();
+    	$positive = Tweet::where('sentiment_id', 1)->count();
+    	$negative = Tweet::where('sentiment_id', 2)->count();
+    	$neutral = Tweet::where('sentiment_id', 3)->count();
+
+    	return view('pembagian-data.index')
+            ->with('pembagian', $pembagian)
+            ->with('tweets', $tweets)
+            ->with("positive", $positive)
+            ->with("negative", $negative)
+            ->with("neutral", $neutral);
     }
 
-    public function store(Request $request)
+    public function process(Request $request)
     {
-    	$tweet = $request->input('tweet');
-    	$sentiment_id = $request->input('sentiment');
+    	$p = $request->input('positive');
+        $n = $request->input('negative');
+        $o = $request->input('neutral');
 
-    	$tweets = new Tweet;
-    	$tweets->tweet = $this->replace4byte($tweet);
-    	$tweets->sentiment_id = $sentiment_id;
-    	$tweets->save();
+        $positive = Tweet::getPositive();
+    	$negative = Tweet::getNegative();
+    	$neutral = Tweet::getNeutral();
 
-    	return Redirect::to('dashboard/tweets');
-    }
+        $positive_count = count($positive);
+        $negative_count = count($negative);
+        $neutral_count = count($neutral);
 
-    public function replace4byte($string)
-    {
-        return preg_replace('%(?:
-              \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
-            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
-            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
-            )%xs', '', $string);
-    }
+        DB::beginTransaction();
+        $i = 0;
 
-    public function import(Request $request)
-    {
-        try
+        $in_positive = array();
+        $in_negative = array();
+        $in_neutral = array();
+
+        //random positive
+        if($p > $positive_count)
         {
-            $i = 0;
-            Excel::load($request->file('file'), function ($reader)
+            return Redirect::to('dashboard/pembagian-data')
+                ->with('error', 'Input positive melebihi data tweet positive');
+        }
+        if($p > $negative_count)
+        {
+            return Redirect::to('dashboard/pembagian-data')
+                ->with('error', 'Input negative melebihi data tweet negative');
+        }
+        if($p > $neutral_count)
+        {
+            return Redirect::to('dashboard/pembagian-data')
+                ->with('error', 'Input neutral melebihi data tweet neutral');
+        }
+
+        // change default type test
+        PembagianData::defaultTestTweet();
+
+        while($i < $p)
+        {
+            $r = mt_rand(0,$positive_count-1);
+
+            if(!in_array($r, $in_positive))
             {
-                foreach ($reader->toArray() as $row) {
-                    // Masukin data ke database
-                    $tweets = new Tweet;
-                    $tweets->tweet = $this->replace4byte($row['text']);
-                    if(!empty($row['sentiment']))
-                        $tweets->sentiment_id = $row['sentiment'];
-                    $tweets->save();
-                }
+                $update = Tweet::find($positive[$r]->id);
+                $update->type = 'TRAIN';
+                $update->save();
 
-
-            });
-
-            return Redirect::to('dashboard/tweets');
+                $in_positive[] = $r;
+                $i++;
+            }
         }
-        catch (\Exception $e)
+
+        // random negative
+        $i = 0;
+        while($i < $p)
         {
-            return $e->getMessage();
+            $r = mt_rand(0,$negative_count-1);
+
+            if(!in_array($r, $in_negative))
+            {
+                $update = Tweet::find($negative[$r]->id);
+                $update->type = 'TRAIN';
+                $update->save();
+
+                $in_negative[] = $r;
+                $i++;
+            }
         }
+
+        // random neutral
+        $i = 0;
+        while($i < $p)
+        {
+            $r = mt_rand(0,$neutral_count-1);
+
+            if(!in_array($r, $in_neutral))
+            {
+                $update = Tweet::find($neutral[$r]->id);
+                $update->type = 'TRAIN';
+                $update->save();
+
+                $in_neutral[] = $r;
+                $i++;
+            }
+        }
+
+        $pembagian = new PembagianData;
+        $pembagian->positive = $p;
+        $pembagian->negative = $n;
+        $pembagian->neutral = $o;
+        $pembagian->save();
+
+        DB::commit();
+        
+    	return Redirect::to('dashboard/pembagian-data')
+            ->with('success', 'Data telah dibagi');
     }
+
 }
