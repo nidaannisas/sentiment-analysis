@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">			
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
 			<li class="active">Tweets</li>
 		</ol>
 	</div><!--/.row-->
-	
+
 	<div class="row" style="margin-top : 20px;">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
@@ -19,7 +19,7 @@
 						<h3>Tambahkan Tweets</h3>
 						<p>Tambahkan tweets beserta sentiment sebagai data training melalui form disamping atau dengan import menggunakan excel atau csv.</p>
 
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweets/import') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweets/import') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<label class="btn btn-success btn-file">
 							    Import <input name="file" type="file" style="display: none;" onchange="javascript:this.form.submit();">
@@ -27,13 +27,13 @@
 						</form>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/tweets/store') }} " method="post" style="padding-top : 20px;">	
+						<form role="form" action="{{ URL::to('dashboard/tweets/store') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group"> 
+							<div class="form-group">
 								<label>Tweets</label>
 								<textarea name="tweet" class="form-control" rows="3"></textarea>
 							</div>
-															
+
 							<div class="form-group">
 								<label>Sentiment</label>
 								<select class="form-control" name="sentiment">
@@ -51,7 +51,7 @@
 						    <thead>
 						    <tr>
 						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="name"  data-sortable="true" style="width: 80%;"">Tweet</th>
+						        <th data-field="name"  data-sortable="true" style="width: 80%;">Tweet</th>
 						        <th data-field="price" data-sortable="true">Sentiment</th>
 						    </tr>
 						    </thead>
@@ -69,9 +69,9 @@
 				</div>
 			</div>
 		</div>
-	</div><!--/.row-->	
-	
-	
+	</div><!--/.row-->
+
+
 </div><!--/.main-->
 
 <link href="{{ URL::to('css/bootstrap-table.css') }}" rel="stylesheet">
@@ -82,9 +82,9 @@
 <script src="{{ URL::to('js/bootstrap-table.js') }}"></script>
 <script>
 	!function ($) {
-		$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
-			$(this).find('em:first').toggleClass("glyphicon-minus");	  
-		}); 
+		$(document).on("click","ul.nav li.parent > a > span.icon", function(){
+			$(this).find('em:first').toggleClass("glyphicon-minus");
+		});
 		$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
 	}(window.jQuery);
 
@@ -94,7 +94,7 @@
 	$(window).on('resize', function () {
 	  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 	})
-</script>	
+</script>
 
 <style type="text/css">
 	.btn-file {
