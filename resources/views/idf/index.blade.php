@@ -104,6 +104,13 @@
                                         </a>
                                     </td>
                                     <td>
+                                        <a ng-click="sortType = 'count_tweet'; sortReverse = !sortReverse">
+                                            DF
+                                            <span ng-show="sortType == 'count_tweet' && !sortReverse" class="fa fa-caret-down"></span>
+                                            <span ng-show="sortType == 'count_tweet' && sortReverse" class="fa fa-caret-up"></span>
+                                        </a>
+                                    </td>
+                                    <td>
                                         <a ng-click="sortType = 'idf'; sortReverse = !sortReverse">
                                             IDF
                                             <span ng-show="sortType == 'idf' && !sortReverse" class="fa fa-caret-down"></span>
@@ -120,6 +127,7 @@
                                     <td ng-bind="data.count_negative"></td>
                                     <td ng-bind="data.count_neutral"></td>
                                     <td ng-bind="data.count"></td>
+                                    <td ng-bind="data.count_tweet"></td>
                                     <td ng-bind="data.idf"></td>
                                 </tr>
                             </tbody>
