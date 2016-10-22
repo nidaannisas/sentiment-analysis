@@ -54,6 +54,8 @@ class TokenizingController extends Controller
             // unique antar dokument
             // tidak ada redundant kata dalam tdm
 
+            $unique_words = array();
+
             DB::beginTransaction();
 
             foreach($words as $word)
@@ -65,6 +67,13 @@ class TokenizingController extends Controller
                     $save = new BagOfWord;
                     $save->word = $word;
                     $save->count = 1;
+
+                    // unique word
+                    if(!in_array($word, $unique_words))
+                    {
+                        $save->count_tweet = 1;
+                        $unique_words[] = $word;
+                    }
 
                     if($tweet->sentiment_id == 1)
                     {
@@ -96,6 +105,13 @@ class TokenizingController extends Controller
                     // $tdm->save();
                     $save = BagOfWord::find($kata->id);
                     $save->count = $save->count + 1;
+
+                    // unique word
+                    if(!in_array($word, $unique_words))
+                    {
+                        $save->count_tweet = $save->count_tweet + 1;
+                        $unique_words[] = $word;
+                    }
 
                     if($tweet->sentiment_id == 1)
                     {
