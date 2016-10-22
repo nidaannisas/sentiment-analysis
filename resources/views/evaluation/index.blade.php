@@ -13,7 +13,7 @@
 	<div class="row" style="margin-top : 20px;">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-body">
+				<!-- <div class="panel-body">
 					<div class="panel-heading">Evaluation</div>
 					<div class="col-md-4" style="padding-bottom: 20px;">
                         <h3>K-fold Cross Validation</h3>
@@ -71,16 +71,14 @@
                                 </div>
                             </div>
 
-                        </div><!--/.row-->
+                        </div>
 
 					</div>
 					<hr style="color: black; width: 100%;">
-
-
-				</div>
+				</div> -->
 			</div>
 		</div>
-	</div><!--/.row-->
+	</div>
 
 
 </div><!--/.main-->
