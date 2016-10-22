@@ -54,7 +54,7 @@
 		</div><!-- /.container-fluid -->
 	</nav>
 
-	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar" style="padding-top: 20px;">
+	<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar style-1" style="padding-top: 20px;">
 		<ul class="nav menu">
 			<li class="<?php if (Request::is('/')) echo 'active'; ?>"><a href="{{ URL::to('/') }}"><svg class="glyph stroked desktop"><use xlink:href="#stroked-desktop"/></svg> Dashboard</a></li>
 			<li class="<?php if (Request::is('dashboard/tweets')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/tweets') }}"><svg class="glyph stroked empty message"><use xlink:href="#stroked-empty-message"/></svg> Tweets</a></li>
@@ -68,14 +68,36 @@
 			<li class="<?php if (Request::is('dashboard/idf')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/idf') }}"><svg class="glyph stroked notepad "><use xlink:href="#stroked-notepad"/></svg> TF-IDF</a></li>
 
 			<li class="<?php if (Request::is('dashboard/naive-bayes')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/naive-bayes') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg> Naive Bayes</a></li>
-      <li class="<?php if (Request::is('dashboard/rocchio')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/rocchio') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg>Rocchio</a></li>
-      <li class="<?php if (Request::is('dashboard/evaluation')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Evaluation</a></li>
+            <li class="<?php if (Request::is('dashboard/rocchio')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/rocchio') }}"><svg class="glyph stroked app window with content"><use xlink:href="#stroked-app-window-with-content"/></svg>Rocchio</a></li>
+            <li class="<?php if (Request::is('dashboard/evaluation')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Evaluation</a></li>
 		</ul>
 
 	</div><!--/.sidebar-->
 
 	@yield('content') <!-- ini manggil, kaya include -->
 
+    <style>
+        #style-1::-webkit-scrollbar-track
+        {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+        }
+
+        #style-1::-webkit-scrollbar
+        {
+        width: 12px;
+        background-color: #F5F5F5;
+        }
+
+        #style-1::-webkit-scrollbar-thumb
+        {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #555;
+        }
+
+    </style>
 </body>
 
 </html>

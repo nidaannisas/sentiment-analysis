@@ -14,16 +14,7 @@ class PembagianDataController extends Controller
 {
     public function index()
     {
-    	$sentiments = Sentiment::all();
-    	$tweets = Tweet::all();
-
-        // foreach ($tweets as $key => $value) {
-        //     echo $value->tweet.'<br>';
-        // }
-
-    	return view('tweets.index')
-    		->with('sentiments', $sentiments)
-    		->with('tweets', $tweets);
+    	return view('pembagian-data.index');
     }
 
     public function store(Request $request)
