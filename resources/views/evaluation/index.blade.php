@@ -76,6 +76,53 @@
 					</div>
 					<hr style="color: black; width: 100%;">
 				</div> -->
+
+                <div class="panel-body">
+					<div class="panel-heading" style="padding: 0; height: 52px;">
+                        <div class="col-md-11">
+                            Evaluation
+                        </div>
+                        <div class="col-md-1">
+                            <form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post">
+    							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-default pull-right" type="submit">Evaluate</button>
+    						</form>
+                        </div>
+                    </div>
+					<div class="col-md-12" style="padding-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel" style="padding: 10%;">
+                                        <h3>Accuracy</h3>
+                                        <div class="easypiechart" id="easypiechart-blue" data-percent="60" ><span class="percent">60%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel">
+                                        <h3>Precision</h3>
+                                        <div class="easypiechart" id="easypiechart-red" data-percent="55" ><span class="percent">55%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-4">
+                                <div class="panel panel-default">
+                                    <div class="panel-body easypiechart-panel">
+                                        <h3>Recall</h3>
+                                        <div class="easypiechart" id="easypiechart-teal" data-percent="80" ><span class="percent">80%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
