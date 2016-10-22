@@ -41,9 +41,9 @@ Route::get('dashboard/pembagian-data', [
     'uses' => 'PembagianDataController@index'
 ]);
 
-Route::post('dashboard/pembagian-data/store', [
-    'as' => 'dashboard.pembagiandata.store',
-    'uses' => 'PembagianDataController@store'
+Route::post('dashboard/pembagian-data/process', [
+    'as' => 'dashboard.pembagiandata.process',
+    'uses' => 'PembagianDataController@process'
 ]);
 
 Route::get('dashboard/remove-duplicate', [
