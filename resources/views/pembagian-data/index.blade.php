@@ -15,33 +15,34 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">Pembagian Data</div>
-					<div class="col-md-4" style="padding-bottom: 20px;">
+                    <?php if(session()->has('error')) echo '<div class="alert bg-danger" role="alert"><svg class="glyph stroked cancel"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#stroked-cancel"></use></svg> '.session('error').'<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a></div>'; ?>
+                    <?php if(session()->has('error')) echo '<div class="alert bg-success" role="alert">
+					<svg class="glyph stroked checkmark"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#stroked-checkmark"></use></svg> '.session('success').' <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a></div>'; ?>
+                    <div class="col-md-4" style="padding-bottom: 20px;">
                         <h3>Random</h3>
-                        <form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post" style="padding-top : 20px;">
+                        <form role="form" action="{{ URL::to('dashboard/pembagian-data/process') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="col-md-4" style="padding-left:0;">
                                 <div class="form-group">
     								<label>Positive</label>
-    								<input name="positive" type="text" class="form-control"></input>
+    								<input name="positive" value="{{ $pembagian->positive }}" type="text" class="form-control"></input>
     							</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
     								<label>Negative</label>
-    								<input name="negative" type="text" class="form-control"></input>
+    								<input name="negative" value="{{ $pembagian->negative }}" type="text" class="form-control"></input>
     							</div>
                             </div>
                             <div class="col-md-4" style="padding-right:0;">
                                 <div class="form-group">
     								<label>Neutral</label>
-    								<input name="neutral" type="text" class="form-control"></input>
+    								<input name="neutral" value="{{ $pembagian->neutral }}" type="text" class="form-control"></input>
     							</div>
                             </div>
                             <br />
                             <div class="form-group">
-                                <p>
-                                    Last updated at 3 January 2016
-                                </p>
+                                <p>Last updated at {{ $pembagian->created_at }}</p>
                             </div>
                             <button class="btn btn-default pull-right" type="submit">Process</button>
 						</form>
@@ -52,7 +53,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body easypiechart-panel" style="padding: 10%;">
                                         <h3>Positive</h3>
-                                        <div class="easypiechart" id="easypiechart-blue" data-percent="60" ><span class="percent">1321</span>
+                                        <div class="easypiechart" id="easypiechart-blue" data-percent="{{ $positive*100/($positive+$negative+$neutral) }}" ><span class="percent">{{ $positive }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +62,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body easypiechart-panel">
                                         <h3>Negative</h3>
-                                        <div class="easypiechart" id="easypiechart-red" data-percent="55" ><span class="percent">105</span>
+                                        <div class="easypiechart" id="easypiechart-red" data-percent="{{ $negative*100/($positive+$negative+$neutral) }}" ><span class="percent">{{ $negative }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +71,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body easypiechart-panel">
                                         <h3>Neutral</h3>
-                                        <div class="easypiechart" id="easypiechart-teal" data-percent="80" ><span class="percent">2014</span>
+                                        <div class="easypiechart" id="easypiechart-teal" data-percent="{{ $neutral*100/($positive+$negative+$neutral) }}" ><span class="percent">{{ $neutral }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -80,8 +81,28 @@
 
 					</div>
 					<hr style="color: black; width: 100%;">
-
-
+					<div class="col-md-12">
+						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+						    <tr>
+						        <th data-field="id" data-checkbox="true">Item ID</th>
+						        <th data-field="tweet"  data-sortable="true" style="width: 80%;">Tweet</th>
+						        <th data-field="sentiment" data-sortable="true">Sentiment</th>
+                                <th data-field="type" data-sortable="true">Type</th>
+						    </tr>
+						    </thead>
+						    <tbody>
+						    @foreach($tweets as $tweet)
+						    <tr>
+						    	<td>{{ $tweet->id }}</td>
+						    	<td>{{ $tweet->tweet }}</td>
+						    	<td>{{ $tweet->sentiment->name }}</td>
+                                <td>{{ $tweet->type }}</td>
+							</tr>
+							@endforeach
+						    </tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
