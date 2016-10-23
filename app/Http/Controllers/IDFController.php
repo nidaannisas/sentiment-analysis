@@ -44,7 +44,7 @@ class IDFController extends Controller
     		// $bow->count_negative = BagOfWord::countNegative($word->id);
     		// $bow->count_neutral = BagOfWord::countNeutral($word->id);
     		// $bow->count = BagOfWord::count($word->id);
-    		$bow->idf = log($N/$bow->count_tweet);
+    		$bow->idf = log10($N/$bow->count_tweet);
 
     		$bow->save();
     	}
