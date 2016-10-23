@@ -23,7 +23,7 @@ class TokenizingController extends Controller
     public function tokenizeTweetTest()
     {
         // delete all field
-        DB::table('bag-of-words')->delete();
+        DB::table('bag-of-words-test')->delete();
 
         $tweets = Tweet::getTest();
 
@@ -58,11 +58,11 @@ class TokenizingController extends Controller
 
             foreach($words as $word)
             {
-                $kata = BagOfWord::search($word);
+                $kata = BagOfWordTest::search($word);
 
                 if(empty($kata))
                 {
-                    $save = new BagOfWord;
+                    $save = new BagOfWordTest;
                     $save->word = $word;
                     $save->count = 1;
 
@@ -101,7 +101,7 @@ class TokenizingController extends Controller
                     // $tdm->tweet_id = $tweet->id;
                     // $tdm->token_id = $kata->id;
                     // $tdm->save();
-                    $save = BagOfWord::find($kata->id);
+                    $save = BagOfWordTest::find($kata->id);
                     $save->count = $save->count + 1;
 
                     // unique word
@@ -248,7 +248,7 @@ class TokenizingController extends Controller
     {
         $this->tokenizeTweetTest();
         $this->tokenizeTweetTrain();
-        
+
         return Redirect::to('dashboard/tokenizing');
     }
 }
