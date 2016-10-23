@@ -30,8 +30,9 @@ class IDFController extends Controller
     public function process()
     {
     	$words = BagOfWord::all();
+        $tweet = Tweet::all();
 
-    	$N = count($words);
+    	$N = count($count);
 
     	// hitung jumlah token dalam bag of words
         DB::beginTransaction();
