@@ -7,6 +7,7 @@ use App\Models\BagOfWord;
 use App\Models\IDF;
 use App\Http\Requests;
 use App\Models\TDM;
+use App\Models\Tweet;
 use DB;
 use Redirect;
 use Response;
