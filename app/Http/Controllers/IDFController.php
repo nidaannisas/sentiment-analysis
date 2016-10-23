@@ -33,7 +33,7 @@ class IDFController extends Controller
     	$words = BagOfWord::all();
         $tweet = Tweet::all();
 
-    	$N = count($count);
+    	$N = count($tweet);
 
     	// hitung jumlah token dalam bag of words
         DB::beginTransaction();
@@ -44,7 +44,7 @@ class IDFController extends Controller
     		// $bow->count_negative = BagOfWord::countNegative($word->id);
     		// $bow->count_neutral = BagOfWord::countNeutral($word->id);
     		// $bow->count = BagOfWord::count($word->id);
-    		$bow->idf = ($N/$bow->count_tweet);
+    		$bow->idf = log($N/$bow->count_tweet);
 
     		$bow->save();
     	}
