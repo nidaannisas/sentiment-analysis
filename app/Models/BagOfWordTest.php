@@ -12,7 +12,7 @@ Class BagOfWordTest extends Model
 
     public static function search($word)
     {
-        $data = DB::select( DB::raw("SELECT * FROM `bag-of-words` WHERE word = :word "),
+        $data = DB::select( DB::raw("SELECT * FROM `bag-of-words-test` WHERE word = :word "),
                     array(
                         "word"    => $word
                     ));
@@ -77,7 +77,7 @@ Class BagOfWordTest extends Model
 
     public static function countPositiveWord($word)
     {
-        $data = DB::select( DB::raw("SELECT count_positive FROM `bag-of-words` WHERE `word` = :word"),
+        $data = DB::select( DB::raw("SELECT count_positive FROM `bag-of-words-test` WHERE `word` = :word"),
                     array(
                         "word"    => $word
                     ));
@@ -90,7 +90,7 @@ Class BagOfWordTest extends Model
 
     public static function countNegativeWord($word)
     {
-        $data = DB::select( DB::raw("SELECT count_negative FROM `bag-of-words` WHERE `word` = :word"),
+        $data = DB::select( DB::raw("SELECT count_negative FROM `bag-of-words-test` WHERE `word` = :word"),
                     array(
                         "word"    => $word
                     ));
@@ -103,7 +103,7 @@ Class BagOfWordTest extends Model
 
     public static function countNeutralWord($word)
     {
-        $data = DB::select( DB::raw("SELECT count_neutral FROM `bag-of-words` WHERE `word` = :word"),
+        $data = DB::select( DB::raw("SELECT count_neutral FROM `bag-of-words-test` WHERE `word` = :word"),
                     array(
                         "word"    => $word
                     ));
@@ -121,7 +121,7 @@ Class BagOfWordTest extends Model
 
     public static function countWordPositive()
     {
-        $data = DB::select( DB::raw("SELECT SUM(count_positive) as total FROM `bag-of-words`"));
+        $data = DB::select( DB::raw("SELECT SUM(count_positive) as total FROM `bag-of-words-test`"));
 
         if(!empty($data))
             return $data[0]->total;
@@ -131,7 +131,7 @@ Class BagOfWordTest extends Model
 
     public static function countWordNegative()
     {
-        $data = DB::select( DB::raw("SELECT SUM(count_negative) as total FROM `bag-of-words`"));
+        $data = DB::select( DB::raw("SELECT SUM(count_negative) as total FROM `bag-of-words-test`"));
 
         if(!empty($data))
             return $data[0]->total;
@@ -141,7 +141,7 @@ Class BagOfWordTest extends Model
 
     public static function countWordNeutral()
     {
-        $data = DB::select( DB::raw("SELECT SUM(count_neutral) as total FROM `bag-of-words`"));
+        $data = DB::select( DB::raw("SELECT SUM(count_neutral) as total FROM `bag-of-words-test`"));
 
         if(!empty($data))
             return $data[0]->total;
