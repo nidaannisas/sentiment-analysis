@@ -13,7 +13,7 @@ class CreateBagOfWordsTestTable extends Migration
      */
     public function up()
     {
-        Schema::create('bag-of-words', function (Blueprint $table) {
+        Schema::create('bag-of-words-test', function (Blueprint $table) {
             $table->increments('id');
             $table->string('word');
             $table->float('idf')->default(0);
