@@ -31,6 +31,20 @@ Class Tweet extends Model
         return $data;
     }
 
+    public static function getTrain()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE type = 'TRAIN'"));
+
+        return $data;
+    }
+
+    public static function getTest()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE type = 'TEST'"));
+
+        return $data;
+    }
+
     public static function getPositive()
     {
         $data = DB::select( DB::raw("SELECT * FROM `tweets` WHERE sentiment_id = 1"));
