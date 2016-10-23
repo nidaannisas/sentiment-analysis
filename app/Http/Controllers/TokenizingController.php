@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\BagOfWord;
+use App\Models\BagOfWordTest;
 use App\Models\TDM;
 use App\Http\Requests;
 use Redirect;
@@ -59,7 +60,6 @@ class TokenizingController extends Controller
             foreach($words as $word)
             {
                 $kata = BagOfWordTest::search($word);
-
                 if(empty($kata))
                 {
                     $save = new BagOfWordTest;
@@ -102,6 +102,8 @@ class TokenizingController extends Controller
                     // $tdm->token_id = $kata->id;
                     // $tdm->save();
                     $save = BagOfWordTest::find($kata->id);
+
+                    //var_dump($save);
                     $save->count = $save->count + 1;
 
                     // unique word
