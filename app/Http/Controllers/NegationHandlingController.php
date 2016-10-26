@@ -20,7 +20,7 @@ class NegationHandlingController extends Controller
 
     public function process()
     {
-        $tweets = Tweet::all();
+        $tweets = Tweet::getTrain();
 
         DB::beginTransaction();
         foreach($tweets as $tweet)
