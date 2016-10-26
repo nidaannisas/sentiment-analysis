@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
+use App\Models\Normalizations;
 use App\Models\Stopword;
 use App\Http\Requests;
 
