@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NormalizationWord;
 use App\Models\BagOfWord;
+use App\Models\BagOfWordTest;
 use App\Http\Requests;
 use DB;
 use Redirect;
@@ -32,7 +33,7 @@ class NormalizationController extends Controller
         return Redirect::to('dashboard/normalization');
     }
 
-    public function process()
+    public function normalizeTrain()
     {
         $normalizations = NormalizationWord::all();
 
@@ -49,6 +50,31 @@ class NormalizationController extends Controller
             }
         }
         DB::commit();
+    }
+
+    public function normalizeTest()
+    {
+        $normalizations = NormalizationWord::all();
+
+        DB::beginTransaction();
+        foreach($normalizations as $normalization)
+        {
+            $word = BagOfWordTest::search($normalization->word);
+
+            if(!empty($word))
+            {
+                $normal = BagOfWordTest::find($word->id);
+                $normal->word = $normalization->normal_word;
+                $normal->save();
+            }
+        }
+        DB::commit();
+    }
+
+    public function process()
+    {
+        $this->normalizeTrain();
+        $this->normalizeTest();
 
         return Redirect::to('dashboard/tokenizing');
     }
