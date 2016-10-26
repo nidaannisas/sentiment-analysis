@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stopword;
 use App\Models\BagOfWord;
+use App\Models\BagOfWordTest;
 use App\Http\Requests;
 use DB;
 
@@ -64,9 +65,24 @@ class StopwordController extends Controller
 	    return Redirect::to('dashboard/stopwords');
     }
 
-    public function process()
+    public function stopwordTest()
     {
-    	$stopwords = Stopword::all();
+        $stopwords = Stopword::all();
+
+        DB::beginTransaction();
+    	foreach($stopwords as $stopword)
+    	{
+    		$word = BagOfWordTest::search($stopword->word);
+
+    		if(!empty($word))
+    			BagOfWordTest::destroy($word->id);
+    	}
+        DB::commit();
+    }
+
+    public function stopwordTrain()
+    {
+        $stopwords = Stopword::all();
 
         DB::beginTransaction();
     	foreach($stopwords as $stopword)
@@ -77,6 +93,12 @@ class StopwordController extends Controller
     			BagOfWord::destroy($word->id);
     	}
         DB::commit();
+    }
+
+    public function process()
+    {
+        $this->stopwordTrain();
+        $this->stopwordTest();
 
     	return Redirect::to('dashboard/tokenizing');
     }
