@@ -26,10 +26,12 @@ class NaiveBayesController extends Controller
     public function classify(Request $request)
     {
     	$tweet = $request->input('tweet');
+        $stopwords = Stopword::all();
+        $normalizations = NormalizationWord::all();
 
     	$tweets = new TweetTest;
     	$tweets->tweet = $tweet;
-        $tweets->sentiment_id = $this->naiveBayes($tweet);
+        $tweets->sentiment_id = $this->naiveBayes($tweet, $normalizations, $stopwords);
     	$tweets->save();
 
     	return Redirect::to('dashboard/naive-bayes');
@@ -58,10 +60,8 @@ class NaiveBayesController extends Controller
         return $words;
     }
 
-    public function normalizeWord($tweet)
+    public function normalizeWord($tweet, $normalizations)
     {
-        $normalizations = NormalizationWord::all();
-
         foreach($normalizations as $normalization)
         {
             foreach($tweet as $word)
@@ -74,10 +74,8 @@ class NaiveBayesController extends Controller
         return $tweet;
     }
 
-    public function stopwordRemoval($tweet)
+    public function stopwordRemoval($tweet, $stopwords)
     {
-        $stopwords = Stopword::all();
-
         foreach($stopwords as $stopword)
         {
             foreach($tweet as $key => $word)
@@ -90,16 +88,16 @@ class NaiveBayesController extends Controller
         return $tweet;
     }
 
-    public function naiveBayes($tweet)
+    public function naiveBayes($tweet, $normalizations, $stopwords)
     {
         // tokenize tweet
         $tweet = $this->tokenize($tweet);
 
         // normalize word
-        $tweet = $this->normalizeWord($tweet);
+        $tweet = $this->normalizeWord($tweet, $normalizations);
 
         // stopword removal
-        $tweet = $this->stopwordRemoval($tweet);
+        $tweet = $this->stopwordRemoval($tweet, $stopwords);
 
         // jumlah dokumen
         $N = count(Tweet::all());
