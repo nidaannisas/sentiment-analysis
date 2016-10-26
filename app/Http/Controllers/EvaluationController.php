@@ -185,7 +185,7 @@ class EvaluationController extends Controller
         }
     }
 
-    public function evaluate()
+    public function evaluateKFold()
     {
         $start = microtime(true);
 
