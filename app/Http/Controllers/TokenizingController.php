@@ -248,7 +248,7 @@ class TokenizingController extends Controller
 
     public function tokenize()
     {
-        $this->tokenizeTweetTest();
+        //$this->tokenizeTweetTest();
         $this->tokenizeTweetTrain();
 
         return Redirect::to('dashboard/tokenizing');

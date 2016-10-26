@@ -74,7 +74,7 @@ class NormalizationController extends Controller
     public function process()
     {
         $this->normalizeTrain();
-        $this->normalizeTest();
+        //$this->normalizeTest();
 
         return Redirect::to('dashboard/tokenizing');
     }

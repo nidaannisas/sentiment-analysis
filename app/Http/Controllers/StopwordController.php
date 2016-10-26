@@ -98,7 +98,7 @@ class StopwordController extends Controller
     public function process()
     {
         $this->stopwordTrain();
-        $this->stopwordTest();
+        //$this->stopwordTest();
 
     	return Redirect::to('dashboard/tokenizing');
     }
