@@ -233,7 +233,7 @@ class EvaluationController extends NaiveBayesController
 
         $tweets = Tweet::getTrain();
         $normalizations = NormalizationWord::getNormalizationWords();
-        $stopwords = Stopword::all();
+        $stopwords = Stopword::getStopwords();
 
         $right_class = 0;
         $N = count($tweets);
