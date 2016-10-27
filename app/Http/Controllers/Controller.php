@@ -41,7 +41,7 @@ class Controller extends BaseController
 
         for($i=count($seq); --$i;)
         {
-            if($seq[$i] <= $k)
+            if(strcmp($seq[$i], $k) <= 0)
             {
                 $x[] = $seq[$i];
             }
