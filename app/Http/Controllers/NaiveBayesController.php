@@ -62,12 +62,13 @@ class NaiveBayesController extends Controller
 
     public function normalizeWord($tweet, $normalizations)
     {
-        foreach($normalizations as $normalization)
+        foreach($tweet as $key => $word)
         {
-            foreach($tweet as $word)
+            $search = $this->BinarySearchObjectWord($normalizations, $word, 0, count($normalizations)-1);
+            if($search > -1)
             {
-                if($word == $normalization->word)
-                    $word = $normalization->normal_word;
+                echo 'ketemu';
+                $tweet[$key] = $normalizations[$search]->normal_word;
             }
         }
 
@@ -93,11 +94,15 @@ class NaiveBayesController extends Controller
         // tokenize tweet
         $tweet = $this->tokenize($tweet);
 
+        $tweet = $this->quicksort($tweet);
+
         // normalize word
         $tweet = $this->normalizeWord($tweet, $normalizations);
 
+        var_dump($tweet);
+
         // stopword removal
-        $tweet = $this->stopwordRemoval($tweet, $stopwords);
+        $tweet = $this->stopwordRemoval($tweet, $stop);
 
         // jumlah dokumen
         $N = count(Tweet::all());
