@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
-use App\Models\Normalizations;
 use App\Models\Stopword;
 use App\Http\Requests;
 
@@ -230,14 +229,18 @@ class EvaluationController extends NaiveBayesController
 
     public function evaluate()
     {
+        $start = microtime(true);
+
         $tweets = Tweet::getTrain();
+        $normalizations = NormalizationWord::getNormalizationWords();
+        $stopwords = Stopword::all();
 
         $right_class = 0;
         $N = count($tweets);
 
         foreach($tweets as $tweet)
         {
-            $class = $this->naiveBayes($tweet->tweet);
+            $class = $this->naiveBayes($tweet->tweet, $normalizations, $stopwords);
 
             if($class == $tweet->sentiment_id)
                 $right_class++;
@@ -245,7 +248,10 @@ class EvaluationController extends NaiveBayesController
 
         $accuracy = $right_class/$N;
 
-        return $accuracy*100;
+        $time_elapsed_secs = microtime(true) - $start;
 
+        echo ' '.$time_elapsed_secs.'<br />';
+
+        return $accuracy*100;
     }
 }
