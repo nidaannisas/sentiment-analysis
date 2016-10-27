@@ -67,7 +67,6 @@ class NaiveBayesController extends Controller
             $search = $this->BinarySearchObjectWord($normalizations, $word, 0, count($normalizations)-1);
             if($search > -1)
             {
-                echo 'ketemu';
                 $tweet[$key] = $normalizations[$search]->normal_word;
             }
         }
