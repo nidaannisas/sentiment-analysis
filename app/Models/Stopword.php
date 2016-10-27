@@ -8,4 +8,10 @@ Class Stopword extends Model
 {
     protected $table = 'stopwords';
 
+    public static function getStopwords()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `stopwords`"));
+
+        return $data;
+    }
 }
