@@ -34,7 +34,7 @@ class NaiveBayesController extends Controller
         $tweets->sentiment_id = $this->naiveBayes($tweet, $normalizations, $stopwords);
     	$tweets->save();
 
-    	return Redirect::to('dashboard/naive-bayes');
+    	//return Redirect::to('dashboard/naive-bayes');
     }
 
     public function tokenize($tweet)
@@ -76,12 +76,14 @@ class NaiveBayesController extends Controller
 
     public function stopwordRemoval($tweet, $stopwords)
     {
-        foreach($stopwords as $stopword)
+        foreach($tweet as $key => $word)
         {
-            foreach($tweet as $key => $word)
+            $search = $this->BinarySearchObjectWord($stopwords, $word, 0, count($stopwords)-1);
+            echo $word.' '.$search;
+            if($search > -1)
             {
-                if($stopword->word == $word)
-                    unset($tweet[$key]);
+                echo 'ketemu';
+                unset($tweet[$key]);
             }
         }
 
@@ -93,15 +95,13 @@ class NaiveBayesController extends Controller
         // tokenize tweet
         $tweet = $this->tokenize($tweet);
 
-        $tweet = $this->quicksort($tweet);
-
         // normalize word
         $tweet = $this->normalizeWord($tweet, $normalizations);
 
-        var_dump($tweet);
-
         // stopword removal
-        $tweet = $this->stopwordRemoval($tweet, $stop);
+        $tweet = $this->stopwordRemoval($tweet, $stopwords);
+
+        var_dump($tweet);
 
         // jumlah dokumen
         $N = count(Tweet::all());
