@@ -65,6 +65,8 @@ class NaiveBayesController extends Controller
         foreach($tweet as $key => $word)
         {
             $search = $this->BinarySearchObjectWord($normalizations, $word, 0, count($normalizations)-1);
+            if($search == -1)
+                echo $word.'<br />';
             if($search > -1)
             {
                 $tweet[$key] = $normalizations[$search]->normal_word;
@@ -97,8 +99,6 @@ class NaiveBayesController extends Controller
 
         // normalize word
         $tweet = $this->normalizeWord($tweet, $normalizations);
-
-        var_dump($tweet);
 
         // stopword removal
         //$tweet = $this->stopwordRemoval($tweet, $stopwords);
