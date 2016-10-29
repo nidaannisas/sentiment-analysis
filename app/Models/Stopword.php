@@ -10,7 +10,7 @@ Class Stopword extends Model
 
     public static function getStopwords()
     {
-        $data = DB::select( DB::raw("SELECT * FROM `stopwords`"));
+        $data = DB::select( DB::raw("SELECT * FROM `stopwords` ORDER BY word ASC"));
 
         return $data;
     }
