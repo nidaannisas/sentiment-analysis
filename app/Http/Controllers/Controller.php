@@ -107,11 +107,13 @@ class Controller extends BaseController
 
         $middle = intval( ( $low+$high )/2 ); // gets the middle of the array
 
+        echo $array[$middle]->word.'<br />';
+
         if ( $array[$middle]->word == $key ) // if the middle is our key
         {
             return $middle;
         }
-        elseif ( $key < $array[$middle]->word ) // our key might be in the left sub-array
+        elseif (strcmp($key, $array[$middle]->word) <= 0) // our key might be in the left sub-array
         {
             return $this->BinarySearchObjectWord( $array, $key, $low, $middle-1 );
         }
