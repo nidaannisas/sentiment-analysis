@@ -98,10 +98,12 @@ class NaiveBayesController extends Controller
         // normalize word
         $tweet = $this->normalizeWord($tweet, $normalizations);
 
-        // stopword removal
-        $tweet = $this->stopwordRemoval($tweet, $stopwords);
-
         var_dump($tweet);
+
+        // stopword removal
+        //$tweet = $this->stopwordRemoval($tweet, $stopwords);
+
+
 
         // jumlah dokumen
         $N = count(Tweet::all());
