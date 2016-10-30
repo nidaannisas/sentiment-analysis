@@ -197,7 +197,7 @@ class EvaluationController extends NaiveBayesController
         // tokenizing
         $tokenizing = $this->tokenizing($tweets);
 
-        foreach($tokenizing['words'] as $t) echo $t['term'].'<br />';
+        //foreach($tokenizing['words'] as $t) echo $t['term'].'<br />';
         // $words = $tokenizing['words'];
         //
         // $count_positive = $tokenizing['count_positive'];
