@@ -16,4 +16,17 @@ Class NormalizationWord extends Model
         return $data;
     }
 
+    public static function search($word)
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `normalization-words` WHERE word = :word "),
+                    array(
+                        "word"    => $word
+                    ));
+
+        if(!empty($data))
+            return $data[0];
+        else
+            return $data;
+    }
+
 }
