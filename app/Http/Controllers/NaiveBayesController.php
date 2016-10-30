@@ -65,8 +65,13 @@ class NaiveBayesController extends Controller
         foreach($tweet as $key => $word)
         {
             $search = $this->BinarySearchObjectWord($normalizations, $word, 0, count($normalizations)-1);
+
+            $data = NormalizationWord::search($word);
             if($search == -1)
-                echo $word.'<br />';
+            {
+                if(!empty($data))
+                    echo $search.' '.$word.'<br />';
+            }
             if($search > -1)
             {
                 $tweet[$key] = $normalizations[$search]->normal_word;
@@ -81,10 +86,10 @@ class NaiveBayesController extends Controller
         foreach($tweet as $key => $word)
         {
             $search = $this->BinarySearchObjectWord($stopwords, $word, 0, count($stopwords)-1);
-            echo $word.' '.$search;
+            //echo $word.' '.$search;
             if($search > -1)
             {
-                echo 'ketemu';
+                //echo 'ketemu';
                 unset($tweet[$key]);
             }
         }
