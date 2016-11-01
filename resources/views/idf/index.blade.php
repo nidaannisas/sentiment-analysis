@@ -23,8 +23,8 @@
 						</form>
 					</div>
 					<div class="col-md-4" style="padding-bottom: 20px;">
-						<h3>TF Selection</h3>
-						<p>Klik Process untuk menseleksi fitur dengan nilai tf diatas tertentu.</p>
+						<h3>DF Selection</h3>
+						<p>Klik Process untuk menseleksi fitur dengan nilai df diatas tertentu.</p>
 						<form role="form" action="{{ URL::to('dashboard/idf/tfselection') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">

@@ -29,11 +29,11 @@ class RocchioController extends Controller
 
     	$tweets = new TweetTest;
     	$tweets->tweet = $tweet; //tweet nama field di tabel tweets_tests
-        //$tweets->sentiment_id =
-        $this->naiveBayes($tweet);
-    	//$tweets->save();
+          $tweets->sentiment_id = $this->rocchio($tweet);
+      $tweets->save();
 
-    	//return Redirect::to('dashboard/naive-bayes');
+      return Redirect::to('dashboard/rocchio');
+
     }
 
     public function tokenize($tweet)
@@ -103,6 +103,7 @@ class RocchioController extends Controller
       $jenis[]=null;
       $cek="";
       $i=0;
+
       for($j=0;$j<count($data);$j++)
       {
           $index2=in_array($data[$j],$jenis); //in_array keluarannya true false
@@ -146,7 +147,7 @@ class RocchioController extends Controller
 
 
 
-    public function naiveBayes($tweet)
+    public function rocchio($tweet)
     {
         // tokenize tweet
         $tweet = $this->tokenize($tweet);
@@ -155,8 +156,11 @@ class RocchioController extends Controller
         // normalize word
         $tweet = $this->normalizeWord($tweet);
 
+
         // stopword removal
-        $tweet = $this->stopwordRemoval($tweet);
+        $tweet = array_values($this->stopwordRemoval($tweet));
+
+
 
         $count_tweets = array_count_values($tweet);
 
@@ -187,6 +191,45 @@ class RocchioController extends Controller
       $jum_bobot_p = 0;
       $jum_bobot_n = 0;
       $jum_bobot_ne = 0;
+
+
+               $bow = BagOfWord::all();
+               $bobot_p = array();
+               $bobot_n = array();
+               $bobot_ne = array();
+               $jum_bobot_p = 0;
+               $jum_bobot_n = 0;
+               $jum_bobot_ne = 0;
+               foreach ($bow as $row) {
+                 $idf =$row->idf;
+                 $count_p = $row->count_positive;
+                 $count_n = $row->count_negative;
+                 $count_ne = $row->count_neutral;
+
+                // bobot positif kuadrat
+                $bobot_p[$row->id] = pow($idf * $count_p, 2);
+
+                // bobot negatif kuadrat
+                $bobot_n[$row->id] = pow($idf * $count_n, 2);
+
+              //   bobot netral kuadrat
+                $bobot_ne[$row->id] = pow($idf * $count_ne, 2);
+
+
+                //jumlah semua bobot q kuadrat
+              //  $jum_bobot_q = $jum_bobot_q + $bobot_q;
+
+                //jumlah semua bobot positif kuadrat
+                $jum_bobot_p = $jum_bobot_p + $bobot_p[$row->id];
+
+                //jumlah semua bobot negatif kuadrat
+                $jum_bobot_n = $jum_bobot_n + $bobot_n[$row->id];
+
+                //jumlah semua bobot netral kuadrat
+                $jum_bobot_ne = $jum_bobot_ne + $bobot_ne[$row->id];
+
+               }
+
       for($K=0;$K<count($jenis);$K++)
       {
          //echo $jenis[$K]." => ".$this->cariyangsama($tweet,$jenis[$K])."<br/>";
@@ -202,6 +245,7 @@ class RocchioController extends Controller
 
 
 
+
          if(!empty($term)){
            $idf=$term->idf;
            $count_p = $term->count_positive;
@@ -213,6 +257,8 @@ class RocchioController extends Controller
            $wqwn = $idf * $idf *$tf *$count_n;
            $wqwne = $idf * $idf *$tf *$count_ne;
 
+
+        //   echo $wqwp.' '.$wqwn.' '.$wqwne;
           //jumlah semua bobot positif
           $jum_wqwp = $jum_wqwp + $wqwp;
 
@@ -222,32 +268,35 @@ class RocchioController extends Controller
           //jumlah semua bobot netral
           $jum_wqwne = $jum_wqwne + $wqwne;
 
-
-          //jumlah bobot q kuadrat
+        //  echo $jum_wqwp.' '.$jum_wqwn.' '.$jum_wqwne;
+          // //jumlah bobot q kuadrat
           $bobot_q = pow($idf * $tf, 2);
 
           //bobot positif kuadrat
-          $bobot_p = pow($idf * $count_p, 2);
+        //  $bobot_p = pow($idf * $count_p, 2);
 
           //bobot negatif kuadrat
-          $bobot_n = pow($idf * $count_n, 2);
+        //  $bobot_n = pow($idf * $count_n, 2);
 
           //bobot netral kuadrat
-          $bobot_ne = pow($idf * $count_ne, 2);
+        //  $bobot_ne = pow($idf * $count_ne, 2);
+
+        //  echo $bobot_q.' '.$bobot_p.' '.$bobot_n.' '.$bobot_ne;
 
 
-          //jumlah semua bobot q kuadrat
-          $jum_bobot_q = $jum_bobot_q + $bobot_q;
-
-          //jumlah semua bobot positif kuadrat
-          $jum_bobot_p = $jum_bobot_p + $bobot_p;
-
-          //jumlah semua bobot negatif kuadrat
-          $jum_bobot_n = $jum_bobot_n + $bobot_n;
-
-          //jumlah semua bobot netral kuadrat
-          $jum_bobot_ne = $jum_bobot_ne + $bobot_ne;
-
+          //
+          // //jumlah semua bobot q kuadrat
+           $jum_bobot_q = $jum_bobot_q + $bobot_q;
+          //
+          // //jumlah semua bobot positif kuadrat
+          // $jum_bobot_p = $jum_bobot_p + $bobot_p;
+          //
+          // //jumlah semua bobot negatif kuadrat
+          // $jum_bobot_n = $jum_bobot_n + $bobot_n;
+          //
+          // //jumlah semua bobot netral kuadrat
+          // $jum_bobot_ne = $jum_bobot_ne + $bobot_ne;
+          //  echo $jum_bobot_q.' '.$jum_bobot_p.' '.$jum_bobot_n.' '.$jum_bobot_ne.'<br />';
           //echo $idf.' '.$tf.' '.$count_p.' '.$count_n.' '.$count_ne.' '.$wqwp.' '.$wqwn.' '.$wqwne.' '.$jum_wqwp.' '.$jum_wqwn.' '.$jum_wqwne.' '.$bobot_q.' '.$bobot_p.' '.$bobot_n.' '.$bobot_ne.' '.$jum_bobot_q.' '.$jum_bobot_p.' '.$jum_bobot_n.' '.$jum_bobot_ne.'<br />';
 
 
@@ -255,12 +304,16 @@ class RocchioController extends Controller
 
       }
 
+
+
       //akar
       $s_jum_bobot_q = sqrt($jum_bobot_q);
       $s_jum_bobot_p = sqrt($jum_bobot_p);
       $s_jum_bobot_n = sqrt($jum_bobot_n);
       $s_jum_bobot_ne = sqrt($jum_bobot_ne);
-
+      //
+      // echo $s_jum_bobot_q.' '.$s_jum_bobot_p.' '.$s_jum_bobot_n.' '.$s_jum_bobot_ne;
+      //
       //q*positif
         $q_positif = $s_jum_bobot_q * $s_jum_bobot_p;
 
@@ -270,23 +323,25 @@ class RocchioController extends Controller
       //q*netral
       $q_netral = $s_jum_bobot_q * $s_jum_bobot_ne;
 
-
+    //  echo $q_positif.' '.$q_negatif.' '.$q_netral;
     //  echo $s_jum_bobot_q.' '.$s_jum_bobot_p.' '.$q_positif;
 //      bobot
-
-      //similiarity
+      if($q_positif == 0 && $q_negatif ==0 && $q_netral== 0)
+        return 3;
+      else{
+    //  similiarity
       $sim_q_p = $jum_wqwp / $q_positif;
       $sim_q_n = $jum_wqwn / $q_negatif;
       $sim_q_ne = $jum_wqwne / $q_netral;
 
 
       if($sim_q_p > $sim_q_n && $sim_q_p > $sim_q_ne)
-          echo "positif";
+          return 1;
       else if($sim_q_n > $sim_q_p && $sim_q_n > $sim_q_ne)
-          echo "negatif";
+            return 2;
       else
-          echo "netral";
-
+            return 3;
+      }
 
          //foreach ($tweet as $word)
         // {

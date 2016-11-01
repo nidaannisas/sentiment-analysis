@@ -6,7 +6,7 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-			<li class="active">Naive Bayes</li>
+			<li class="active">Rocchio</li>
 		</ol>
 	</div><!--/.row-->
 
@@ -14,10 +14,10 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel-heading">Naive Bayes</div>
+					<div class="panel-heading">Rocchio</div>
 					<div class="col-md-6">
-						<h3>Klasifikasi Naive Bayes</h3>
-						<p>Tambahkan tweets pada form disamping untuk klasifikasi menggunakan naive bayes.</p>
+						<h3>Klasifikasi Rocchio</h3>
+						<p>Tambahkan tweets pada form disamping untuk klasifikasi menggunakan Rocchio.</p>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
 						<form role="form" action="{{ URL::to('dashboard/rocchio/classify') }} " method="post" style="padding-top : 20px;">
