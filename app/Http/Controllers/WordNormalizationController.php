@@ -38,9 +38,6 @@ class WordNormalizationController extends Controller
 
         foreach($tweets as $tweet)
         {
-            // to lower
-            $tweet->tweet = strtolower($tweet->tweet);
-
             $words = array();
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
