@@ -21,6 +21,38 @@ class TokenizingController extends Controller
             ->with('words', $words);
     }
 
+    public function tokenizingWord()
+    {
+        $tweets = Tweet::all();
+
+        return view('tokenizing.tokenizing-word')
+            ->with('tweets', $tweets);
+    }
+
+    public function tokenizeWord()
+    {
+        $tweets = Tweet::all();
+
+        foreach($tweets as $tweet)
+        {
+            // remove link
+            $regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
+            $tweet->tweet =  preg_replace($regex, ' ', $tweet->tweet);
+
+            // remove char except letter
+            $tweet->tweet =  preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array(' ', ' '), $tweet->tweet);
+
+            // to lower
+            $tweet->tweet = strtolower($tweet->tweet);
+
+            $tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal->tweet = $tweet->tweet;
+            $tweet_normal->save();
+        }
+
+        return Redirect::to('dashboard/tokenizing-word');
+    }
+
     public function tokenizeTweetTest()
     {
         // delete all field
