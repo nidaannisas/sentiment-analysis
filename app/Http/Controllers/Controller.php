@@ -95,7 +95,7 @@ class Controller extends BaseController
             }
         }
 
-        return array_merge($this->quicksort($x), array($k), $this->quicksort($y));
+        return array_merge($this->quicksort_multidimension_object_word($x), array($k), $this->quicksort_multidimension_object_word($y));
     }
 
     function BinarySearchObjectWord($array, $key, $low, $high)
@@ -113,7 +113,7 @@ class Controller extends BaseController
         {
             return $middle;
         }
-        elseif ($key < $array[$middle]->word) // our key might be in the left sub-array
+        elseif (strcmp($key, $array[$middle]->word) < 0) // our key might be in the left sub-array
         {
             return $this->BinarySearchObjectWord( $array, $key, $low, $middle-1 );
         }
