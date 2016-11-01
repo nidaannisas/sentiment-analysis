@@ -56,6 +56,16 @@ Route::post('dashboard/remove-duplicate/remove', [
     'uses' => 'RemoveDuplicateController@remove'
 ]);
 
+Route::get('dashboard/tokenizing-word', [
+    'as' => 'dashboard.tokenizing.word',
+    'uses' => 'TokenizingController@tokenizingWord'
+]);
+
+Route::post('dashboard/tokenizing/tokenize-word', [
+    'as' => 'dashboard.tokenizing.tokenize.word',
+    'uses' => 'TokenizingController@tokenizeWord'
+]);
+
 Route::get('dashboard/tokenizing', [
     'as' => 'dashboard.tokenizing.index',
     'uses' => 'TokenizingController@index'
