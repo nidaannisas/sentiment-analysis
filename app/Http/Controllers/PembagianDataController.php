@@ -55,12 +55,12 @@ class PembagianDataController extends Controller
             return Redirect::to('dashboard/pembagian-data')
                 ->with('error', 'Input positive melebihi data tweet positive');
         }
-        if($p > $negative_count)
+        if($n > $negative_count)
         {
             return Redirect::to('dashboard/pembagian-data')
                 ->with('error', 'Input negative melebihi data tweet negative');
         }
-        if($p > $neutral_count)
+        if($o > $neutral_count)
         {
             return Redirect::to('dashboard/pembagian-data')
                 ->with('error', 'Input neutral melebihi data tweet neutral');
@@ -86,7 +86,7 @@ class PembagianDataController extends Controller
 
         // random negative
         $i = 0;
-        while($i < $p)
+        while($i < $n)
         {
             $r = mt_rand(0,$negative_count-1);
 
@@ -103,7 +103,7 @@ class PembagianDataController extends Controller
 
         // random neutral
         $i = 0;
-        while($i < $p)
+        while($i < $o)
         {
             $r = mt_rand(0,$neutral_count-1);
 
@@ -125,7 +125,7 @@ class PembagianDataController extends Controller
         $pembagian->save();
 
         DB::commit();
-        
+
     	return Redirect::to('dashboard/pembagian-data')
             ->with('success', 'Data telah dibagi');
     }
