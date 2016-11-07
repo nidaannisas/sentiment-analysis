@@ -18,7 +18,48 @@ class NegationHandlingController extends Controller
     		->with('tweets', $tweets);
     }
 
-    public function process()
+    public function negationTest()
+    {
+        $tweets = Tweet::getTest();
+
+        DB::beginTransaction();
+        foreach($tweets as $tweet)
+        {
+            if (strpos($tweet->tweet, 'tidak') !== false)
+            {
+                $data = $tweet->tweet;
+                // tokenize
+                $words = array();
+                $delim = " \n.,;-()";
+                $tok = strtok($tweet->tweet, $delim);
+                while ($tok !== false)
+                {
+                    $words[] = $tok;
+                    $tok = strtok($delim);
+                }
+
+                foreach ($words as $key => $word)
+                {
+                    if($word == 'tidak' && $key < count($words))
+                    {
+                        $words[$key] = $word.'_'.$words[$key + 1];
+                        unset($words[$key + 1]);
+                    }
+                }
+
+                $words = implode(" ", $words);
+
+                $update = Tweet::find($tweet->id);
+                $update->tweet = $words;
+                $update->negated = 1;
+                $update->save();
+
+            }
+        }
+        DB::commit();
+    }
+
+    public function negationTrain()
     {
         $tweets = Tweet::getTrain();
 
@@ -98,7 +139,12 @@ class NegationHandlingController extends Controller
             }
         }
         DB::commit();
+    }
 
+    public function process()
+    {
+        $this->negationTrain();
+        $this->negationTest();
         return Redirect::to('dashboard/negation-handling');
     }
 }
