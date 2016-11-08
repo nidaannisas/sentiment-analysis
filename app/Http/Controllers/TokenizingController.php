@@ -177,14 +177,6 @@ class TokenizingController extends Controller
 
         foreach($tweets as $tweet)
         {
-            // remove except letter
-            //$tweet->tweet = preg_replace('#^https?://*/', '', $tweet->tweet);
-            $tweet->tweet = preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/', '#^https?([a-zA-Z_ -]*)#'), array('', ' ', ''), $tweet->tweet);
-
-
-            // to lower
-            $tweet->tweet = strtolower($tweet->tweet);
-
             $words = array();
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
@@ -194,12 +186,7 @@ class TokenizingController extends Controller
                 $tok = strtok($delim);
             }
 
-            // unique di dalam dokumen
-            //$words = array_unique($words);
-
-            // unique antar dokument
-            // tidak ada redundant kata dalam tdm
-
+            // variable count unique words
             $unique_words = array();
 
             DB::beginTransaction();
@@ -235,20 +222,9 @@ class TokenizingController extends Controller
                     }
 
                     $save->save();
-
-                    // $tdm = new TDM;
-                    // $tdm->tweet_id = $tweet->id;
-                    // $tdm->token_id = $save->id;
-                    // $tdm->save();
-
-
                 }
                 else
                 {
-                    // $tdm = new TDM;
-                    // $tdm->tweet_id = $tweet->id;
-                    // $tdm->token_id = $kata->id;
-                    // $tdm->save();
                     $save = BagOfWord::find($kata->id);
                     $save->count = $save->count + 1;
 
