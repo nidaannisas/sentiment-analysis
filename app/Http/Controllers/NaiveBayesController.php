@@ -13,7 +13,7 @@ use App\Http\Requests;
 
 use Redirect;
 
-class NaiveBayesController extends Controller
+class NaiveBayesController extends TokenizingController
 {
     public function index()
     {
@@ -98,6 +98,58 @@ class NaiveBayesController extends Controller
     }
 
     public function naiveBayes($tweet, $normalizations, $stopwords)
+    {
+        // tokenize tweet
+        $tweet = $this->tokenize($tweet);
+
+        // normalize word
+        $tweet = $this->normalizeWord($tweet, $normalizations);
+
+        // stopword removal
+        //$tweet = $this->stopwordRemoval($tweet, $stopwords);
+
+
+
+        // jumlah dokumen
+        $N = count(Tweet::all());
+
+        $p_positive = Tweet::countPositive()/$N;
+        $p_negative = Tweet::countNegative()/$N;
+        $p_neutral = Tweet::countNeutral()/$N;
+
+        // size vocabulary
+        $v = count(BagOfWord::all());
+
+        // calculate positive
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWordPositive() + $v);
+            $p_positive = $p_positive * $p_word;
+        }
+
+        // calculate negative
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWordNegative() + $v);
+            $p_negative = $p_negative * $p_word;
+        }
+
+        // calculate neutral
+        foreach($tweet as $word)
+        {
+            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWordNeutral() + $v);
+            $p_neutral = $p_neutral * $p_word;
+        }
+
+        if($p_positive > $p_negative && $p_positive > $p_neutral)
+            return 1;   // positive
+        else if($p_negative > $p_positive && $p_negative > $p_neutral)
+            return 2;   // negative
+        else
+            return 3;   // neutral
+    }
+
+    public function naiveBayesEvaluate($tweet, $stopwords)
     {
         // tokenize tweet
         $tweet = $this->tokenize($tweet);
