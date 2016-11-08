@@ -235,23 +235,70 @@ class EvaluationController extends NaiveBayesController
         $normalizations = NormalizationWord::getNormalizationWords();
         $stopwords = Stopword::getStopwords();
 
+        $count_default_class_positive = 0;
+        $count_default_class_negative = 0;
+        $count_default_class_neutral = 0;
+
+        $count_class_positive = 0;
+        $count_class_negative = 0;
+        $count_class_neutral = 0;
+
         $right_class = 0;
+        $right_class_positive = 0;
+        $right_class_negative = 0;
+        $right_class_neutral = 0;
         $N = count($tweets);
 
         foreach($tweets as $tweet)
         {
             $class = $this->naiveBayesEvaluate($tweet->tweet, $stopwords);
 
+            if($tweet->sentiment_id == 1)
+                $count_default_class_positive++;
+            else if($tweet->sentiment_id == 2)
+                $count_default_class_negative++;
+            else
+                $count_default_class_neutral++;
+
+            if($class == 1)
+                $count_class_positive++;
+            else if($class == 2)
+                $count_class_negative++;
+            else
+                $count_class_neutral++;
+
             if($class == $tweet->sentiment_id)
+            {
                 $right_class++;
+
+                if($class == 1)
+                    $right_class_positive++;
+                else if($class == 2)
+                    $right_class_negative++;
+                else
+                    $right_class_neutral++;
+            }
         }
 
-        $accuracy = $right_class/$N;
+        $accuracy = ($right_class/$N)*100;
+        $precision_positive = ($right_class_positive/$count_class_positive)*100;
+        $precision_negative = ($right_class_negative/$count_class_negative)*100;
+        $precision_neutral = ($right_class_neutral/$count_class_neutral)*100;
+
+        $recall_positive = ($right_class_positive/$count_default_class_positive)*100;
+        $recall_negative = ($right_class_negative/$count_default_class_negative)*100;
+        $recall_neutral = ($right_class_neutral/$count_default_class_neutral)*100;
 
         $time_elapsed_secs = microtime(true) - $start;
 
-        echo ' '.$time_elapsed_secs.'<br />';
+        echo 'Waktu  : '.$time_elapsed_secs.'<br />';
 
-        return $accuracy*100;
+        echo 'Accuracy : '.$accuracy.'<br />';
+        echo 'Precision positive : '.$precision_positive.'<br />';
+        echo 'Precision negative : '.$precision_negative.'<br />';
+        echo 'Precision neutral : '.$precision_neutral.'<br />';
+        echo 'Recall positive : '.$recall_positive.'<br />';
+        echo 'Recall negative : '.$recall_negative.'<br />';
+        echo 'Recall neutral : '.$recall_neutral.'<br />';
     }
 }
