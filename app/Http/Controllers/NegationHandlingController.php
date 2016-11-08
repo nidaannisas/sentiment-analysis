@@ -40,7 +40,7 @@ class NegationHandlingController extends Controller
 
                 foreach ($words as $key => $word)
                 {
-                    if($word == 'tidak' && $key < count($words))
+                    if($word == 'tidak' && $key < count($words)-1)
                     {
                         $words[$key] = $word.'_'.$words[$key + 1];
                         unset($words[$key + 1]);
