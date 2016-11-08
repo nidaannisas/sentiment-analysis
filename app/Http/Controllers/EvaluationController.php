@@ -240,7 +240,7 @@ class EvaluationController extends NaiveBayesController
 
         foreach($tweets as $tweet)
         {
-            $class = $this->naiveBayes($tweet->tweet, $normalizations, $stopwords);
+            $class = $this->naiveBayesEvaluate($tweet->tweet, $stopwords);
 
             if($class == $tweet->sentiment_id)
                 $right_class++;
