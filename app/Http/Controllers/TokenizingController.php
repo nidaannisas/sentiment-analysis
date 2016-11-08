@@ -287,4 +287,20 @@ class TokenizingController extends Controller
 
         return Redirect::to('dashboard/tokenizing');
     }
+
+    // tokenizing for evaluation per tweet
+    public function tokenizeEvaluation($tweet)
+    {
+        $words = array();
+
+        $delim = " \n.,;-()";
+        $tok = strtok($tweet, $delim);
+        while ($tok !== false)
+        {
+            $words[] = $tok;
+            $tok = strtok($delim);
+        }
+
+        return $words;
+    }
 }
