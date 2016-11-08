@@ -13,7 +13,7 @@ use App\Http\Requests;
 
 use Redirect;
 
-class NaiveBayesController extends TokenizingController
+class NaiveBayesController extends StopwordController
 {
     public function index()
     {
@@ -152,15 +152,10 @@ class NaiveBayesController extends TokenizingController
     public function naiveBayesEvaluate($tweet, $stopwords)
     {
         // tokenize tweet
-        $tweet = $this->tokenize($tweet);
-
-        // normalize word
-        $tweet = $this->normalizeWord($tweet, $normalizations);
+        $tweet = $this->tokenizeEvaluation($tweet);
 
         // stopword removal
-        //$tweet = $this->stopwordRemoval($tweet, $stopwords);
-
-
+        $tweet = $this->stopwordRemovalEvaluation($tweet, $stopwords);
 
         // jumlah dokumen
         $N = count(Tweet::all());
