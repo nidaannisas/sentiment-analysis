@@ -102,4 +102,27 @@ class StopwordController extends TokenizingController
 
     	return Redirect::to('dashboard/tokenizing');
     }
+
+    public function stopwordRemovalEvaluation($tweet, $stopwords)
+    {
+        // todo : ganti pakai binary search
+        DB::beginTransaction();
+
+        foreach($tweet as $key => $word)
+        {
+            foreach($stopwords as $stopword)
+        	{
+        		if($word == $stopword)
+                {
+                    unset($tweet[$key]);
+                }
+        	}
+        }
+
+        DB::commit();
+
+        $tweet = array_values($tweet);
+
+        return $tweet;
+    }
 }
