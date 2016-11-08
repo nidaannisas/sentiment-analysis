@@ -88,7 +88,7 @@ Class Tweet extends Model
 
     public static function countPositiveTrain()
     {
-        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 1 AND type == 'TRAIN'"));
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 1 AND type = 'TRAIN'"));
 
         if(!empty($data))
             return $data[0]->count;
@@ -98,7 +98,7 @@ Class Tweet extends Model
 
     public static function countNegativeTrain()
     {
-        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 2 AND type == 'TRAIN'"));
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 2 AND type = 'TRAIN'"));
 
         if(!empty($data))
             return $data[0]->count;
@@ -108,7 +108,7 @@ Class Tweet extends Model
 
     public static function countNeutralTrain()
     {
-        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 3 AND type == 'TRAIN'"));
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets` WHERE sentiment_id = 3 AND type = 'TRAIN'"));
 
         if(!empty($data))
             return $data[0]->count;
