@@ -55,7 +55,7 @@ class NaiveBayesController extends TokenizingController
         }
 
         // unique di dalam dokumen
-        $words = array_unique($words);
+        //$words = array_unique($words);
 
         return $words;
     }
