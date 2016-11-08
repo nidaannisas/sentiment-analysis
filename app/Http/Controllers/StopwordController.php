@@ -11,7 +11,7 @@ use DB;
 
 use Redirect;
 
-class StopwordController extends Controller
+class StopwordController extends TokenizingController
 {
     public function index()
     {
