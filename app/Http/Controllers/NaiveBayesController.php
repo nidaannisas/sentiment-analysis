@@ -160,9 +160,9 @@ class NaiveBayesController extends StopwordController
         // jumlah dokumen
         $N = count(Tweet::all());
 
-        $p_positive = Tweet::countPositive()/$N;
-        $p_negative = Tweet::countNegative()/$N;
-        $p_neutral = Tweet::countNeutral()/$N;
+        $p_positive = Tweet::countPositiveTrain()/$N;
+        $p_negative = Tweet::countNegativeTrain()/$N;
+        $p_neutral = Tweet::countNeutralTrain()/$N;
 
         // size vocabulary
         $v = count(BagOfWord::all());
