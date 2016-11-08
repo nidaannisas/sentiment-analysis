@@ -25,7 +25,7 @@
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>DF Selection</h3>
 						<p>Klik Process untuk menseleksi fitur dengan nilai df diatas tertentu.</p>
-						<form role="form" action="{{ URL::to('dashboard/idf/tfselection') }} " method="post" enctype="multipart/form-data">
+						<form role="form" action="{{ URL::to('dashboard/idf/dfselection') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
 								<label>Value</label>

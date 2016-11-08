@@ -146,6 +146,11 @@ Route::post('dashboard/idf/tfselection', [
     'uses' => 'IDFController@tfselection'
 ]);
 
+Route::post('dashboard/idf/dfselection', [
+    'as' => 'dashboard.idf.dfselection',
+    'uses' => 'IDFController@dfselection'
+]);
+
 Route::post('dashboard/idf/getTFIDF', [
     'as' => 'dashboard.idf.getTFIDF',
     'uses' => 'IDFController@getTFIDF'
