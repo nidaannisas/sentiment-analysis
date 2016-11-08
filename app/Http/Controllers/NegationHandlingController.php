@@ -114,19 +114,14 @@ class NegationHandlingController extends Controller
 
                 $words2 = implode(" ", $words2);
 
-                if($tweet->sentiment_id == 3)
-                {
-                    $sentiment = 3;
-                }
-                else if($tweet->sentiment_id == 1)
+                if($tweet->sentiment_id == 1)
                 {
                     $sentiment = 2;
                 }
-                else
+                else if($tweet->sentiment_id == 2)
                 {
                     $sentiment = 1;
                 }
-
 
                 if($tweet->sentiment_id != 3)
                 {
