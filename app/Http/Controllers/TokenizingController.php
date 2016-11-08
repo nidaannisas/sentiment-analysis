@@ -40,7 +40,7 @@ class TokenizingController extends Controller
             $tweet->tweet =  preg_replace($regex, ' ', $tweet->tweet);
 
             // remove char except letter
-            $tweet->tweet =  preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array(' ', ' '), $tweet->tweet);
+            $tweet->tweet =  preg_replace(array('/[^a-zA-Z -]/', '/[ -]+/', '/^-|-$/'), array(' ', ' '), $tweet->tweet);
 
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
