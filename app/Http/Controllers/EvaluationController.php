@@ -231,7 +231,7 @@ class EvaluationController extends NaiveBayesController
     {
         $start = microtime(true);
 
-        $tweets = Tweet::getTrain();
+        $tweets = Tweet::getTest();
         $normalizations = NormalizationWord::getNormalizationWords();
         $stopwords = Stopword::getStopwords();
 
