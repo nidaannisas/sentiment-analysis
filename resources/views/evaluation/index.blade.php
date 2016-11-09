@@ -108,13 +108,13 @@
 						    <tr>
 						        <th data-field="id" data-checkbox="true">ID</th>
 						        <th data-field="accuracy"  data-sortable="true" style="width: 80%;">Accuracy</th>
-						        <th data-field="precision_positive" data-sortable="true">Precision Positive</th>
-                                <th data-field="precision_negative" data-sortable="true">Precision Negative</th>
-                                <th data-field="precision_neutral" data-sortable="true">Precision Neutral</th>
-                                <th data-field="recall_positive" data-sortable="true">Recall Positive</th>
-                                <th data-field="recall_negative" data-sortable="true">Recall Negative</th>
-                                <th data-field="recall_neutral" data-sortable="true">Recall Neutral</th>
-                                <th data-field="process_time" data-sortable="true">Process Time</th>
+						        <th data-field="precision_positive" data-sortable="true">Precision<br />Positive</th>
+                                <th data-field="precision_negative" data-sortable="true">Precision<br /> Negative</th>
+                                <th data-field="precision_neutral" data-sortable="true">Precision<br /> Neutral</th>
+                                <th data-field="recall_positive" data-sortable="true">Recall<br /> Positive</th>
+                                <th data-field="recall_negative" data-sortable="true">Recall<br /> Negative</th>
+                                <th data-field="recall_neutral" data-sortable="true">Recall<br /> Neutral</th>
+                                <th data-field="process_time" data-sortable="true">Process<br /> Time</th>
                                 <th data-field="note" data-sortable="true">Note</th>
 						    </tr>
 						    </thead>
