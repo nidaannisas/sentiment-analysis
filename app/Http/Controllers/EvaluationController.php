@@ -9,7 +9,6 @@ use App\Models\NormalizationWord;
 use App\Models\Evaluation;
 use App\Models\Stopword;
 use App\Http\Requests;
-use Input;
 use Redirect;
 
 class EvaluationController extends NaiveBayesController
@@ -228,7 +227,7 @@ class EvaluationController extends NaiveBayesController
         echo ' '.$time_elapsed_secs;
     }
 
-    public function evaluate()
+    public function evaluate(Request $request)
     {
         $start = microtime(true);
 
@@ -300,7 +299,7 @@ class EvaluationController extends NaiveBayesController
         $evaluation->recall_positive = $recall_positive;
         $evaluation->recall_negative = $recall_negative;
         $evaluation->recall_neutral = $recall_neutral;
-        $evaluation->note = Input::get('note');
+        $evaluation->note = $request->input('note');
         $evaluation->process_time = $time_elapsed_secs;
         $evaluation->save();
 
