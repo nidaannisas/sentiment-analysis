@@ -106,6 +106,7 @@
                                 <th data-field="recall_positive" data-sortable="true">Recall Positive</th>
                                 <th data-field="recall_negative" data-sortable="true">Recall Negative</th>
                                 <th data-field="recall_neutral" data-sortable="true">Recall Neutral</th>
+                                <th data-field="process_time" data-sortable="true">Process Time</th>
                                 <th data-field="note" data-sortable="true">Note</th>
 						    </tr>
 						    </thead>
@@ -120,6 +121,7 @@
                                 <td>{{ $evaluation->recall_positive }}</td>
                                 <td>{{ $evaluation->recall_negative }}</td>
                                 <td>{{ $evaluation->recall_neutral }}</td>
+                                <td>{{ $evaluation->process_time }}</td>
                                 <td>{{ $evaluation->note }}</td>
 							</tr>
 							@endforeach
