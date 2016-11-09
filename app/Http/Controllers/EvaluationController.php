@@ -9,7 +9,7 @@ use App\Models\NormalizationWord;
 use App\Models\Evaluation;
 use App\Models\Stopword;
 use App\Http\Requests;
-
+use Input;
 use Redirect;
 
 class EvaluationController extends NaiveBayesController
@@ -292,14 +292,18 @@ class EvaluationController extends NaiveBayesController
 
         $time_elapsed_secs = microtime(true) - $start;
 
-        echo 'Waktu  : '.$time_elapsed_secs.'<br />';
+        $evaluation = new Evaluation;
+        $evaluation->accuracy = $accuracy;
+        $evaluation->precision_positive = $precision_positive;
+        $evaluation->precision_negative = $precision_negative;
+        $evaluation->precision_neutral = $precision_neutral;
+        $evaluation->recall_positive = $recall_positive;
+        $evaluation->recall_negative = $recall_negative;
+        $evaluation->recall_neutral = $recall_neutral;
+        $evaluation->note = Input::get('note');
+        $evaluation->process_time = $time_elapsed_secs;
+        $evaluation->save();
 
-        echo 'Accuracy : '.$accuracy.'<br />';
-        echo 'Precision positive : '.$precision_positive.'<br />';
-        echo 'Precision negative : '.$precision_negative.'<br />';
-        echo 'Precision neutral : '.$precision_neutral.'<br />';
-        echo 'Recall positive : '.$recall_positive.'<br />';
-        echo 'Recall negative : '.$recall_negative.'<br />';
-        echo 'Recall neutral : '.$recall_neutral.'<br />';
+        return Redirect::to('dashboard/evaluations');
     }
 }
