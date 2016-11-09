@@ -78,49 +78,53 @@
 				</div> -->
 
                 <div class="panel-body">
-					<div class="panel-heading" style="padding: 0; height: 52px;">
-                        <div class="col-md-11">
-                            Evaluation
-                        </div>
-                        <div class="col-md-1">
-                            <form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post">
-    							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button class="btn btn-default pull-right" type="submit">Evaluate</button>
-    						</form>
-                        </div>
-                    </div>
-					<div class="col-md-12" style="padding-bottom: 20px;">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel" style="padding: 10%;">
-                                        <h3>Accuracy</h3>
-                                        <div class="easypiechart" id="easypiechart-blue" data-percent="60" ><span class="percent">60%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel">
-                                        <h3>Precision</h3>
-                                        <div class="easypiechart" id="easypiechart-red" data-percent="55" ><span class="percent">55%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel">
-                                        <h3>Recall</h3>
-                                        <div class="easypiechart" id="easypiechart-teal" data-percent="80" ><span class="percent">80%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
+					<div class="panel-heading">Evaluation</div>
+                    <div class="col-md-6">
+						<h3>Evaluation</h3>
+						<p>Tambahkan note untuk evaluasi yang akan dilakukan.</p>
+					</div>
+					<div class="col-md-6" style="padding-bottom: 20px;">
+						<form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post" style="padding-top : 20px;">
+							<input type="hidden" name="_token" value="{{ csrf_token() }}">
+							<div class="form-group">
+								<label>Note</label>
+								<textarea name="note" class="form-control" rows="3"></textarea>
+							</div>
+							<button class="btn btn-primary pull-right" type="submit">Process</button>
+						</form>
+					</div>
+					<hr style="color: black; width: 100%;">
+					<div class="col-md-12">
+						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+						    <tr>
+						        <th data-field="id" data-checkbox="true">ID</th>
+						        <th data-field="accuracy"  data-sortable="true" style="width: 80%;">Accuracy</th>
+						        <th data-field="precision_positive" data-sortable="true">Precision Positive</th>
+                                <th data-field="precision_negative" data-sortable="true">Precision Negative</th>
+                                <th data-field="precision_neutral" data-sortable="true">Precision Neutral</th>
+                                <th data-field="recall_positive" data-sortable="true">Recall Positive</th>
+                                <th data-field="recall_negative" data-sortable="true">Recall Negative</th>
+                                <th data-field="recall_neutral" data-sortable="true">Recall Neutral</th>
+                                <th data-field="note" data-sortable="true">Note</th>
+						    </tr>
+						    </thead>
+						    <tbody>
+						    @foreach($evaluations as $evaluation)
+						    <tr>
+						    	<td>{{ $evaluation->id }}</td>
+						    	<td>{{ $evaluation->accuracy }}</td>
+                                <td>{{ $evaluation->precision_positive }}</td>
+                                <td>{{ $evaluation->precision_negative }}</td>
+                                <td>{{ $evaluation->precision_neutral }}</td>
+                                <td>{{ $evaluation->recall_positive }}</td>
+                                <td>{{ $evaluation->recall_negative }}</td>
+                                <td>{{ $evaluation->recall_neutral }}</td>
+                                <td>{{ $evaluation->note }}</td>
+							</tr>
+							@endforeach
+						    </tbody>
+						</table>
 					</div>
 				</div>
 			</div>

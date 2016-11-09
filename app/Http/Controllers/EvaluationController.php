@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tweet;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
+use App\Models\Evaluation;
 use App\Models\Stopword;
 use App\Http\Requests;
 
@@ -15,10 +16,10 @@ class EvaluationController extends NaiveBayesController
 {
     public function index()
     {
-    	$tweets = TweetTest::orderBy('id', 'DESC')->get();
+    	$evaluations = Evaluation::orderBy('id', 'DESC')->get();
 
     	return view('evaluation.index')
-    		->with('tweets', $tweets);
+    		->with('evaluations', $evaluations);
     }
 
     public function unique_multidim_array($array, $key)
