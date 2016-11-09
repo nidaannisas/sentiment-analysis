@@ -90,6 +90,14 @@
 								<label>Note</label>
 								<textarea name="note" class="form-control" rows="3"></textarea>
 							</div>
+                            <div class="form-group">
+								<label>Data</label>
+								<select class="form-control" name="data">
+									<option value="TRAIN">Train</option>
+                                    <option value="TEST">Test</option>
+                                    <option value="ALL">All</option>
+								</select>
+							</div>
 							<button class="btn btn-primary pull-right" type="submit">Process</button>
 						</form>
 					</div>

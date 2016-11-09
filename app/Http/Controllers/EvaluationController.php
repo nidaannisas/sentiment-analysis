@@ -229,9 +229,16 @@ class EvaluationController extends NaiveBayesController
 
     public function evaluate(Request $request)
     {
+        $data = $request->input('data');
         $start = microtime(true);
 
-        $tweets = Tweet::getTest();
+        if($data == 'TRAIN')
+            $tweets = Tweet::getTrain();
+        else if($data == 'TEST')
+            $tweets = Tweet::getTest();
+        else
+            $tweets = Tweet::getTweets();
+
         $normalizations = NormalizationWord::getNormalizationWords();
         $stopwords = Stopword::getStopwords();
 
@@ -303,6 +310,6 @@ class EvaluationController extends NaiveBayesController
         $evaluation->process_time = $time_elapsed_secs;
         $evaluation->save();
 
-        return Redirect::to('dashboard/evaluations');
+        return Redirect::to('dashboard/evaluation');
     }
 }
