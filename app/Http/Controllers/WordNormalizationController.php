@@ -34,39 +34,31 @@ class WordNormalizationController extends Controller
         $normalizations = NormalizationWord::getNormalizationWords();
         $normalizations = $this->quicksort_multidimension_object_word($normalizations);
 
-        foreach($normalizations as $normalization)
-        {
-            $normal = $this->BinarySearchObjectWord($normalizations, $normalization->word, 0, count($normalizations)-1);
+        $tweets = Tweet::all();
 
-            if($normal != -1)
-                echo $normalization->word.'<br />';
+        foreach($tweets as $tweet)
+        {
+            $words = array();
+            $delim = " \n.,;-()";
+            $tok = strtok($tweet->tweet, $delim);
+            while ($tok !== false)
+            {
+                $normal = $this->BinarySearchObjectWord($normalizations, $tok, 0, count($normalizations)-1);
+
+                if($normal != -1)
+                    $tok = $normalizations[$normal]->normal_word;
+                $words[] = $tok;
+                $tok = strtok($delim);
+            }
+
+            $kata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', implode(" ",$words));
+
+            $tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal->tweet = $kata;
+            $tweet_normal->save();
         }
 
-        // $tweets = Tweet::all();
-        //
-        // foreach($tweets as $tweet)
-        // {
-        //     $words = array();
-        //     $delim = " \n.,;-()";
-        //     $tok = strtok($tweet->tweet, $delim);
-        //     while ($tok !== false)
-        //     {
-        //         $normal = $this->BinarySearchObjectWord($normalizations, $tok, 0, count($normalizations)-1);
-        //
-        //         if($normal != -1)
-        //             $tok = $normalizations[$normal]->normal_word;
-        //         $words[] = $tok;
-        //         $tok = strtok($delim);
-        //     }
-        //
-        //     $kata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', implode(" ",$words));
-        //
-        //     $tweet_normal = Tweet::find($tweet->id);
-        //     $tweet_normal->tweet = $kata;
-        //     $tweet_normal->save();
-        // }
-        //
-        // return Redirect::to('dashboard/tweets');
+        return Redirect::to('dashboard/tweets');
     }
 
 }
