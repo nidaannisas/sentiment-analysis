@@ -149,13 +149,10 @@ class NaiveBayesController extends StopwordController
             return 3;   // neutral
     }
 
-    public function naiveBayesEvaluate($tweet, $stopwords)
+    public function naiveBayesEvaluate($tweet)
     {
         // tokenize tweet
         $tweet = $this->tokenizeEvaluation($tweet);
-
-        // stopword removal
-        $tweet = $this->stopwordRemovalEvaluation($tweet, $stopwords);
 
         // jumlah dokumen
         $N = count(Tweet::getTrain());

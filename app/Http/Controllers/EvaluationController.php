@@ -239,9 +239,6 @@ class EvaluationController extends NaiveBayesController
         else
             $tweets = Tweet::getTweets();
 
-        $normalizations = NormalizationWord::getNormalizationWords();
-        $stopwords = Stopword::getStopwords();
-
         $count_default_class_positive = 0;
         $count_default_class_negative = 0;
         $count_default_class_neutral = 0;
@@ -258,7 +255,7 @@ class EvaluationController extends NaiveBayesController
 
         foreach($tweets as $tweet)
         {
-            $class = $this->naiveBayesEvaluate($tweet->tweet, $stopwords);
+            $class = $this->naiveBayesEvaluate($tweet->tweet);
 
             if($tweet->sentiment_id == 1)
                 $count_default_class_positive++;
