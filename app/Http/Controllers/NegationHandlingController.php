@@ -129,6 +129,7 @@ class NegationHandlingController extends Controller
                     $update->tweet = $words2;
                     $update->sentiment_id = $sentiment;
                     $update->negated = 1;
+                    $update->type = $tweet->type;
                     $update->save();
                 }
             }
