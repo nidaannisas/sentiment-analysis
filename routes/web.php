@@ -96,6 +96,11 @@ Route::post('dashboard/stopwords/process', [
     'uses' => 'StopwordController@process'
 ]);
 
+Route::post('dashboard/stopwords/process-stopword', [
+    'as' => 'dashboard.stopwords.process.stopword',
+    'uses' => 'StopwordController@processStopword'
+]);
+
 Route::get('dashboard/normalization', [
     'as' => 'dashboard.normalization.index',
     'uses' => 'NormalizationController@index'

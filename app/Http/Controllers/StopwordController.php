@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stopword;
+use App\Models\Tweet;
 use App\Models\BagOfWord;
 use App\Models\BagOfWordTest;
 use App\Http\Requests;
@@ -101,6 +102,38 @@ class StopwordController extends TokenizingController
         //$this->stopwordTest();
 
     	return Redirect::to('dashboard/tokenizing');
+    }
+
+    public function processStopword()
+    {
+        $tweets = Tweet::all();
+        $stopwords = Stopword::getStopwords();
+        $stopwords = $this->quicksort_multidimension_object_word($stopwords);
+
+        foreach($tweets as $tweet)
+        {
+            $words = array();
+            $delim = " \n.,;-()";
+            $tok = strtok($tweet->tweet, $delim);
+            while ($tok !== false)
+            {
+                $search = $this->BinarySearchObjectWord($stopwords, $tok, 0, count($stopwords)-1);
+
+                // if word not in stopword
+                if($search == -1)
+                    $words[] = $tok;
+
+                $tok = strtok($delim);
+            }
+
+            $kata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', implode(" ",$words));
+
+            $tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal->tweet = $kata;
+            $tweet_normal->save();
+        }
+
+    	return Redirect::to('dashboard/stopwords');
     }
 
     public function stopwordRemovalEvaluation($tweet, $stopwords)
