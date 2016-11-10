@@ -158,7 +158,7 @@ class NaiveBayesController extends StopwordController
         $tweet = $this->stopwordRemovalEvaluation($tweet, $stopwords);
 
         // jumlah dokumen
-        $N = count(Tweet::all());
+        $N = count(Tweet::getTrain());
 
         $p_positive = Tweet::countPositiveTrain()/$N;
         $p_negative = Tweet::countNegativeTrain()/$N;
