@@ -10,6 +10,7 @@ use App\Models\Evaluation;
 use App\Models\Stopword;
 use App\Http\Requests;
 use Redirect;
+use DB;
 
 class EvaluationController extends NaiveBayesController
 {
