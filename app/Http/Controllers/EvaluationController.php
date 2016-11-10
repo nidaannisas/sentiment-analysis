@@ -232,6 +232,8 @@ class EvaluationController extends NaiveBayesController
         $data = $request->input('data');
         $start = microtime(true);
 
+        DB::beginTransaction();
+
         if($data == 'TRAIN')
             $tweets = Tweet::getTrain();
         else if($data == 'TEST')
@@ -306,6 +308,8 @@ class EvaluationController extends NaiveBayesController
         $evaluation->note = $request->input('note');
         $evaluation->process_time = $time_elapsed_secs;
         $evaluation->save();
+
+        DB::commit();
 
         return Redirect::to('dashboard/evaluation');
     }
