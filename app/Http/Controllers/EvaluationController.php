@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tweet;
+use App\Models\BagOfWord;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
 use App\Models\Evaluation;
@@ -256,9 +257,19 @@ class EvaluationController extends NaiveBayesController
         $right_class_neutral = 0;
         $N = count($tweets);
 
+        $data = (object) array('N' => count(Tweet::getTrain()),
+                                'countPositiveTrain' => Tweet::countPositiveTrain(),
+                                'countNegativeTrain' => Tweet::countNegativeTrain(),
+                                'countNeutralTrain' => Tweet::countNeutralTrain(),
+                                'v' => count(BagOfWord::all()),
+                                'countWordPositive' => BagOfWord::countWordPositive(),
+                                'countWordNegative' => BagOfWord::countWordNegative(),
+                                'countWordNeutral' => BagOfWord::countWordNeutral()
+                            );
+
         foreach($tweets as $tweet)
         {
-            $class = $this->naiveBayesEvaluate($tweet->tweet);
+            $class = $this->naiveBayesEvaluate($tweet->tweet, $data);
 
             if($tweet->sentiment_id == 1)
                 $count_default_class_positive++;

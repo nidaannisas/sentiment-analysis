@@ -149,39 +149,39 @@ class NaiveBayesController extends StopwordController
             return 3;   // neutral
     }
 
-    public function naiveBayesEvaluate($tweet)
+    public function naiveBayesEvaluate($tweet, $data)
     {
         // tokenize tweet
         $tweet = $this->tokenizeEvaluation($tweet);
 
         // jumlah dokumen
-        $N = count(Tweet::getTrain());
+        $N = $data->N;
 
-        $p_positive = Tweet::countPositiveTrain()/$N;
-        $p_negative = Tweet::countNegativeTrain()/$N;
-        $p_neutral = Tweet::countNeutralTrain()/$N;
+        $p_positive = $data->countPositiveTrain/$N;
+        $p_negative = $data->countNegativeTrain/$N;
+        $p_neutral = $data->countNeutralTrain/$N;
 
         // size vocabulary
-        $v = count(BagOfWord::all());
+        $v = $data->v;
 
         // calculate positive
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countPositiveWord($word) + 1)/(BagOfWord::countWordPositive() + $v);
+            $p_word = (BagOfWord::countPositiveWord($word) + 1)/($data->countWordPositive + $v);
             $p_positive = $p_positive * $p_word;
         }
 
         // calculate negative
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNegativeWord($word) + 1)/(BagOfWord::countWordNegative() + $v);
+            $p_word = (BagOfWord::countNegativeWord($word) + 1)/($data->countWordNegative + $v);
             $p_negative = $p_negative * $p_word;
         }
 
         // calculate neutral
         foreach($tweet as $word)
         {
-            $p_word = (BagOfWord::countNeutralWord($word) + 1)/(BagOfWord::countWordNeutral() + $v);
+            $p_word = (BagOfWord::countNeutralWord($word) + 1)/($data->countWordNeutral + $v);
             $p_neutral = $p_neutral * $p_word;
         }
 
