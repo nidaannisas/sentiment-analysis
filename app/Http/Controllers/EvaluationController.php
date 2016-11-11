@@ -325,4 +325,12 @@ class EvaluationController extends NaiveBayesController
 
         return Redirect::to('dashboard/evaluation');
     }
+
+    public function indexRocchio()
+    {
+        $evaluations = Evaluation::orderBy('id', 'DESC')->get();
+
+    	return view('evaluation.rocchio')
+    		->with('evaluations', $evaluations);
+    }
 }

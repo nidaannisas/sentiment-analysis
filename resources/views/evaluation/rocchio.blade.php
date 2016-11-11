@@ -6,77 +6,13 @@
 	<div class="row">
 		<ol class="breadcrumb">
 			<li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-			<li class="active">Naive Bayes Evaluation</li>
+			<li class="active">Rocchio Evaluation</li>
 		</ol>
 	</div><!--/.row-->
 
 	<div class="row" style="margin-top : 20px;">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<!-- <div class="panel-body">
-					<div class="panel-heading">Evaluation</div>
-					<div class="col-md-4" style="padding-bottom: 20px;">
-                        <h3>K-fold Cross Validation</h3>
-                        <form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post" style="padding-top : 20px;">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <div class="form-group">
-								<label>Pembagian Data</label><br>
-                                <div class="col-md-3 no-padding">
-        							<input name="train" type="text" class="form-control"></input>
-                                </div>
-                                <div class="col-md-1 text-center"> : </div>
-                                <div class="col-md-3 no-padding">
-        							<input name="test" type="text" class="form-control"></input>
-                                </div>
-                            </div>
-                            <br><br>
-                            <div class="form-group">
-								<label>K</label><br>
-                                <input name="k" type="text" class="form-control" style="width:25%;"></input>
-                            </div>
-
-                            <p>
-                                Last updated at 3 January 2016
-                            </p>
-                            <button class="btn btn-default pull-right" type="submit">Evaluate</button>
-						</form>
-					</div>
-					<div class="col-md-8" style="padding-bottom: 20px;">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel" style="padding: 10%;">
-                                        <h3>Accuracy</h3>
-                                        <div class="easypiechart" id="easypiechart-blue" data-percent="60" ><span class="percent">60%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel">
-                                        <h3>Precision</h3>
-                                        <div class="easypiechart" id="easypiechart-red" data-percent="55" ><span class="percent">55%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4">
-                                <div class="panel panel-default">
-                                    <div class="panel-body easypiechart-panel">
-                                        <h3>Recall</h3>
-                                        <div class="easypiechart" id="easypiechart-teal" data-percent="80" ><span class="percent">80%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-					</div>
-					<hr style="color: black; width: 100%;">
-				</div> -->
-
                 <div class="panel-body">
 					<div class="panel-heading">Evaluation</div>
                     <div class="col-md-6">
@@ -84,7 +20,7 @@
 						<p>Tambahkan note untuk evaluasi yang akan dilakukan.</p>
 					</div>
 					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/evaluation/evaluate') }} " method="post" style="padding-top : 20px;">
+						<form role="form" action="{{ URL::to('dashboard/evaluation/evaluateRocchio') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
 								<label>Note</label>
