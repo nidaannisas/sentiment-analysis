@@ -8,6 +8,7 @@ use App\Models\BagOfWord;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
 use App\Models\Evaluation;
+use App\Models\EvaluationRocchio;
 use App\Models\Stopword;
 use App\Http\Requests;
 use Redirect;
@@ -328,9 +329,193 @@ class EvaluationController extends NaiveBayesController
 
     public function indexRocchio()
     {
-        $evaluations = Evaluation::orderBy('id', 'DESC')->get();
+        $evaluations = EvaluationRocchio::orderBy('id', 'DESC')->get();
 
     	return view('evaluation.rocchio')
     		->with('evaluations', $evaluations);
+    }
+
+    public function evaluateRocchio(Request $request)
+    {
+        $data = $request->input('data');
+        $start = microtime(true);
+
+        DB::beginTransaction();
+
+        if($data == 'TRAIN')
+            $tweets = Tweet::getTrain();
+        else if($data == 'TEST')
+            $tweets = Tweet::getTest();
+        else
+            $tweets = Tweet::getTweets();
+
+        $count_default_class_positive = 0;
+        $count_default_class_negative = 0;
+        $count_default_class_neutral = 0;
+
+        $count_class_positive = 0;
+        $count_class_negative = 0;
+        $count_class_neutral = 0;
+
+        $right_class = 0;
+        $right_class_positive = 0;
+        $right_class_negative = 0;
+        $right_class_neutral = 0;
+        $N = count($tweets);
+
+
+        foreach($tweets as $tweet)
+        {
+            $class = $this->rocchio($tweet->tweet);
+
+            if($tweet->sentiment_id == 1)
+                $count_default_class_positive++;
+            else if($tweet->sentiment_id == 2)
+                $count_default_class_negative++;
+            else
+                $count_default_class_neutral++;
+
+            if($class == 1)
+                $count_class_positive++;
+            else if($class == 2)
+                $count_class_negative++;
+            else
+                $count_class_neutral++;
+
+            if($class == $tweet->sentiment_id)
+            {
+                $right_class++;
+
+                if($class == 1)
+                    $right_class_positive++;
+                else if($class == 2)
+                    $right_class_negative++;
+                else
+                    $right_class_neutral++;
+            }
+        }
+
+        $accuracy = ($right_class/$N)*100;
+        $precision_positive = ($right_class_positive/$count_class_positive)*100;
+        $precision_negative = ($right_class_negative/$count_class_negative)*100;
+        $precision_neutral = ($right_class_neutral/$count_class_neutral)*100;
+
+        $recall_positive = ($right_class_positive/$count_default_class_positive)*100;
+        $recall_negative = ($right_class_negative/$count_default_class_negative)*100;
+        $recall_neutral = ($right_class_neutral/$count_default_class_neutral)*100;
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        $evaluation = new EvaluationRocchio;
+        $evaluation->accuracy = $accuracy;
+        $evaluation->precision_positive = $precision_positive;
+        $evaluation->precision_negative = $precision_negative;
+        $evaluation->precision_neutral = $precision_neutral;
+        $evaluation->recall_positive = $recall_positive;
+        $evaluation->recall_negative = $recall_negative;
+        $evaluation->recall_neutral = $recall_neutral;
+        $evaluation->note = $request->input('note');
+        $evaluation->process_time = $time_elapsed_secs;
+        $evaluation->save();
+
+        DB::commit();
+
+        return Redirect::to('dashboard/evaluation');
+    }
+
+    public function rocchio($tweet)
+    {
+        // tokenize tweet
+        $tweet = $this->tokenizeEvaluation($tweet);
+
+        // unikin tweet masuk dulu, biar bisa dihitung tf tweet masuknya
+        $tf_tweet = array_count_values($tweet);
+        $tweet = array_unique($tweet);
+
+        $sum_centroid_positive = 0;
+        $sum_centroid_negative = 0;
+        $sum_centroid_neutral = 0;
+        $sum_q_2 = 0;
+        $sum_positive_2 = 0;
+        $sum_negative_2 = 0;
+        $sum_neutral_2 = 0;
+
+        // hitung centroid
+        foreach($tweet as $key => $word)
+        {
+            $bow = BagOfWord::search($word);
+
+            // tf q*IDF
+            if(empty($bow))
+                $tfidf = 0;
+            else
+                $tfidf = $tf_tweet[$word] * $bow->idf;
+            $tfidf_2 = $tfidf * $tfidf;
+            $sum_q_2 += $tfidf_2;
+
+            // centroid positive
+            // tfidf word positive
+            if(empty($bow))
+                $tfidf_word_positive = 0;
+            else
+                $tfidf_word_positive = $bow->count_positive * $bow->idf;
+
+            $tfidf_word_positive_2 = $tfidf_word_positive * $tfidf_word_positive;
+            $sum_positive_2 += $tfidf_word_positive_2;
+
+            $centroid_positive = $tfidf * $tfidf_word_positive;
+            $sum_centroid_positive += $centroid_positive;
+
+            // tfidf word negative
+            if(empty($bow))
+                $tfidf_word_negative = 0;
+            else
+                $tfidf_word_negative = $bow->count_negative * $bow->idf;
+
+            $tfidf_word_negative_2 = $tfidf_word_negative * $tfidf_word_negative;
+            $sum_negative_2 += $tfidf_word_negative_2;
+
+            $centroid_negative = $tfidf * $tfidf_word_negative;
+            $sum_centroid_negative += $centroid_negative;
+
+            // tfidf word neutral
+            if(empty($bow))
+                $tfidf_word_neutral = 0;
+            else
+                $tfidf_word_neutral = $bow->count_neutral * $bow->idf;
+
+            $tfidf_word_neutral_2 = $tfidf_word_neutral * $tfidf_word_neutral;
+            $sum_neutral_2 += $tfidf_word_neutral_2;
+
+            $centroid_neutral = $tfidf * $tfidf_word_neutral;
+            $sum_centroid_neutral += $centroid_neutral;
+        }
+
+        $sum_q_2_sqrt = sqrt($sum_q_2);
+        $sum_positive_2_sqrt = sqrt($sum_positive_2);
+        $sum_negative_2_sqrt = sqrt($sum_negative_2);
+        $sum_neutral_2_sqrt = sqrt($sum_neutral_2);
+
+        $q_positive = $sum_q_2_sqrt * $sum_positive_2_sqrt;
+        $q_negative = $sum_q_2_sqrt * $sum_negative_2_sqrt;
+        $q_neutral = $sum_q_2_sqrt * $sum_neutral_2_sqrt;
+
+        $p_positive = 0;
+        $p_negative = 0;
+        $p_neutral = 0;
+
+        if($q_positive != 0)
+            $p_positive = $sum_centroid_positive / $q_positive;
+        if($q_negative != 0)
+            $p_negative = $sum_centroid_negative / $q_negative;
+        if($q_neutral != 0)
+            $p_neutral = $sum_centroid_neutral / $q_neutral;
+
+        if($p_positive > $p_negative && $p_positive > $p_neutral)
+            return 1;   // positive
+        else if($p_negative > $p_positive && $p_negative > $p_neutral)
+            return 2;   // negative
+        else
+            return 3;   // neutral
     }
 }
