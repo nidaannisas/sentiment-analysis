@@ -49,6 +49,9 @@ class TokenizingController extends Controller
             //$tweet_normal = Tweet::find($tweet->id);
             $tweet_normal = new Tweet;
             $tweet_normal->tweet = $tweet->tweet;
+            $tweet_normal->sentiment_id = $tweet->sentiment_id;
+            $tweet_normal->negated = $tweet->negated;
+            $tweet_normal->type = $tweet->type;
             $tweet_normal->save();
         }
 
