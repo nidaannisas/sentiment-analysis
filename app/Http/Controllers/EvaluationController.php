@@ -420,7 +420,7 @@ class EvaluationController extends NaiveBayesController
 
         DB::commit();
 
-        return Redirect::to('dashboard/evaluation');
+        return Redirect::to('dashboard/evaluation-rocchio');
     }
 
     public function rocchio($tweet)
