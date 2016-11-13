@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Models\BagOfWord;
 use App\Models\BagOfWordTest;
 use App\Models\TDM;
@@ -23,7 +24,7 @@ class TokenizingController extends Controller
 
     public function tokenizingWord()
     {
-        $tweets = Tweet::all();
+        $tweets = TweetResult::all();
 
         return view('tokenizing.tokenizing-word')
             ->with('tweets', $tweets);
@@ -45,7 +46,8 @@ class TokenizingController extends Controller
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
 
-            $tweet_normal = Tweet::find($tweet->id);
+            //$tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal = new Tweet;
             $tweet_normal->tweet = $tweet->tweet;
             $tweet_normal->save();
         }
