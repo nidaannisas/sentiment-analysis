@@ -13,4 +13,106 @@ Class TweetResult extends Model
     {
         return $this->belongsTo(Sentiment::class, 'sentiment_id');
     }
+
+    public static function getTweets()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result`"));
+
+        return $data;
+    }
+
+    public static function getTrain()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result` WHERE type = 'TRAIN'"));
+
+        return $data;
+    }
+
+    public static function getTest()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result` WHERE type = 'TEST'"));
+
+        return $data;
+    }
+
+    public static function getPositive()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result` WHERE sentiment_id = 1"));
+
+        return $data;
+    }
+
+    public static function getNegative()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result` WHERE sentiment_id = 2"));
+
+        return $data;
+    }
+
+    public static function getNeutral()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `tweets_result` WHERE sentiment_id = 3"));
+
+        return $data;
+    }
+
+    public static function countPositive()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 1"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
+
+    public static function countNegative()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 2"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
+
+    public static function countNeutral()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 3"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
+
+    public static function countPositiveTrain()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 1 AND type = 'TRAIN'"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
+
+    public static function countNegativeTrain()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 2 AND type = 'TRAIN'"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
+
+    public static function countNeutralTrain()
+    {
+        $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tweets_result` WHERE sentiment_id = 3 AND type = 'TRAIN'"));
+
+        if(!empty($data))
+            return $data[0]->count;
+        else
+            return $data;
+    }
 }
