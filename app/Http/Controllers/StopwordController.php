@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stopword;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Models\BagOfWord;
 use App\Models\BagOfWordTest;
 use App\Http\Requests;
@@ -128,7 +129,7 @@ class StopwordController extends TokenizingController
 
             $kata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', implode(" ",$words));
 
-            $tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal = TweetResult::find($tweet->id);
             $tweet_normal->tweet = $kata;
             $tweet_normal->save();
         }
