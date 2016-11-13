@@ -63,20 +63,10 @@ class TokenizingController extends Controller
         // delete all field
         DB::table('bag-of-words-test')->delete();
 
-        $tweets = Tweet::getTest();
+        $tweets = TweetResult::getTest();
 
         foreach($tweets as $tweet)
         {
-            // remove link
-            $regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
-            $tweet->tweet =  preg_replace($regex, ' ', $tweet->tweet);
-
-            // remove char except letter
-            $tweet->tweet =  preg_replace(array('/[^a-zA-Z_ -]/', '/[ -]+/', '/^-|-$/'), array(' ', ' '), $tweet->tweet);
-
-            // to lower
-            $tweet->tweet = strtolower($tweet->tweet);
-
             $words = array();
             $delim = " \n.,;-()";
             $tok = strtok($tweet->tweet, $delim);
@@ -178,7 +168,7 @@ class TokenizingController extends Controller
         // delete all field
         DB::table('bag-of-words')->delete();
 
-        $tweets = Tweet::getTrain();
+        $tweets = TweetResult::getTrain();
 
         foreach($tweets as $tweet)
         {
