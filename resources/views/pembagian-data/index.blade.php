@@ -22,24 +22,44 @@
                         <h3>Random</h3>
                         <form role="form" action="{{ URL::to('dashboard/pembagian-data/process') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <div class="col-md-4" style="padding-left:0;">
-                                <div class="form-group">
-    								<label>Positive</label>
-    								<input name="positive" value="{{ $pembagian->positive }}" type="text" class="form-control"></input>
-    							</div>
+                            <div class="col-md-12" style="padding-left:0;">
+                                <div class="col-md-6" style="padding-left:0;">
+                                    <div class="form-group">
+        								<label>Data Latih (%)</label>
+        								<input id="data_train" name="data_train" type="text" class="form-control"></input>
+        							</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+        								<label>Data Uji (%)</label>
+        								<input id="data_test" name="data_test" type="text" class="form-control"></input>
+        							</div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-    								<label>Negative</label>
-    								<input name="negative" value="{{ $pembagian->negative }}" type="text" class="form-control"></input>
-    							</div>
+                            <p>
+                                Atau
+                            </p>
+                            <div class="col-md-12" style="padding-left:0;">
+                                <div class="col-md-4" style="padding-left:0;">
+                                    <div class="form-group">
+        								<label>Positive</label>
+        								<input id="positive" name="positive" value="{{ $pembagian->positive }}" type="text" class="form-control"></input>
+        							</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+        								<label>Negative</label>
+        								<input id="negative" name="negative" value="{{ $pembagian->negative }}" type="text" class="form-control"></input>
+        							</div>
+                                </div>
+                                <div class="col-md-4" style="padding-right:0;">
+                                    <div class="form-group">
+        								<label>Neutral</label>
+        								<input id="neutral" name="neutral" value="{{ $pembagian->neutral }}" type="text" class="form-control"></input>
+        							</div>
+                                </div>
                             </div>
-                            <div class="col-md-4" style="padding-right:0;">
-                                <div class="form-group">
-    								<label>Neutral</label>
-    								<input name="neutral" value="{{ $pembagian->neutral }}" type="text" class="form-control"></input>
-    							</div>
-                            </div>
+
                             <br />
                             <div class="form-group">
                                 <p>Last updated at {{ $pembagian->created_at }}</p>
@@ -121,6 +141,23 @@
 <script src="{{ URL::to('js/chart-data.js') }}"></script>
 <script src="{{ URL::to('js/easypiechart.js') }}"></script>
 <script src="{{ URL::to('js/easypiechart-data.js') }}"></script>
+<script>
+    $('#data_train').change(function() {
+        var positive = {{ $positive }};
+        var negative = {{ $negative }};
+        var neutral = {{ $neutral }};
+
+        var train = $('#data_train').val();
+
+        positive = Math.round(train*positive/100);
+        negative = Math.round(train*negative/100);
+        neutral = Math.round(train*neutral/100);
+
+        $('#positive').val(positive);
+        $('#negative').val(negative);
+        $('#neutral').val(neutral);
+    });
+</script>
 <script>
 	!function ($) {
 		$(document).on("click","ul.nav li.parent > a > span.icon", function(){
