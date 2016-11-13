@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Http\Requests;
 use DB;
 use Redirect;
@@ -12,7 +13,7 @@ class NegationHandlingController extends Controller
 {
     public function index()
     {
-    	$tweets = Tweet::where('negated', 1)->get();
+    	$tweets = TweetResult::where('negated', 1)->get();
 
     	return view('negation-handling.index')
     		->with('tweets', $tweets);
@@ -20,7 +21,7 @@ class NegationHandlingController extends Controller
 
     public function negationTest()
     {
-        $tweets = Tweet::getTest();
+        $tweets = TweetResult::getTest();
 
         DB::beginTransaction();
         foreach($tweets as $tweet)
@@ -49,7 +50,7 @@ class NegationHandlingController extends Controller
 
                 $words = implode(" ", $words);
 
-                $update = Tweet::find($tweet->id);
+                $update = TweetResult::find($tweet->id);
                 $update->tweet = $words;
                 $update->negated = 1;
                 $update->save();
@@ -61,7 +62,7 @@ class NegationHandlingController extends Controller
 
     public function negationTrain()
     {
-        $tweets = Tweet::getTrain();
+        $tweets = TweetResult::getTrain();
 
         DB::beginTransaction();
         foreach($tweets as $tweet)
@@ -90,7 +91,7 @@ class NegationHandlingController extends Controller
 
                 $words = implode(" ", $words);
 
-                $update = Tweet::find($tweet->id);
+                $update = TweetResult::find($tweet->id);
                 $update->tweet = $words;
                 $update->negated = 1;
                 $update->save();
@@ -125,7 +126,7 @@ class NegationHandlingController extends Controller
 
                 if($tweet->sentiment_id != 3)
                 {
-                    $update = new Tweet;
+                    $update = new TweetResult;
                     $update->tweet = $words2;
                     $update->sentiment_id = $sentiment;
                     $update->negated = 1;
