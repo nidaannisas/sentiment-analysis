@@ -107,7 +107,7 @@ class StopwordController extends TokenizingController
 
     public function processStopword()
     {
-        $tweets = Tweet::all();
+        $tweets = TweetResult::all();
         $stopwords = Stopword::getStopwords();
         $stopwords = $this->quicksort_multidimension_object_word($stopwords);
 
