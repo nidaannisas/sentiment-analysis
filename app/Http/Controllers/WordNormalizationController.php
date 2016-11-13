@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NormalizationWord;
 use App\Models\BagOfWord;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Http\Requests;
 use DB;
 use Redirect;
@@ -15,8 +16,10 @@ class WordNormalizationController extends Controller
     public function index()
     {
     	$normalizations = NormalizationWord::all();
+        $tweets = TweetResult::all();
 
     	return view('word-normalization.index')
+            ->with('tweets', $tweets)
     		->with('normalizations', $normalizations);
     }
 
@@ -34,7 +37,7 @@ class WordNormalizationController extends Controller
         $normalizations = NormalizationWord::getNormalizationWords();
         $normalizations = $this->quicksort_multidimension_object_word($normalizations);
 
-        $tweets = Tweet::all();
+        $tweets = TweetResult::all();
 
         foreach($tweets as $tweet)
         {
@@ -53,12 +56,12 @@ class WordNormalizationController extends Controller
 
             $kata = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', implode(" ",$words));
 
-            $tweet_normal = Tweet::find($tweet->id);
+            $tweet_normal = TweetResult::find($tweet->id);
             $tweet_normal->tweet = $kata;
             $tweet_normal->save();
         }
 
-        return Redirect::to('dashboard/tweets');
+        return Redirect::to('dashboard/word-normalization');
     }
 
 }

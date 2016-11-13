@@ -15,28 +15,19 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="panel-heading">Normalization Words</div>
-					<div class="col-md-12" style="padding-bottom: 20px;">
-						<h3>Normalize Words</h3>
+				    <div class="col-md-6" style="padding-bottom: 20px;">
+                        <h3>Normalize Words</h3>
 						<p>Klik Process untuk melakukan normalisasi kata.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/word-normalization/process') }} " method="post" enctype="multipart/form-data">	
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/word-normalization/process') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>
-					</div>
 
-					<hr style="color: black; width: 100%;">
+                        <hr style="color: black; width: 100%;">
 
-					<div class="col-md-6">
-						<h3>Tambahkan Normalisasi Kata</h3>
+                        <h3>Tambahkan Normalisasi Kata</h3>
 						<p>Tambahkan normalisasi kata melalui form disamping atau dengan import menggunakan txt, excel atau csv.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/normalization/importtxt') }} " method="post" enctype="multipart/form-data">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<label class="btn btn-success btn-file">
-							    Import <input name="import" type="file" style="display: none;" onchange="javascript:this.form.submit();">
-							</label>
-						</form>
-					</div>
-					<div class="col-md-6" style="padding-bottom: 20px;">
+
 						<form role="form" action="{{ URL::to('dashboard/normalization/store') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
@@ -51,9 +42,8 @@
 							<button class="btn btn-primary pull-right" type="submit">Submit</button>
 						</form>
 					</div>
-					<hr style="color: black; width: 100%;">
-					<div class="col-md-12">
-						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                    <div class="col-md-6">
+                        <table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
 						    <thead>
 						    <tr>
 						        <th data-field="state" data-checkbox="true">Item ID</th>
@@ -67,6 +57,27 @@
 						    	<td>{{ $normalization->id }}</td>
 						    	<td>{{ $normalization->word }}</td>
 						    	<td>{{ $normalization->normal_word }}</td>
+							</tr>
+							@endforeach
+						    </tbody>
+						</table>
+					</div>
+					<hr style="color: black; width: 100%;">
+					<div class="col-md-12">
+                        <table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						    <thead>
+						    <tr>
+						        <th data-field="state" data-checkbox="true">Item ID</th>
+						        <th data-field="name"  data-sortable="true" style="width: 80%;">Tweet</th>
+						        <th data-field="price" data-sortable="true">Sentiment</th>
+						    </tr>
+						    </thead>
+						    <tbody>
+						    @foreach($tweets as $tweet)
+						    <tr>
+						    	<td>{{ $tweet->id }}</td>
+						    	<td>{{ $tweet->tweet }}</td>
+						    	<td>{{ $tweet->sentiment->name }}</td>
 							</tr>
 							@endforeach
 						    </tbody>
