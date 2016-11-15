@@ -210,3 +210,13 @@ Route::post('dashboard/rocchio/classify', [
     'as' => 'dashboard.rocchio.classify',
     'uses' => 'RocchioController@classify'
 ]);
+
+Route::get('dashboard/nr-rules', [
+    'as' => 'dashboard.nr.rules.index',
+    'uses' => 'NRRulesController@index'
+]);
+
+Route::post('dashboard/nr-rules/process', [
+    'as' => 'dashboard.nr.rules.process',
+    'uses' => 'NRRulesController@process'
+]);
