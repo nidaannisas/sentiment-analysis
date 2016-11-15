@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Models\BagOfWord;
 use App\Models\TweetTest;
 use App\Models\NormalizationWord;
@@ -238,11 +239,11 @@ class EvaluationController extends NaiveBayesController
         DB::beginTransaction();
 
         if($data == 'TRAIN')
-            $tweets = Tweet::getTrain();
+            $tweets = TweetResult::getTrain();
         else if($data == 'TEST')
-            $tweets = Tweet::getTest();
+            $tweets = TweetResult::getTest();
         else
-            $tweets = Tweet::getTweets();
+            $tweets = TweetResult::getTweets();
 
         $count_default_class_positive = 0;
         $count_default_class_negative = 0;
@@ -258,10 +259,10 @@ class EvaluationController extends NaiveBayesController
         $right_class_neutral = 0;
         $N = count($tweets);
 
-        $data = (object) array('N' => count(Tweet::getTrain()),
-                                'countPositiveTrain' => Tweet::countPositiveTrain(),
-                                'countNegativeTrain' => Tweet::countNegativeTrain(),
-                                'countNeutralTrain' => Tweet::countNeutralTrain(),
+        $data = (object) array('N' => count(TweetResult::getTrain()),
+                                'countPositiveTrain' => TweetResult::countPositiveTrain(),
+                                'countNegativeTrain' => TweetResult::countNegativeTrain(),
+                                'countNeutralTrain' => TweetResult::countNeutralTrain(),
                                 'v' => count(BagOfWord::all()),
                                 'countWordPositive' => BagOfWord::countWordPositive(),
                                 'countWordNegative' => BagOfWord::countWordNegative(),
@@ -343,11 +344,11 @@ class EvaluationController extends NaiveBayesController
         DB::beginTransaction();
 
         if($data == 'TRAIN')
-            $tweets = Tweet::getTrain();
+            $tweets = TweetResult::getTrain();
         else if($data == 'TEST')
-            $tweets = Tweet::getTest();
+            $tweets = TweetResult::getTest();
         else
-            $tweets = Tweet::getTweets();
+            $tweets = TweetResult::getTweets();
 
         $count_default_class_positive = 0;
         $count_default_class_negative = 0;
