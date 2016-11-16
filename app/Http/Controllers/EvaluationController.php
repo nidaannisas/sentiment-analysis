@@ -11,6 +11,8 @@ use App\Models\NormalizationWord;
 use App\Models\Evaluation;
 use App\Models\EvaluationRocchio;
 use App\Models\Stopword;
+use App\Models\NRRules;
+use App\Models\EvaluationNR;
 use App\Http\Requests;
 use Redirect;
 use DB;
@@ -518,5 +520,122 @@ class EvaluationController extends NaiveBayesController
             return 2;   // negative
         else
             return 3;   // neutral
+    }
+
+    public function indexNR()
+    {
+        $evaluations = EvaluationNR::orderBy('id', 'DESC')->get();
+
+    	return view('evaluation.nr')
+    		->with('evaluations', $evaluations);
+    }
+
+    public function evaluateNR(Request $request)
+    {
+        $data = $request->input('data');
+        $start = microtime(true);
+
+        DB::beginTransaction();
+
+        if($data == 'TRAIN')
+            $tweets = TweetResult::getTrain();
+        else if($data == 'TEST')
+            $tweets = TweetResult::getTest();
+        else
+            $tweets = TweetResult::getTweets();
+
+        $count_default_class_positive = 0;
+        $count_default_class_negative = 0;
+        $count_default_class_neutral = 0;
+
+        $count_class_positive = 0;
+        $count_class_negative = 0;
+        $count_class_neutral = 0;
+
+        $right_class = 0;
+        $right_class_positive = 0;
+        $right_class_negative = 0;
+        $right_class_neutral = 0;
+        $N = count($tweets);
+
+        $data = (object) array('N' => count(TweetResult::getTrain()),
+                                'countPositiveTrain' => TweetResult::countPositiveTrain(),
+                                'countNegativeTrain' => TweetResult::countNegativeTrain(),
+                                'countNeutralTrain' => TweetResult::countNeutralTrain(),
+                                'v' => count(BagOfWord::all()),
+                                'countWordPositive' => BagOfWord::countWordPositive(),
+                                'countWordNegative' => BagOfWord::countWordNegative(),
+                                'countWordNeutral' => BagOfWord::countWordNeutral()
+                            );
+
+        $rules = NRRules::all();
+
+        foreach($tweets as $tweet)
+        {
+            $class = $this->naiveBayesEvaluate($tweet->tweet, $data);
+            $class_rocchio = $this->rocchio($tweet->tweet);
+
+            if($class != $class_rocchio)
+            {
+                foreach($rules as $rule)
+                {
+                    if($rule->naive_bayes == $class && $rule->rocchio == $class_rocchio)
+                        $class = $rule->result;
+                }
+            }
+
+            if($tweet->sentiment_id == 1)
+                $count_default_class_positive++;
+            else if($tweet->sentiment_id == 2)
+                $count_default_class_negative++;
+            else
+                $count_default_class_neutral++;
+
+            if($class == 1)
+                $count_class_positive++;
+            else if($class == 2)
+                $count_class_negative++;
+            else
+                $count_class_neutral++;
+
+            if($class == $tweet->sentiment_id)
+            {
+                $right_class++;
+
+                if($class == 1)
+                    $right_class_positive++;
+                else if($class == 2)
+                    $right_class_negative++;
+                else
+                    $right_class_neutral++;
+            }
+        }
+
+        $accuracy = ($right_class/$N)*100;
+        $precision_positive = ($right_class_positive/$count_class_positive)*100;
+        $precision_negative = ($right_class_negative/$count_class_negative)*100;
+        $precision_neutral = ($right_class_neutral/$count_class_neutral)*100;
+
+        $recall_positive = ($right_class_positive/$count_default_class_positive)*100;
+        $recall_negative = ($right_class_negative/$count_default_class_negative)*100;
+        $recall_neutral = ($right_class_neutral/$count_default_class_neutral)*100;
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        $evaluation = new EvaluationNR;
+        $evaluation->accuracy = $accuracy;
+        $evaluation->precision_positive = $precision_positive;
+        $evaluation->precision_negative = $precision_negative;
+        $evaluation->precision_neutral = $precision_neutral;
+        $evaluation->recall_positive = $recall_positive;
+        $evaluation->recall_negative = $recall_negative;
+        $evaluation->recall_neutral = $recall_neutral;
+        $evaluation->note = $request->input('note');
+        $evaluation->process_time = $time_elapsed_secs;
+        $evaluation->save();
+
+        DB::commit();
+
+        return Redirect::to('dashboard/evaluation-nr');
     }
 }
