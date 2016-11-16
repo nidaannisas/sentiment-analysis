@@ -34,6 +34,9 @@ class TokenizingController extends Controller
     {
         $tweets = Tweet::all();
 
+        // delete all field
+        DB::table('tweets_result')->delete();
+
         foreach($tweets as $tweet)
         {
             // remove link
