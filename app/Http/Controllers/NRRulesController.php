@@ -32,6 +32,10 @@ class NRRulesController extends EvaluationController
 
     public function process()
     {
+        DB::table('nr_rules')->delete();
+
+        DB::beginTransaction();
+
         $tweets = TweetResult::getTrain();
 
         $data = (object) array('N' => count(TweetResult::getTrain()),
@@ -143,7 +147,6 @@ class NRRulesController extends EvaluationController
             }
         }
 
-        DB::beginTransaction();
 
         // Rules Positive Negative
         $rules = new NRRules;
