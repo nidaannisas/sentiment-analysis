@@ -74,7 +74,7 @@
             <li class="<?php if (Request::is('dashboard/evaluationRocchio')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation-rocchio') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Rocchio Evaluation</a></li>
 
             <li class="<?php if (Request::is('dashboard/nr-rules')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/nr-rules') }}"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> N & R Rules</a></li>
-            <li class="<?php if (Request::is('dashboard/naive-rocchio')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/nr-rules') }}"><svg class="glyph stroked flag"><use xlink:href="#stroked-flag"/></svg> Naive Bayes & Rocchio</a></li>
+            <li class="<?php if (Request::is('dashboard/evaluation-nr')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation-nr') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Naive Bayes & Rocchio Evaluation</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 
