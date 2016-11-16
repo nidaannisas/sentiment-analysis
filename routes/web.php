@@ -220,3 +220,13 @@ Route::post('dashboard/nr-rules/process', [
     'as' => 'dashboard.nr.rules.process',
     'uses' => 'NRRulesController@process'
 ]);
+
+Route::get('dashboard/evaluation-nr', [
+    'as' => 'dashboard.evaluation.index.nr',
+    'uses' => 'EvaluationController@indexNR'
+]);
+
+Route::post('dashboard/evaluation-nr/evaluateNR', [
+    'as' => 'dashboard.evaluation.evaluate.nr',
+    'uses' => 'EvaluationController@evaluateNR'
+]);
