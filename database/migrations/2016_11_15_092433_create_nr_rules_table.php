@@ -15,7 +15,7 @@ class CreateNrRulesTable extends Migration
     {
         Schema::create('nr_rules', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('naive-bayes');
+            $table->integer('naive_bayes');
             $table->integer('rocchio');
             $table->integer('result');
             $table->timestamps();
