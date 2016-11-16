@@ -39,7 +39,7 @@
 						    @foreach($rules as $rule)
 						    <tr>
 						    	<td>{{ $rule->id }}</td>
-						    	<td>{{ $rule->naive-bayes }}</td>
+						    	<td>{{ $rule->naive_bayes }}</td>
                                 <td>{{ $rule->rocchio }}</td>
                                 <td>{{ $rule->result }}</td>
 							</tr>
