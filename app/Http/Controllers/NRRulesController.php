@@ -36,7 +36,7 @@ class NRRulesController extends EvaluationController
 
         DB::beginTransaction();
 
-        $tweets = TweetResult::getAll();
+        $tweets = TweetResult::getTweets();
 
         $data = (object) array('N' => count(TweetResult::getTrain()),
                                 'countPositiveTrain' => TweetResult::countPositiveTrain(),
