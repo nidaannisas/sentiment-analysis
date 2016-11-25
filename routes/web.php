@@ -201,6 +201,16 @@ Route::post('dashboard/evaluation/evaluateRocchio', [
     'uses' => 'EvaluationController@evaluateRocchio'
 ]);
 
+Route::get('dashboard/evaluation-bernoulli', [
+    'as' => 'dashboard.evaluation.index.bernoulli',
+    'uses' => 'EvaluationController@indexBernoulli'
+]);
+
+Route::post('dashboard/evaluation/evaluateBernoulli', [
+    'as' => 'dashboard.evaluation.evaluate.bernoulli',
+    'uses' => 'EvaluationController@evaluateBernoulli'
+]);
+
 Route::get('dashboard/rocchio', [
     'as' => 'dashboard.rocchio.index',
     'uses' => 'RocchioController@index'
