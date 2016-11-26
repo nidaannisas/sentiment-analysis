@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sentiment;
 use App\Models\Tweet;
+use App\Models\TweetResult;
 use App\Http\Requests;
 use Excel;
 use Redirect;
@@ -73,5 +74,29 @@ class TweetController extends Controller
         {
             return $e->getMessage();
         }
+    }
+
+    public function tweetExport()
+    {
+        return Excel::create('Kretash-contact', function($excel) {
+            $excel->sheet('sheet', function($sheet) {
+                $sheet->setOrientation('portrait');
+                $sheet->row(1, array(
+                        'text', 'sentiment'
+                ));
+
+                $tweets = TweetResult::all();
+
+                $i = 2;
+                foreach ($tweets as $tweet)
+                {
+                    $sheet->row($i, array(
+                        $tweet->tweet, $tweet->sentiment_id
+                    ));
+
+                    $i++;
+                }
+            });
+        })->export('csv');
     }
 }

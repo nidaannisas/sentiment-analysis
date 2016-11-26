@@ -240,3 +240,8 @@ Route::post('dashboard/evaluation-nr/evaluateNR', [
     'as' => 'dashboard.evaluation.evaluate.nr',
     'uses' => 'EvaluationController@evaluateNR'
 ]);
+
+Route::get('dashboard/export-tweets', [
+    'as' => 'dashboard.tweets.export',
+    'uses' => 'TweetController@tweetExport'
+]);
