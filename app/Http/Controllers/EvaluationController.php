@@ -781,14 +781,29 @@ class EvaluationController extends NaiveBayesController
 
         echo $right_class.' '.$N.' '.$right_class_positive.' '.$count_class_positive;
 
-        $accuracy = ($right_class/$N)*100;
-        $precision_positive = ($right_class_positive/$count_class_positive)*100;
-        $precision_negative = ($right_class_negative/$count_class_negative)*100;
-        $precision_neutral = ($right_class_neutral/$count_class_neutral)*100;
+        $precision_positive = 0;
+        $precision_negative = 0;
+        $precision_neutral = 0;
+        $recall_positive = 0;
+        $recall_negative = 0;
+        $recall_neutral = 0;
 
-        $recall_positive = ($right_class_positive/$count_default_class_positive)*100;
-        $recall_negative = ($right_class_negative/$count_default_class_negative)*100;
-        $recall_neutral = ($right_class_neutral/$count_default_class_neutral)*100;
+        $accuracy = ($right_class/$N)*100;
+
+        if($count_class_positive != 0)
+            $precision_positive = ($right_class_positive/$count_class_positive)*100;
+
+        if($count_class_negative != 0)
+            $precision_negative = ($right_class_negative/$count_class_negative)*100;
+        if($count_class_neutral != 0)
+            $precision_neutral = ($right_class_neutral/$count_class_neutral)*100;
+
+        if($count_default_class_positive != 0)
+            $recall_positive = ($right_class_positive/$count_default_class_positive)*100;
+        if($count_default_class_negative != 0)
+            $recall_negative = ($right_class_negative/$count_default_class_negative)*100;
+        if($count_default_class_neutral != 0)
+            $recall_neutral = ($right_class_neutral/$count_default_class_neutral)*100;
 
         $time_elapsed_secs = microtime(true) - $start;
 
