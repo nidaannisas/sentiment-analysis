@@ -7,7 +7,7 @@ use App\Models\Tweet;
 use App\Models\TweetResult;
 use App\Models\BagOfWord;
 use App\Models\BagOfWordTest;
-use App\Models\TDM;
+use App\Models\TokenizingProcess;
 use App\Http\Requests;
 use Redirect;
 use DB;
@@ -30,8 +30,19 @@ class TokenizingController extends Controller
             ->with('tweets', $tweets);
     }
 
+    public function replace4byte($string)
+    {
+        return preg_replace('%(?:
+              \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
+            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
+            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
+            )%xs', '', $string);
+    }
+
     public function tokenizeWord()
     {
+        $start = microtime(true);
+
         $tweets = Tweet::all();
 
         // delete all field
@@ -49,6 +60,8 @@ class TokenizingController extends Controller
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
 
+            echo $tweet->id.'<br />';
+
             //$tweet_normal = Tweet::find($tweet->id);
             $tweet_normal = new TweetResult;
             $tweet_normal->tweet = $tweet->tweet;
@@ -57,6 +70,8 @@ class TokenizingController extends Controller
             $tweet_normal->type = $tweet->type;
             $tweet_normal->save();
         }
+
+        $time_elapsed_secs = microtime(true) - $start;
 
         return Redirect::to('dashboard/tokenizing-word');
     }
