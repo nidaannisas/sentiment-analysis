@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NormalizationWord;
+use App\Models\NormalizationProcess;
 use App\Models\BagOfWord;
 use App\Models\Tweet;
 use App\Models\TweetResult;
@@ -17,9 +18,11 @@ class WordNormalizationController extends Controller
     {
     	$normalizations = NormalizationWord::all();
         $tweets = TweetResult::all();
+        $process = NormalizationProcess::get();
 
     	return view('word-normalization.index')
             ->with('tweets', $tweets)
+            ->with('process', $process)
     		->with('normalizations', $normalizations);
     }
 
@@ -34,6 +37,10 @@ class WordNormalizationController extends Controller
 
     public function process()
     {
+        $start = microtime(true);
+        $count_normalization_train = 0;
+        $count_normalization_test = 0;
+
         $normalizations = NormalizationWord::getNormalizationWords();
         $normalizations = $this->quicksort_multidimension_object_word($normalizations);
 
@@ -49,7 +56,14 @@ class WordNormalizationController extends Controller
                 $normal = $this->BinarySearchObjectWord($normalizations, $tok, 0, count($normalizations)-1);
 
                 if($normal != -1)
+                {
                     $tok = $normalizations[$normal]->normal_word;
+                    if($tweet->type == 'TRAIN')
+                        $count_normalization_train++;
+                    else
+                        $count_normalization_test++;
+                }
+
                 $words[] = $tok;
                 $tok = strtok($delim);
             }
@@ -60,6 +74,14 @@ class WordNormalizationController extends Controller
             $tweet_normal->tweet = $kata;
             $tweet_normal->save();
         }
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        $normalization_process = new NormalizationProcess;
+        $normalization_process->count_normalization_train = $count_normalization_train;
+        $normalization_process->count_normalization_test = $count_normalization_test;
+        $normalization_process->process_time = $time_elapsed_secs;
+        $normalization_process->save();
 
         return Redirect::to('dashboard/word-normalization');
     }
