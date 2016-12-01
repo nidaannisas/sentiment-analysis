@@ -17,6 +17,7 @@ class CreateTokenizingProcessTable extends Migration
             $table->increments('id');
             $table->integer('count_token_train')->unsigned()->default(0);
             $table->integer('count_token_test')->unsigned()->default(0);
+            $table->float('process_time')->default(0);
             $table->timestamps();
         });
     }

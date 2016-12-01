@@ -16,6 +16,7 @@ class CreateStopwordProcessTable extends Migration
         Schema::create('stopword_process', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('count_token_deleted')->unsigned()->default(0);
+            $table->float('process_time')->default(0);
             $table->timestamps();
         });
     }
