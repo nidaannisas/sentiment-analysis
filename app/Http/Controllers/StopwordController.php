@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stopword;
+use App\Models\StopwordProcess;
 use App\Models\Tweet;
 use App\Models\TweetResult;
 use App\Models\BagOfWord;
@@ -18,8 +19,10 @@ class StopwordController extends TokenizingController
     public function index()
     {
     	$stopwords = Stopword::all();
+        $process = StopwordProcess::get();
 
     	return view('stopwords.index')
+            ->with('process', $process)
     		->with('stopwords', $stopwords);
     }
 
@@ -107,6 +110,10 @@ class StopwordController extends TokenizingController
 
     public function processStopword()
     {
+        $start = microtime(true);
+
+        $count_token_deleted = 0;
+
         $tweets = TweetResult::all();
         $stopwords = Stopword::getStopwords();
         $stopwords = $this->quicksort_multidimension_object_word($stopwords);
@@ -123,6 +130,8 @@ class StopwordController extends TokenizingController
                 // if word not in stopword
                 if($search == -1)
                     $words[] = $tok;
+                else
+                    $count_token_deleted++;
 
                 $tok = strtok($delim);
             }
@@ -133,6 +142,13 @@ class StopwordController extends TokenizingController
             $tweet_normal->tweet = $kata;
             $tweet_normal->save();
         }
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        $stopword_process = new StopwordProcess;
+        $stopword_process->count_token_deleted = $count_token_deleted;
+        $stopword_process->process_time = $time_elapsed_secs;
+        $stopword_process->save();
 
     	return Redirect::to('dashboard/stopwords');
     }

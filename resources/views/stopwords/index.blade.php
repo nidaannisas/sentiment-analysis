@@ -18,7 +18,18 @@
 					<div class="col-md-12" style="padding-bottom: 20px;">
 						<h3>Stopword Removal</h3>
 						<p>Klik Process untuk melakukan penghapusan stopwords.</p>
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/stopwords/process-stopword') }} " method="post" enctype="multipart/form-data">	
+                        @if(!empty($process))
+                        <p>
+                            Last update : {{ $process->updated_at }}
+                        </p>
+                        <p>
+                            terhapus : {{ $process->count_token_deleted }}
+                        </p>
+                        <p>
+                            Process time : {{ $process->process_time }} seconds
+                        </p>
+                        @endif
+						<form class="form-inline" role="form" action="{{ URL::to('dashboard/stopwords/process-stopword') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>
