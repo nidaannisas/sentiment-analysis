@@ -18,6 +18,7 @@
 				    <div class="col-md-6" style="padding-bottom: 20px;">
                         <h3>Normalize Words</h3>
 						<p>Klik Process untuk melakukan normalisasi kata.</p>
+                        @if(!empty($process))
                         <p>
                             Last update : {{ $process->updated_at }}
                         </p>
@@ -27,6 +28,10 @@
                         <p>
                             Data uji ternormalisasi : {{ $process->count_normalization_test }}
                         </p>
+                        <p>
+                            Process time : {{ $process->process_time }} seconds
+                        </p>
+                        @endif
 						<form class="form-inline pull-right" role="form" action="{{ URL::to('dashboard/word-normalization/process') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
