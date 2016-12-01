@@ -33,6 +33,11 @@ class CreateEvaluationsNrTable extends Migration
             $table->integer('neutral_positive')->default(0);
             $table->integer('neutral_negative')->default(0);
             $table->integer('neutral_neutral')->default(0);
+            $table->integer('tokenizing_process_id')->unsigned()->nullable();
+            $table->integer('normalization_process_id')->unsigned()->nullable();
+            $table->integer('stopword_process_id')->unsigned()->nullable();
+            $table->integer('negation_handling_process_id')->unsigned()->nullable();
+            $table->integer('feature_selection_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }
