@@ -17,8 +17,10 @@ class TokenizingController extends Controller
     public function index()
     {
         $words = BagOfWord::all();
+        $process = TokenizingProcess::get();
 
         return view('tokenizing.index')
+            ->with('process', $process)
             ->with('words', $words);
     }
 
@@ -183,6 +185,8 @@ class TokenizingController extends Controller
 
     public function tokenizeTweetTrain()
     {
+        $start = microtime(true);
+
         // delete all field
         DB::table('bag-of-words')->delete();
 
@@ -267,6 +271,13 @@ class TokenizingController extends Controller
 
             DB::commit();
         }
+
+        $time_elapsed_secs = microtime(true) - $start;
+
+        $tokenizing_process = new TokenizingProcess;
+        $tokenizing_process->count_token_train = count(BagOfWord::all());
+        $tokenizing_process->process_time = $time_elapsed_secs;
+        $tokenizing_process->save();
     }
 
     public function tokenize()
