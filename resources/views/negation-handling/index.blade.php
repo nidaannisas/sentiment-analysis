@@ -18,7 +18,11 @@
 					<div class="col-md-6">
 						<h3>Proses Negation</h3>
 						<p>Klik tombol proses untuk memproses negation handling.</p>
-
+                        @if(!empty($process))
+                        <p>
+                            Last update : {{ $process->updated_at }}
+                        </p>
+                        @endif
 						<form role="form" action="{{ URL::to('dashboard/negation-handling/process') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<div class="form-group">
