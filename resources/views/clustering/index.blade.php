@@ -14,55 +14,59 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<div class="panel-heading">Tweets</div>
-					<div class="col-md-6">
-						<h3>Tambahkan Tweets</h3>
-						<p>Tambahkan tweets beserta sentiment sebagai data training melalui form disamping atau dengan import menggunakan excel atau csv.</p>
+					<div class="panel-heading">Clustering</div>
+                    <div class="col-md-12" style="margin:0; padding:0;">
+                        <div class="col-md-6">
+                            <h3>K-Means</h3>
+                            <p>Clustering dengan menggunakan k-means</p>
 
-						<form class="form-inline" role="form" action="{{ URL::to('dashboard/tweets/import') }} " method="post" enctype="multipart/form-data">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<label class="btn btn-success btn-file">
-							    Import <input name="file" type="file" style="display: none;" onchange="javascript:this.form.submit();">
-							</label>
-						</form>
-					</div>
-					<div class="col-md-6" style="padding-bottom: 20px;">
-						<form role="form" action="{{ URL::to('dashboard/tweets/store') }} " method="post" style="padding-top : 20px;">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group">
-								<label>Tweets</label>
-								<textarea name="tweet" class="form-control" rows="3"></textarea>
-							</div>
+                            <form class="form-inline" role="form" action="{{ URL::to('dashboard/clustering/process') }} " method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-primary pull-right" type="submit">Process</button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Cut Data</h3>
+                            <p>Potong data yang override.</p>
 
-							<div class="form-group">
-								<label>Sentiment</label>
-								<select class="form-control" name="sentiment">
-									@foreach($sentiments as $sentiment)
-									<option value="{{ $sentiment->id }}">{{ $sentiment->name }}</option>
-									@endforeach
-								</select>
-							</div>
-							<button class="btn btn-primary pull-right" type="submit">Submit</button>
-						</form>
-					</div>
-					<hr style="color: black; width: 100%;">
+                            <form class="form-inline" role="form" action="{{ URL::to('dashboard/clustering/cut') }} " method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-primary pull-right" type="submit">Cut</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin:0; padding:0;">
+					    <hr style="color: black; width: 100%;">
+                    </div>
 					<div class="col-md-12">
-						<table data-toggle="table"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+						<table class="table table-bordered">
 						    <thead>
 						    <tr>
-						        <th data-field="state" data-checkbox="true">Item ID</th>
-						        <th data-field="name"  data-sortable="true" style="width: 80%;">Tweet</th>
-						        <th data-field="price" data-sortable="true">Sentiment</th>
+						        <th></th>
+                                <th class="table-head">Positive</th>
+						        <th class="table-head">Negative</th>
+						        <th class="table-head">Neutral</th>
 						    </tr>
 						    </thead>
 						    <tbody>
-						    @foreach($tweets as $tweet)
 						    <tr>
-						    	<td>{{ $tweet->id }}</td>
-						    	<td>{{ $tweet->tweet }}</td>
-						    	<td>{{ $tweet->sentiment->name }}</td>
+						    	<td class="table-left">Positive</td>
+						    	<td class="table-data">123</td>
+						    	<td class="table-data">135</td>
+                                <td class="table-data">135</td>
 							</tr>
-							@endforeach
+                            <tr>
+						    	<td class="table-left">Negative</td>
+						    	<td class="table-data">123</td>
+						    	<td class="table-data">135</td>
+                                <td class="table-data">135</td>
+							</tr>
+                            <tr>
+						    	<td class="table-left">Neutral</td>
+						    	<td class="table-data">123</td>
+						    	<td class="table-data">135</td>
+                                <td class="table-data">135</td>
+							</tr>
 						    </tbody>
 						</table>
 					</div>
@@ -116,6 +120,24 @@
 	    cursor: inherit;
 	    display: block;
 	}
+
+    .table-head
+    {
+        background-color: gainsboro;
+        text-align: center;
+        vertical-align: middle !important;
+    }
+    .table-left
+    {
+        background-color: gainsboro;
+        vertical-align: middle;
+        font-weight: 600;
+    }
+    .table-data
+    {
+        text-align: center;
+        vertical-align: middle;
+    }
 </style>
 
 @stop
