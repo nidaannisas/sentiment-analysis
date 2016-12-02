@@ -376,8 +376,10 @@ class EvaluationController extends NaiveBayesController
         {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
             // negation handling evaluated true
-            $negation = NormalizationProcess::get();
+            $negation = NegationHandlingProcess::get();
+            var_dump($negation);
             $negation_evaluate = NegationHandlingProcess::find($negation->id);
+            var_dump($negation_evaluate);
             $negation_evaluate->evaluated = true;
             $negation_evaluate->save();
         }
@@ -532,7 +534,7 @@ class EvaluationController extends NaiveBayesController
         {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
             // negation handling evaluated true
-            $negation = NormalizationProcess::get();
+            $negation = NegationHandlingProcess::get();
             $negation_evaluate = NegationHandlingProcess::find($negation->id);
             $negation_evaluate->evaluated = true;
             $negation_evaluate->save();
@@ -798,7 +800,7 @@ class EvaluationController extends NaiveBayesController
         {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
             // negation handling evaluated true
-            $negation = NormalizationProcess::get();
+            $negation = NegationHandlingProcess::get();
             $negation_evaluate = NegationHandlingProcess::find($negation->id);
             $negation_evaluate->evaluated = true;
             $negation_evaluate->save();
@@ -1047,7 +1049,7 @@ class EvaluationController extends NaiveBayesController
         {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
             // negation handling evaluated true
-            $negation = NormalizationProcess::get();
+            $negation = NegationHandlingProcess::get();
             $negation_evaluate = NegationHandlingProcess::find($negation->id);
             $negation_evaluate->evaluated = true;
             $negation_evaluate->save();

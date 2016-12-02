@@ -16,11 +16,21 @@ class ClusteringController extends Controller
     public function index()
     {
     	$sentiments = Sentiment::all();
-    	$tweets = Tweet::all();
+    	$tweets = TweetResult::all();
 
     	return view('clustering.index')
     		->with('sentiments', $sentiments)
     		->with('tweets', $tweets);
+    }
+
+    public function process()
+    {
+        $tweets = TweetResult::all();
+
+        // jadiin token dulu
+        return $tweets[0];
+
+        // quick sort dan binary search bag of words
     }
 
 }
