@@ -250,3 +250,13 @@ Route::get('dashboard/export-tweets', [
     'as' => 'dashboard.tweets.export',
     'uses' => 'TweetController@tweetExport'
 ]);
+
+Route::get('dashboard/clustering', [
+    'as' => 'dashboard.clustering.index',
+    'uses' => 'ClusteringController@index'
+]);
+
+Route::post('dashboard/clustering/process', [
+    'as' => 'dashboard.clustering.process',
+    'uses' => 'ClusteringController@process'
+]);
