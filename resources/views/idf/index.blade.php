@@ -22,30 +22,43 @@
 							<button class="btn btn-default" type="submit">Process</button>
 						</form>
 					</div>
+
+                    <form role="form" action="{{ URL::to('dashboard/idf/cutFeature') }} " method="post" enctype="multipart/form-data">
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>DF Selection</h3>
 						<p>Klik Process untuk menseleksi fitur dengan nilai df diatas tertentu.</p>
-						<form role="form" action="{{ URL::to('dashboard/idf/dfselection') }} " method="post" enctype="multipart/form-data">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group">
-								<label>Value</label>
-								<input name="selection" type="text" class="form-control"></input>
-							</div>
-							<button class="btn btn-danger pull-right" type="submit">Remove</button>
-						</form>
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<div class="form-group">
+							<label>Value</label>
+							<input name="df" type="text" class="form-control"></input>
+						</div>
+                        @if(!empty($process))
+                        <p>
+                            Last value : {{ $process->df }}
+                        </p>
+                        @endif
 					</div>
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>IDF Selection</h3>
 						<p>Klik Process untuk menseleksi fitur dengan nilai dibawah tertentu.</p>
-						<form role="form" action="{{ URL::to('dashboard/idf/selection') }} " method="post" enctype="multipart/form-data">
-							<input type="hidden" name="_token" value="{{ csrf_token() }}">
-							<div class="form-group">
-								<label>Value</label>
-								<input name="selection" type="text" class="form-control"></input>
-							</div>
-							<button class="btn btn-danger pull-right" type="submit">Remove</button>
-						</form>
+						<div class="form-group">
+							<label>Value</label>
+							<input name="idf" type="text" class="form-control"></input>
+						</div>
+                        @if(!empty($process))
+                        <p>
+                            Last value : {{ $process->idf }}
+                        </p>
+                        <p>
+                            Process time : {{ $process->process_time }}
+                        </p>
+                        <p>
+                            Last Update : {{ $process->updated_at }}
+                        </p>
+                        @endif
+						<button class="btn btn-danger pull-right" type="submit">Remove</button>
 					</div>
+                    </form>
 
 					<hr style="color: black; width: 100%;">
 
