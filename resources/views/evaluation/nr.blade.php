@@ -34,6 +34,10 @@
                                     <option value="ALL">All</option>
 								</select>
 							</div>
+                            <div class="form-group checkbox">
+							    <label><input name="feature_selection" type="checkbox">Feature Selection</label>&nbsp;&nbsp;&nbsp;
+                                <label><input name="negation_handling" type="checkbox">Negation Handling</label>
+							</div>
 							<button class="btn btn-primary pull-right" type="submit">Process</button>
 						</form>
 					</div>
