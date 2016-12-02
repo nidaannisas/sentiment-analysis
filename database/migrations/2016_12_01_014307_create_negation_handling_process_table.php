@@ -28,8 +28,9 @@ class CreateNegationHandlingProcessTable extends Migration
             $table->integer('count_negated_positive_result_test')->unsigned()->default(0);
             $table->integer('count_negated_negative_result_test')->unsigned()->default(0);
             $table->integer('count_negated_term')->unsigned()->nullable();
-            $table->integer('count_negated_term_selection')->unsigned()->nullable();
+            $table->integer('truncated_term_selection')->unsigned()->nullable();
             $table->float('process_time')->default(0);
+            $table->boolean('evaluated')->default(false);
             $table->timestamps();
         });
     }
