@@ -15,4 +15,14 @@ Class PembagianData extends Model
 
         return $data;
     }
+
+    public static function get()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `normalization_process` ORDER BY id DESC LIMIT 1"));
+
+        if(!empty($data))
+            return $data[0];
+        else
+            return $data;
+    }
 }

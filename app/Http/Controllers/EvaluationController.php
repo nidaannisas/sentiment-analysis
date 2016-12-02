@@ -14,6 +14,12 @@ use App\Models\Stopword;
 use App\Models\NRRules;
 use App\Models\EvaluationNR;
 use App\Models\EvaluationBernoulli;
+use App\Models\TokenizingProcess;
+use App\Models\NormalizationProcess;
+use App\Models\StopwordProcess;
+use App\Models\NegationHandlingProcess;
+use App\Models\FeatureSelection;
+use App\Models\PembagianData;
 use App\Http\Requests;
 use Redirect;
 use DB;
@@ -239,6 +245,9 @@ class EvaluationController extends NaiveBayesController
         $data = $request->input('data');
         $start = microtime(true);
 
+        $use_feature_selection = $request->input('feature_selection');
+        $use_negation_handling = $request->input('negation_handling');
+
         DB::beginTransaction();
 
         if($data == 'TRAIN')
@@ -257,9 +266,18 @@ class EvaluationController extends NaiveBayesController
         $count_class_neutral = 0;
 
         $right_class = 0;
-        $right_class_positive = 0;
+        $right_class_positive = 0;  // hasil positif dan tweet positif
         $right_class_negative = 0;
         $right_class_neutral = 0;
+
+        // confusion matrix
+        $positive_negative = 0; // hasil positif tapi tweet negatif
+        $positive_neutral = 0;
+        $negative_positive = 0;
+        $negative_neutral = 0;
+        $neutral_positive = 0;
+        $neutral_negative = 0;
+
         $N = count($tweets);
 
         $data = (object) array('N' => count(TweetResult::getTrain()),
@@ -301,6 +319,19 @@ class EvaluationController extends NaiveBayesController
                 else
                     $right_class_neutral++;
             }
+
+            if($class == 1 && $tweet->sentiment_id == 2)
+                $positive_negative++;
+            else if($class == 1 && $tweet->sentiment_id == 3)
+                $positive_neutral++;
+            else if($class == 2 && $tweet->sentiment_id == 1)
+                $negative_positive++;
+            else if($class == 2 && $tweet->sentiment_id == 3)
+                $negative_neutral++;
+            else if($class == 3 && $tweet->sentiment_id == 1)
+                $neutral_positive++;
+            else if($class == 3 && $tweet->sentiment_id == 2)
+                $neutral_negative++;
         }
 
         $accuracy = ($right_class/$N)*100;
@@ -324,6 +355,34 @@ class EvaluationController extends NaiveBayesController
         $evaluation->recall_neutral = $recall_neutral;
         $evaluation->note = $request->input('note');
         $evaluation->process_time = $time_elapsed_secs;
+
+        // confusion matrix
+        $evaluation->positive_positive = $right_class_positive;
+        $evaluation->positive_negative = $positive_negative;
+        $evaluation->positive_neutral = $positive_neutral;
+        $evaluation->negative_negative = $right_class_negative;
+        $evaluation->negative_positive = $negative_positive;
+        $evaluation->negative_neutral = $negative_neutral;
+        $evaluation->neutral_neutral = $right_class_neutral;
+        $evaluation->neutral_positive = $neutral_positive;
+        $evaluation->neutral_negative = $neutral_negative;
+
+        // data process
+        $evaluation->pembagian_data_id = PembagianData::get()->id;
+        $evaluation->tokenizing_process_id = TokenizingProcess::get()->id;
+        $evaluation->normalization_process_id = NormalizationProcess::get()->id;
+        $evaluation->stopword_process_id = StopwordProcess::get()->id;
+        if($use_negation_handling)
+            $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
+        if($use_feature_selection)
+            $evaluation->feature_selection_id = FeatureSelection::get()->id;
+
+        // negation handling evaluated true
+        $negation = NormalizationProcess::get();
+        $negation_evaluate = NegationHandlingProcess::find($negation->id);
+        $negation_evaluate->evaluated = true;
+        $negation_evaluate->save();
+
         $evaluation->save();
 
         DB::commit();
