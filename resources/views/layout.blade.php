@@ -77,6 +77,8 @@
             <li class="<?php if (Request::is('dashboard/evaluation-nr')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation-nr') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Naive Bayes & Rocchio Evaluation</a></li>
 
             <li class="<?php if (Request::is('dashboard/evaluation-bernoulli')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/evaluation-bernoulli') }}"><svg class="glyph stroked dashboard dial"><use xlink:href="#stroked-dashboard-dial"/></svg> Bernoulli Evaluation</a></li>
+
+            <li class="<?php if (Request::is('dashboard/clustering')) echo 'active'; ?>"><a href="{{ URL::to('dashboard/clustering') }}"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Clustering</a></li>
 		</ul>
 	</div><!--/.sidebar-->
 
