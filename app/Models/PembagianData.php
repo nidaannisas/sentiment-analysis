@@ -18,7 +18,7 @@ Class PembagianData extends Model
 
     public static function get()
     {
-        $data = DB::select( DB::raw("SELECT * FROM `normalization_process` ORDER BY id DESC LIMIT 1"));
+        $data = DB::select( DB::raw("SELECT * FROM `pembagian-data` ORDER BY id DESC LIMIT 1"));
 
         if(!empty($data))
             return $data[0];
