@@ -16,7 +16,7 @@
 					<div class="panel-heading">IDF</div>
 					<div class="col-md-4" style="padding-bottom: 20px;">
 						<h3>TF-IDF</h3>
-						<p>Klik Process untuk menghitung nilai TF-IDF.</p>
+						<p>Klik Process untuk menghitung nilai IDF dan menghitung term negasi.</p>
 						<form class="form-inline" role="form" action="{{ URL::to('dashboard/idf/process') }} " method="post" enctype="multipart/form-data">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
 							<button class="btn btn-default" type="submit">Process</button>
