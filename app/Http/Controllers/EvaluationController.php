@@ -636,12 +636,11 @@ class EvaluationController extends NaiveBayesController
         if($q_neutral != 0)
             $p_neutral = $sum_centroid_neutral / $q_neutral;
 
-        if($p_positive > $p_negative && $p_positive > $p_neutral)
-            return 1;   // positive
-        else if($p_negative > $p_positive && $p_negative > $p_neutral)
-            return 2;   // negative
-        else
-            return 3;   // neutral
+        $values = array($p_positive, $p_negative, $p_neutral);
+        $highest_number = max($values);
+        $key = array_search($highest_number, $values);
+
+        return $key+1;
     }
 
     public function indexNR()
@@ -849,7 +848,11 @@ class EvaluationController extends NaiveBayesController
             }
             $p_word = ($df + 1)/($data->countPositiveTrain + 3);
             $p_positive = $p_positive * $p_word;
+
+            echo $p_positive.'-'.$p_word.'-'.$df.' ';
         }
+
+        echo '<br />==============================================================<br />';
 
         // calculate negative
         foreach($tweet as $word)
@@ -862,8 +865,11 @@ class EvaluationController extends NaiveBayesController
             }
             $p_word = ($df + 1)/($data->countNegativeTrain + 3);
             $p_negative = $p_negative * $p_word;
+
+            echo $p_negative.'-'.$p_word.'-'.$df.' ';
         }
 
+        echo '<br />==============================================================<br />';
         // calculate neutral
         foreach($tweet as $word)
         {
@@ -875,14 +881,18 @@ class EvaluationController extends NaiveBayesController
             }
             $p_word = ($df + 1)/($data->countNeutralTrain + 3);
             $p_neutral = $p_neutral * $p_word;
-        }
 
-        if($p_positive > $p_negative && $p_positive > $p_neutral)
-            return 1;   // positive
-        else if($p_negative > $p_positive && $p_negative > $p_neutral)
-            return 2;   // negative
-        else
-            return 3;   // neutral
+            echo $p_neutral.'-'.$p_word.'-'.$df.' ';
+        }
+        echo '<br />==============================================================<br />';
+
+        echo $p_positive.' '.$p_negative.' '.$p_neutral.'<br />';
+
+        $values = array($p_positive, $p_negative, $p_neutral);
+        $highest_number = max($values);
+        $key = array_search($highest_number, $values);
+
+        return $key+1;
     }
 
     public function evaluateBernoulli(Request $request)
@@ -979,7 +989,7 @@ class EvaluationController extends NaiveBayesController
                 $neutral_negative++;
         }
 
-        echo $right_class.' '.$N.' '.$right_class_positive.' '.$count_class_positive;
+        //echo $right_class.' '.$N.' '.$right_class_positive.' '.$count_class_positive;
 
         $precision_positive = 0;
         $precision_negative = 0;
@@ -1050,6 +1060,6 @@ class EvaluationController extends NaiveBayesController
 
         DB::commit();
 
-        return Redirect::to('dashboard/evaluation-bernoulli');
+        //return Redirect::to('dashboard/evaluation-bernoulli');
     }
 }

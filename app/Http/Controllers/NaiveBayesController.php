@@ -185,11 +185,10 @@ class NaiveBayesController extends StopwordController
             $p_neutral = $p_neutral * $p_word;
         }
 
-        if($p_positive > $p_negative && $p_positive > $p_neutral)
-            return 1;   // positive
-        else if($p_negative > $p_positive && $p_negative > $p_neutral)
-            return 2;   // negative
-        else
-            return 3;   // neutral
+        $values = array($p_positive, $p_negative, $p_neutral);
+        $highest_number = max($values);
+        $key = array_search($highest_number, $values);
+
+        return $key+1;
     }
 }
