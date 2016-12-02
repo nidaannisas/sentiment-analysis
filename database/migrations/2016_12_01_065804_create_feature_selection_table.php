@@ -15,9 +15,13 @@ class CreateFeatureSelectionTable extends Migration
     {
         Schema::create('feature_selection', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('tf')->unsigned()->nullable();
-            $table->integer('df')->unsigned()->nullable();
-            $table->integer('idf')->unsigned()->nullable();
+            $table->integer('tf')->unsigned()->default(0);
+            $table->integer('truncated_term_tf')->unsigned()->default(0);
+            $table->integer('df')->unsigned()->default(0);
+            $table->integer('truncated_term_df')->unsigned()->default(0);
+            $table->float('idf')->unsigned()->default(0);
+            $table->integer('truncated_term_idf')->unsigned()->default(0);
+            $table->float('process_time')->default(0);
             $table->timestamps();
         });
     }
