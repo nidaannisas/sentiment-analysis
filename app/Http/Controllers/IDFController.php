@@ -145,18 +145,22 @@ class IDFController extends Controller
         $idf = $request->input('idf');
 
         $bow = BagOfWord::all();
+        $bow_before = count($bow);
 
         DB::beginTransaction();
 
-        $negated_df = $this->dfselection($bow, $df);
-        $negated_idf = $this->idfselection($bow, $idf);
-
-        $time_elapsed_secs = microtime(true) - $start;
-
         $selection = new FeatureSelection;
+        $negated_df = $this->dfselection($bow, $df);
         $selection->df = $df;
+        $after_df = count(BagOfWord::all());
+        $bow_after_df = $bow_before - $after_df;
+        $selection->truncated_term_df = $bow_after_df;
+
+        $negated_idf = $this->idfselection($bow, $idf);
         $selection->idf = $idf;
-        $selection->save();
+        $after_idf = count(BagOfWord::all());
+        $bow_after_idf = $after_df - $after_idf;
+        $selection->truncated_term_idf = $bow_after_idf;
 
         $negation = NegationHandlingProcess::get();
         if(!empty($negation))
@@ -168,6 +172,10 @@ class IDFController extends Controller
                 $count->save();
             }
         }
+
+        $time_elapsed_secs = microtime(true) - $start;
+        $selection->process_time = $time_elapsed_secs;
+        $selection->save();
 
         DB::commit();
 
