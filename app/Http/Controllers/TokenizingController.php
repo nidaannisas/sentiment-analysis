@@ -62,7 +62,7 @@ class TokenizingController extends Controller
             // to lower
             $tweet->tweet = strtolower($tweet->tweet);
 
-            echo $tweet->id.'<br />';
+            //echo $tweet->id.'<br />';
 
             //$tweet_normal = Tweet::find($tweet->id);
             $tweet_normal = new TweetResult;
