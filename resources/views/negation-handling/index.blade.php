@@ -22,6 +22,9 @@
                         <p>
                             Last update : {{ $process->updated_at }}
                         </p>
+                        <p>
+                            Process time : {{ $process->process_time }} seconds
+                        </p>
                         @endif
 						<form role="form" action="{{ URL::to('dashboard/negation-handling/process') }} " method="post" style="padding-top : 20px;">
 							<input type="hidden" name="_token" value="{{ csrf_token() }}">
