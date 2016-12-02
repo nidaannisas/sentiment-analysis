@@ -373,15 +373,17 @@ class EvaluationController extends NaiveBayesController
         $evaluation->normalization_process_id = NormalizationProcess::get()->id;
         $evaluation->stopword_process_id = StopwordProcess::get()->id;
         if($use_negation_handling)
+        {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
+            // negation handling evaluated true
+            $negation = NormalizationProcess::get();
+            $negation_evaluate = NegationHandlingProcess::find($negation->id);
+            $negation_evaluate->evaluated = true;
+            $negation_evaluate->save();
+        }
+
         if($use_feature_selection)
             $evaluation->feature_selection_id = FeatureSelection::get()->id;
-
-        // negation handling evaluated true
-        $negation = NormalizationProcess::get();
-        $negation_evaluate = NegationHandlingProcess::find($negation->id);
-        $negation_evaluate->evaluated = true;
-        $negation_evaluate->save();
 
         $evaluation->save();
 
@@ -522,15 +524,17 @@ class EvaluationController extends NaiveBayesController
         $evaluation->normalization_process_id = NormalizationProcess::get()->id;
         $evaluation->stopword_process_id = StopwordProcess::get()->id;
         if($use_negation_handling)
+        {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
+            // negation handling evaluated true
+            $negation = NormalizationProcess::get();
+            $negation_evaluate = NegationHandlingProcess::find($negation->id);
+            $negation_evaluate->evaluated = true;
+            $negation_evaluate->save();
+        }
+
         if($use_feature_selection)
             $evaluation->feature_selection_id = FeatureSelection::get()->id;
-
-        // negation handling evaluated true
-        $negation = NormalizationProcess::get();
-        $negation_evaluate = NegationHandlingProcess::find($negation->id);
-        $negation_evaluate->evaluated = true;
-        $negation_evaluate->save();
 
         $evaluation->save();
 
@@ -787,15 +791,17 @@ class EvaluationController extends NaiveBayesController
         $evaluation->normalization_process_id = NormalizationProcess::get()->id;
         $evaluation->stopword_process_id = StopwordProcess::get()->id;
         if($use_negation_handling)
+        {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
+            // negation handling evaluated true
+            $negation = NormalizationProcess::get();
+            $negation_evaluate = NegationHandlingProcess::find($negation->id);
+            $negation_evaluate->evaluated = true;
+            $negation_evaluate->save();
+        }
+
         if($use_feature_selection)
             $evaluation->feature_selection_id = FeatureSelection::get()->id;
-
-        // negation handling evaluated true
-        $negation = NormalizationProcess::get();
-        $negation_evaluate = NegationHandlingProcess::find($negation->id);
-        $negation_evaluate->evaluated = true;
-        $negation_evaluate->save();
 
         $evaluation->save();
 
@@ -1023,15 +1029,17 @@ class EvaluationController extends NaiveBayesController
         $evaluation->normalization_process_id = NormalizationProcess::get()->id;
         $evaluation->stopword_process_id = StopwordProcess::get()->id;
         if($use_negation_handling)
+        {
             $evaluation->negation_handling_process_id = NegationHandlingProcess::get()->id;
+            // negation handling evaluated true
+            $negation = NormalizationProcess::get();
+            $negation_evaluate = NegationHandlingProcess::find($negation->id);
+            $negation_evaluate->evaluated = true;
+            $negation_evaluate->save();
+        }
+
         if($use_feature_selection)
             $evaluation->feature_selection_id = FeatureSelection::get()->id;
-
-        // negation handling evaluated true
-        $negation = NormalizationProcess::get();
-        $negation_evaluate = NegationHandlingProcess::find($negation->id);
-        $negation_evaluate->evaluated = true;
-        $negation_evaluate->save();
 
         $evaluation->save();
 
