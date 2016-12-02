@@ -260,3 +260,8 @@ Route::post('dashboard/clustering/process', [
     'as' => 'dashboard.clustering.process',
     'uses' => 'ClusteringController@process'
 ]);
+
+Route::post('dashboard/clustering/cut', [
+    'as' => 'dashboard.clustering.cut',
+    'uses' => 'ClusteringController@cut'
+]);
