@@ -149,6 +149,10 @@ class IDFController extends Controller
 
         DB::beginTransaction();
 
+        $selection->term_positive = BagOfWord::countWordPositive();
+        $selection->term_negative = BagOfWord::countWordNegative();
+        $selection->term_neutral = BagOfWord::countWordNeutral();
+
         $selection = new FeatureSelection;
         $negated_df = $this->dfselection($bow, $df);
         $selection->df = $df;
@@ -172,6 +176,10 @@ class IDFController extends Controller
                 $count->save();
             }
         }
+
+        $selection->truncated_term_positive = BagOfWord::countWordPositive();
+        $selection->truncated_term_negative = BagOfWord::countWordNegative();
+        $selection->truncated_term_neutral = BagOfWord::countWordNeutral();
 
         $time_elapsed_secs = microtime(true) - $start;
         $selection->process_time = $time_elapsed_secs;
