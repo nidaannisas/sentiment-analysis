@@ -276,6 +276,9 @@ class TokenizingController extends Controller
 
         $tokenizing_process = new TokenizingProcess;
         $tokenizing_process->count_token_train = count(BagOfWord::all());
+        $tokenizing_process->token_positive = BagOfWord::countWordPositive();
+        $tokenizing_process->token_negative = BagOfWord::countWordNegative();
+        $tokenizing_process->token_neutral = BagOfWord::countWordNeutral();
         $tokenizing_process->process_time = $time_elapsed_secs;
         $tokenizing_process->save();
     }
