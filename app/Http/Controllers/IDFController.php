@@ -149,11 +149,12 @@ class IDFController extends Controller
 
         DB::beginTransaction();
 
+        $selection = new FeatureSelection;
         $selection->term_positive = BagOfWord::countWordPositive();
         $selection->term_negative = BagOfWord::countWordNegative();
         $selection->term_neutral = BagOfWord::countWordNeutral();
 
-        $selection = new FeatureSelection;
+
         $negated_df = $this->dfselection($bow, $df);
         $selection->df = $df;
         $after_df = count(BagOfWord::all());
