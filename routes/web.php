@@ -161,6 +161,11 @@ Route::post('dashboard/idf/getTFIDF', [
     'uses' => 'IDFController@getTFIDF'
 ]);
 
+Route::post('dashboard/idf/cutFeature', [
+    'as' => 'dashboard.idf.cutFeature',
+    'uses' => 'IDFController@cutFeature'
+]);
+
 Route::get('dashboard/naive-bayes', [
     'as' => 'dashboard.naivebayes.index',
     'uses' => 'NaiveBayesController@index'
