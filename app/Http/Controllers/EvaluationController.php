@@ -485,6 +485,10 @@ class EvaluationController extends NaiveBayesController
                 $neutral_negative++;
         }
 
+        // echo $right_class.' '.$N.'<br />';
+        // echo $right_class_positive.' '.$count_class_positive.'<br />';
+        // echo $right_class_negative.' '.$count_class_negative.'<br />';
+        // echo $right_class_neutral.' '.$count_class_neutral.'<br />';
 
         $accuracy = ($right_class/$N)*100;
         $precision_positive = ($right_class_positive/$count_class_positive)*100;
