@@ -21,6 +21,12 @@ class CreateFeatureSelectionTable extends Migration
             $table->integer('truncated_term_df')->unsigned()->default(0);
             $table->float('idf')->unsigned()->default(0);
             $table->integer('truncated_term_idf')->unsigned()->default(0);
+            $table->integer('term_positive')->unsigned()->default(0);
+            $table->integer('term_negative')->unsigned()->default(0);
+            $table->integer('term_neutral')->unsigned()->default(0);
+            $table->integer('truncated_term_positive')->unsigned()->default(0);
+            $table->integer('truncated_term_negative')->unsigned()->default(0);
+            $table->integer('truncated_term_neutral')->unsigned()->default(0);
             $table->float('process_time')->default(0);
             $table->timestamps();
         });
