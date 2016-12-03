@@ -13,7 +13,7 @@ class AddKMeansInTweetsTable extends Migration
      */
     public function up()
     {
-        Schema::table('tweets_result', function($table) {
+        Schema::table('tweets', function($table) {
             $table->integer('k_means')->unsigned()->default(0);
         });
     }
