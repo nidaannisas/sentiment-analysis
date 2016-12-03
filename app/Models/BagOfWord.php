@@ -23,6 +23,14 @@ Class BagOfWord extends Model
             return $data;
     }
 
+    public static function getBagOfWords()
+    {
+        $data = DB::select( DB::raw("SELECT * FROM `bag-of-words` ORDER BY word ASC"));
+
+        return $data;
+    }
+
+
     // public static function count($token_id)
     // {
     //     $data = DB::select( DB::raw("SELECT COUNT(*) as count FROM `tdm` WHERE token_id = :token_id "),
