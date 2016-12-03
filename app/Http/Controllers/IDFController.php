@@ -170,7 +170,7 @@ class IDFController extends Controller
         $negation = NegationHandlingProcess::get();
         if(!empty($negation))
         {
-            if(!$negation->evaluated)
+            if(empty($negation->truncated_term_selection))
             {
                 $count = NegationHandlingProcess::find($negation->id);
                 $count->truncated_term_selection = $negated_df + $negated_idf;
