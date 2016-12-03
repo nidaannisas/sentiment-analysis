@@ -236,11 +236,17 @@ class ClusteringController extends TokenizingController
         }
 
 
-        $label = array();
+        $label = array(
+                array(1 => 0, 2 => 0, 3 => 0),
+                array(1 => 0, 2 => 0, 3 => 0),
+                array(1 => 0, 2 => 0, 3 => 0)
+        );
         // cari cluster positive negative neutral
         foreach($tweets as $key => $tweet)
         {
             echo $key.'<br />';
+            echo $dtm_cluster[$key].'<br />';
+
             if($tweet->sentiment_id == 1)
             {
                 var_dump($label[$dtm_cluster[$key]][1]); echo '<br />';
